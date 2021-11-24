@@ -11,6 +11,7 @@ namespace TestM.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
+        #region Command
         private RelayCommand checkPassword;
         public RelayCommand CheckPassword 
         { 
@@ -24,5 +25,6 @@ namespace TestM.ViewModels
             }
             
         }
+        #endregion
     }
 }
