@@ -8,6 +8,28 @@
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <ToolBar VerticalAlignment="Top"
+                 Height="30"
+                 Background="White"
+                 ToolBarTray.IsLocked="True"
+                 Focusable="False">
+            <Border>
+                <Button FontSize="14"
+                        Height="23"
+                        Width="70"
+                        Content="Test"
+                        Background="White"
+                        Margin="2,0,2,0"/>
+            </Border>
+            <Border>
+                <Button FontSize="14"
+                        Height="23"
+                        Width="70"
+                        Content="Quetions"
+                        Background="White"
+                        Margin="2,0,0,0"
+                        Command="{Binding CheckPassword}"/>
+            </Border>
+        </ToolBar>
     </Grid>
 </Window>
