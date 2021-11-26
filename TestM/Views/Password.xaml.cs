@@ -14,10 +14,18 @@ namespace TestM.Views
             InitializeComponent();
             DataContext = new PasswordViewModel();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            var checkPassword = (DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password);
+            if (checkPassword)
+            {
+                Close();
+            }
+            else
+            {
+                PasswordBox.Clear();
+                MessageBox.Show("Пароль неверный", "Сообщение", MessageBoxButton.OK);
+            }
         }
     }
 }
