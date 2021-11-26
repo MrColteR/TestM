@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestM.Data;
+using TestM.ViewModels;
 
 namespace TestM.Views
 {
@@ -22,6 +24,7 @@ namespace TestM.Views
         public QuestionWindow()
         {
             InitializeComponent();
+            DataContext = new QuestionWindowViewModel(new JsonFileService());
         }
     }
 }
