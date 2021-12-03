@@ -7,66 +7,68 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="QuestionWindow" Height="500" Width="1500">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Button.Background" Value="Yellow"/>
+                <Setter Property="Button.Height" Value="30"/>
+                <Setter Property="Button.Width" Value="100"/>
+                <Setter Property="Button.Margin" Value="10,0,0,0"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Resources>
-            <local:ConvertToString x:Key="ConvertToString"/>
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
                                  Color="LightBlue"/>
             <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" 
                                  Color="LightBlue"/>
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
                                  Color="Black"/>
+            <!--<Style TargetType="Button">
+                <Setter Property="Background" Value="Black"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="Margin" Value="5,0,0,0"/>
+            </Style>-->
+            <!--<Style x:Key="btn">
+                <Setter Property="Control.Background" Value="Yellow"/>
+                <Setter Property="Control.Height" Value="30"/>
+                <Setter Property="Control.Width" Value="100"/>
+                <Setter Property="Control.Margin" Value="5,0,0,0"/>
+            </Style>-->
+
         </Grid.Resources>
-        <ToolBar VerticalAlignment="Top"
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal"
                  Height="40"
                  Background="White"
                  ToolBarTray.IsLocked="True">
-            <Button Height="30" Width="100" Margin="6,0,0,0" Background="Aqua" Content="Add"/>
-            <Button Height="30" Width="100" Margin="5,0,0,0" Background="Aqua" Content="Delete"/>
-        </ToolBar>
-        <DataGrid x:Name="dg"
-                  Margin="10,40,10,10"
+            <Button Content="Add"
+                    Command="{Binding AddQuestion}"
+                    CommandParameter="{Binding}"/>
+            <Button Content="Delete"/>
+        </StackPanel>
+        <DataGrid Margin="10,40,10,10"
                   FontSize="16"
-                  ItemsSource="{Binding ItemSoure}"
+                  ItemsSource="{Binding ItemsSource}"
                   SelectedItem="{Binding SelectedItem}"
-                  SelectedIndex="{Binding SelectedIndex}"
+                  SelectedIndex="{Binding SelectedIndex}" 
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   Background="White"
                   AlternatingRowBackground="White"
-                  SelectionMode="Single">
+                  SelectionMode="Single"
+                  IsReadOnly="True">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="Тип вопроса"
-                                    Width="0.55*"/>-->
-                <DataGridComboBoxColumn Header="Тип вопроса"
-                                        Width="0.55*">
-                    <DataGridComboBoxColumn.ElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource"
-                                    Value="{Binding DataContext.TypeQuestions, RelativeSource={RelativeSource AncestorType=DataGrid, Mode=FindAncestor}}"/>
-                            <Setter Property="ItemTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=., Converter={StaticResource ConvertToString}}"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>    
-                        </Style>
-                    </DataGridComboBoxColumn.ElementStyle>
-                    <DataGridComboBoxColumn.EditingElementStyle>
-                        <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource"
-                                    Value="{Binding DataContext.TypeQuestions, RelativeSource={RelativeSource AncestorType=DataGrid, Mode=FindAncestor}}"/>
-                            <Setter Property="ItemTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=., Converter={StaticResource ConvertToString}}"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGridComboBoxColumn.EditingElementStyle>
-                </DataGridComboBoxColumn>
+                <DataGridTextColumn Header="Тип вопроса"
+                                    Width="0.55*"
+                                    Binding="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Вопрос"
                                     Width="2*"
                                     Binding="{Binding Question, UpdateSourceTrigger=PropertyChanged}"/>

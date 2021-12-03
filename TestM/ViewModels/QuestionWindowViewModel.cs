@@ -5,8 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestM.Command;
+using TestM.Data;
 using TestM.Data.Base;
 using TestM.ViewModels.Base;
+using TestM.Views;
 
 namespace TestM.ViewModels
 {
@@ -15,28 +18,22 @@ namespace TestM.ViewModels
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         IFileService fileService;
-
-        private int itemSourse;
-        private int selectedItem;
-        private int selectedIndex;
-        private List<TypeQuestion> typeQuestions = new List<TypeQuestion>()
+        private RelayCommand addQuestion;
+        public RelayCommand AddQuestion 
         {
-            TypeQuestion.legalBases,
-            TypeQuestion.safety,
-            TypeQuestion.ttx,
-            TypeQuestion.command,
-            TypeQuestion.delays
-        };
-        public int ItemSourse
-        {
-            get { return itemSourse; }
-            set 
-            { 
-                itemSourse = value;
-                OnPropertyChanged(nameof(ItemSourse));
+            get 
+            {
+                return addQuestion ?? (addQuestion = new RelayCommand(obj =>
+                {
+                    var a = obj as QuestionWindowViewModel;
+                    var window = new AddQuestionWindow(obj as QuestionWindowViewModel);
+                    window.ShowDialog();
+                }));
             }
         }
-        public int SelectedItem
+        private QuestionDataGridViewModel selectedItem;
+        private int selectedIndex;
+        public QuestionDataGridViewModel SelectedItem
         {
             get { return selectedItem; }
             set 
@@ -54,21 +51,12 @@ namespace TestM.ViewModels
                 OnPropertyChanged(nameof(SelectedIndex));
             }
         }
-        public List<TypeQuestion> TypeQuestions
-        {
-            get { return typeQuestions; }
-            set 
-            { 
-                typeQuestions = value;
-                OnPropertyChanged(nameof(TypeQuestions));
-            }
-        }
-        public ObservableCollection<QuestionDataGridViewModel> Data { get; set; }
+        public ObservableCollection<QuestionDataGridViewModel> ItemsSource { get; set; }
         public QuestionWindowViewModel(IFileService fileService)
         {
             this.fileService = fileService;
-            Data = fileService.Open(fileName);
-            QuestionDataGridViewModel question = new QuestionDataGridViewModel(Data);
+            ItemsSource = fileService.Open(fileName);
+            QuestionDataGridViewModel question = new QuestionDataGridViewModel(ItemsSource);
         }
     }
 }
