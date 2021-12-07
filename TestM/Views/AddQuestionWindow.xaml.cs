@@ -29,11 +29,7 @@ namespace TestM.Views
         }
         private void btnClose(object sender, RoutedEventArgs e)
         {
-            Close();
-        }
-        private void btnSave(object sender, RoutedEventArgs e)
-        {
-
+            DialogResult = false;
         }
     }
 }

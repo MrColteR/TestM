@@ -34,7 +34,30 @@ namespace TestM.ViewModels
         }
         public string TypeQuestion
         {
-            get { return typeQuestion; }
+            get 
+            {
+                if (typeQuestion == "legalBases")
+                {
+                    return "Правовые основания";
+                }
+                else if (typeQuestion == "safety")
+                {
+                    return "Меры безопастности";
+                }
+                else if (typeQuestion == "ttx")
+                {
+                    return "ТТХ";
+                }
+                else if (typeQuestion == "command")
+                {
+                    return "Команды";
+                }
+                else if (typeQuestion == "delays")
+                {
+                    return "Задержки";
+                }
+                return typeQuestion; 
+            }
             set
             {
                 typeQuestion = value;
@@ -79,7 +102,26 @@ namespace TestM.ViewModels
         }
         public string RightAnswer
         {
-            get { return rightAnswer; }
+            get 
+            {
+                if (rightAnswer == "A")
+                {
+                    return "А";
+                }
+                else if (rightAnswer == "B")
+                {
+                    return "Б";
+                }
+                else if (rightAnswer == "C")
+                {
+                    return "В";
+                }
+                else if (rightAnswer == "D")
+                {
+                    return "Г";
+                }
+                return rightAnswer; 
+            }
             set
             {
                 rightAnswer = value;
@@ -105,7 +147,7 @@ namespace TestM.ViewModels
                         RightAnswer = RightAnswer
                     });
 
-                    fileService.Save(fileName, Data);
+                    //fileService.Save(fileName, Data);
                 }));
             }
         }

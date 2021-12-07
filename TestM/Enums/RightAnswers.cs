@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestM
+namespace TestM.Enums
 {
-    public enum TypeQuestions
+    public enum RightAnswers
     {
-        legalBases,
-        safety,
-        ttx,
-        command,
-        delays
+        A,
+        B,
+        C,
+        D
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace TestM
+namespace TestM.Enums
 {
     class EnumBindingSource : MarkupExtension
     {

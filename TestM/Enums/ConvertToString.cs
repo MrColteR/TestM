@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace TestM
+namespace TestM.Enums
 {
     internal class ConvertToString : IValueConverter
     {
@@ -26,6 +26,22 @@ namespace TestM
                         return "Команды";
                     case TypeQuestions.delays:
                         return "Задержки";
+                    default:
+                        break;
+                }
+            }
+            if (value is RightAnswers rightAnswers)
+            {
+                switch (rightAnswers)
+                {
+                    case RightAnswers.A:
+                        return "А";
+                    case RightAnswers.B:
+                        return "Б";
+                    case RightAnswers.C:
+                        return "В";
+                    case RightAnswers.D:
+                        return "Г";
                     default:
                         break;
                 }
