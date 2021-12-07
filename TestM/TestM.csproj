@@ -62,8 +62,9 @@
     <Compile Include="ConvertToString.cs" />
     <Compile Include="Data\Base\IFileService.cs" />
     <Compile Include="Data\JsonFileService.cs" />
+    <Compile Include="EnumBindingSource.cs" />
     <Compile Include="Models\QuestionModel.cs" />
-    <Compile Include="TypeQuestion.cs" />
+    <Compile Include="TypeQuestions.cs" />
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\QuestionDataGridViewModel.cs" />

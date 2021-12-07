@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestM
 {
-    public enum TypeQuestion
+    public enum TypeQuestions
     {
         legalBases,
         safety,

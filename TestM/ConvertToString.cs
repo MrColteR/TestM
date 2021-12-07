@@ -12,19 +12,19 @@ namespace TestM
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is TypeQuestion typeQuestion)
+            if (value is TypeQuestions typeQuestion)
             {
                 switch (typeQuestion)
                 {
-                    case TypeQuestion.legalBases:
+                    case TypeQuestions.legalBases:
                         return "Правовые основания";
-                    case TypeQuestion.safety:
+                    case TypeQuestions.safety:
                         return "Меры безопастности";
-                    case TypeQuestion.ttx:
+                    case TypeQuestions.ttx:
                         return "ТТХ";
-                    case TypeQuestion.command:
+                    case TypeQuestions.command:
                         return "Команды";
-                    case TypeQuestion.delays:
+                    case TypeQuestions.delays:
                         return "Задержки";
                     default:
                         break;
