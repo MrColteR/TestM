@@ -8,18 +8,28 @@
         WindowStartupLocation="CenterScreen"
         Title="QuestionWindow" Height="500" Width="1500">
     <Window.Resources>
-        <Style TargetType="Button">
+        <Style x:Key="ParentButton" TargetType="Button">
             <Style.Setters>
                 <Setter Property="Button.Background" Value="Yellow"/>
                 <Setter Property="Button.Height" Value="30"/>
                 <Setter Property="Button.Width" Value="100"/>
-                <Setter Property="Button.Margin" Value="10,0,0,0"/>
+                <!--<Setter Property="Button.Margin" Value="10,0,0,0"/>-->
             </Style.Setters>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="Red"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+        <Style x:Key="ChildrenButtonLeft" TargetType="Button" BasedOn="{StaticResource ParentButton}">
+            <Style.Setters>
+                <Setter Property="Control.Margin" Value="10,0,0,0"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="ChildrenButtonRight" TargetType="Button" BasedOn="{StaticResource ParentButton}">
+            <Style.Setters>
+                <Setter Property="Control.Margin" Value="0,0,10,0"/>
+            </Style.Setters>
         </Style>
     </Window.Resources>
     <Grid>
@@ -30,22 +40,16 @@
                                  Color="LightBlue"/>
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
                                  Color="Black"/>
-            <!--<Style TargetType="Button">
-                <Setter Property="Background" Value="Black"/>
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Width" Value="100"/>
-                <Setter Property="Margin" Value="5,0,0,0"/>
-            </Style>-->
-            <!--<Style x:Key="btn">
-                <Setter Property="Control.Background" Value="Yellow"/>
-                <Setter Property="Control.Height" Value="30"/>
-                <Setter Property="Control.Width" Value="100"/>
-                <Setter Property="Control.Margin" Value="5,0,0,0"/>
-            </Style>-->
-
         </Grid.Resources>
-        <StackPanel VerticalAlignment="Top" Orientation="Horizontal"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--<StackPanel VerticalAlignment="Top" Orientation="Horizontal"
                  Height="40"
                  Background="White"
                  ToolBarTray.IsLocked="True">
@@ -53,8 +57,31 @@
                     Command="{Binding AddQuestion}"
                     CommandParameter="{Binding}"/>
             <Button Content="Delete"/>
+            <Button Content="Save"
+                    HorizontalAlignment="Right"/>
+            <Button Content="Back"/>
+        </StackPanel>-->
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Grid.Row="0"
+                    Grid.Column="0">
+            <Button Content="Add"
+                Command="{Binding AddQuestion}"
+                CommandParameter="{Binding}"
+                Style="{StaticResource ChildrenButtonLeft}"/>
+            <Button Content="Delete"
+                Style="{StaticResource ChildrenButtonLeft}"/>
         </StackPanel>
-        <DataGrid Margin="10,40,10,10"
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Row="0"
+                    Grid.Column="1">
+            <Button Content="Save"
+                    Style="{StaticResource ChildrenButtonRight}"/>
+            <Button Content="Back"
+                    Style="{StaticResource ChildrenButtonRight}"/>
+        </StackPanel>
+        <DataGrid Margin="10,10,10,10"
                   FontSize="16"
                   ItemsSource="{Binding ItemsSource}"
                   SelectedItem="{Binding SelectedItem}"
@@ -64,7 +91,9 @@
                   Background="White"
                   AlternatingRowBackground="White"
                   SelectionMode="Single"
-                  IsReadOnly="True">
+                  IsReadOnly="True"
+                  Grid.Row="1"
+                  Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Тип вопроса"
                                     Width="0.55*"
