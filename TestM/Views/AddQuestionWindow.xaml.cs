@@ -27,9 +27,5 @@ namespace TestM.Views
             InitializeComponent();
             DataContext = new AddQuestionWindowViewModel(data, new JsonFileService());
         }
-        private void btnClose(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-        }
     }
 }

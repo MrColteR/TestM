@@ -7,6 +7,7 @@ namespace TestM.ViewModels
     public class QuestionDataGridViewModel : ViewModel
     {
         private QuestionModel model;
+        #region Property
         public string Question
         {
             get { return model.Question; }
@@ -71,6 +72,7 @@ namespace TestM.ViewModels
             }
         }
         public ObservableCollection<QuestionModel> Data { get; set; }
+#endregion
         public QuestionDataGridViewModel(ObservableCollection<QuestionModel> Data, QuestionModel model)
         {
             this.model = model;

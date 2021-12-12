@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestM.Command;
 using TestM.Data.Base;
 using TestM.Models;
 using TestM.ViewModels.Base;
+using TestM.Views;
 
 namespace TestM.ViewModels
 {
@@ -17,6 +13,45 @@ namespace TestM.ViewModels
         IFileService fileService;
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+        #region Commands
+        private RelayCommand save;
+        public RelayCommand Save
+        {
+            get
+            {
+                return save ?? (save = new RelayCommand(obj =>
+                {
+                    ObservableCollection<QuestionModel> models = new ObservableCollection<QuestionModel>() { };
+                    QuestionModel model = new QuestionModel();
+                    Data.Add(new QuestionModel()
+                    {
+                        Question = Question,
+                        TypeQuestion = TypeQuestion,
+                        AnswerA = AnswerA,
+                        AnswerB = AnswerB,
+                        AnswerC = AnswerC,
+                        AnswerD = AnswerD,
+                        RightAnswer = RightAnswer
+                    });
+
+                    fileService.Save(fileName, Data);
+                }));
+            }
+        }
+        private RelayCommand close;
+        public RelayCommand Close 
+        { 
+            get
+            {
+                return close ?? (close = new RelayCommand(obj =>
+                {
+                    AddQuestionWindow wnd = obj as AddQuestionWindow;
+                    wnd.Close();
+                }));
+            }
+        }
+        #endregion
+        #region Property
         private string question;
         private string typeQuestion;
         private string answerA;
@@ -30,7 +65,6 @@ namespace TestM.ViewModels
             set
             {
                 question = value;
-                //OnPropertyChanged(nameof(Question));
             }
         }
         public string TypeQuestion
@@ -62,7 +96,6 @@ namespace TestM.ViewModels
             set
             {
                 typeQuestion = value;
-                //OnPropertyChanged(nameof(TypeQuestion));
             }
         }
         public string AnswerA
@@ -71,7 +104,6 @@ namespace TestM.ViewModels
             set
             {
                 answerA = value;
-                //OnPropertyChanged(nameof(AnswerA));
             }
         }
         public string AnswerB
@@ -80,7 +112,6 @@ namespace TestM.ViewModels
             set
             {
                 answerB = value;
-                //OnPropertyChanged(nameof(AnswerB));
             }
         }
         public string AnswerC
@@ -89,7 +120,6 @@ namespace TestM.ViewModels
             set
             {
                 answerC = value;
-                //OnPropertyChanged(nameof(AnswerC));
             }
         }
         public string AnswerD
@@ -98,7 +128,6 @@ namespace TestM.ViewModels
             set
             {
                 answerD = value;
-                //OnPropertyChanged(nameof(AnswerD));
             }
         }
         public string RightAnswer
@@ -126,36 +155,10 @@ namespace TestM.ViewModels
             set
             {
                 rightAnswer = value;
-                //OnPropertyChanged(nameof(RightAnswer));
-            }
-        }
-        private RelayCommand save;
-        public RelayCommand Save
-        {
-            get
-            {
-                return save ?? (save = new RelayCommand(obj =>
-                {
-                    ObservableCollection<QuestionModel> models = new ObservableCollection<QuestionModel>() { };
-                    QuestionModel model = new QuestionModel();
-                    Data.Add(new QuestionModel()
-                    {
-                        Question = Question,
-                        TypeQuestion = TypeQuestion,
-                        AnswerA = AnswerA,
-                        AnswerB = AnswerB,
-                        AnswerC = AnswerC,
-                        AnswerD = AnswerD,
-                        RightAnswer = RightAnswer
-                    });
-
-                    fileService.Save(fileName, Data);
-                }));
             }
         }
         public ObservableCollection<QuestionModel> Data { get; set; }
-        //public ObservableCollection<QuestionDataGridViewModel> OldData { get; set; }
-        //public QuestionDataGridViewModel NewData { get; set; }
+        #endregion
         public AddQuestionWindowViewModel(QuestionWindowViewModel data, IFileService fileService)
         {
             this.fileService = fileService;

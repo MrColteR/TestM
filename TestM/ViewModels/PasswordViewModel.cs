@@ -13,6 +13,7 @@ namespace TestM.ViewModels
 {
     public class PasswordViewModel : ViewModel
     {
+        #region Property
         private bool checkPas;
         public bool CheckPas
         {
@@ -21,7 +22,8 @@ namespace TestM.ViewModels
                 return checkPas;
             }
         }
-        #region Command
+        #endregion
+        #region Commands
         #endregion
         public bool CheckUserPassword(string password)
         {

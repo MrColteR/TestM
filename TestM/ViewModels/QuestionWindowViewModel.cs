@@ -14,6 +14,7 @@ namespace TestM.ViewModels
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         IFileService fileService;
         QuestionModel questionModel;
+        #region Commands
         private RelayCommand addQuestion;
         public RelayCommand AddQuestion
         {
@@ -51,6 +52,8 @@ namespace TestM.ViewModels
                 }));
             }
         }
+        #endregion
+        #region Property
         private QuestionModel selectedItem;
         private int selectedIndex;
         public QuestionModel SelectedItem
@@ -72,6 +75,7 @@ namespace TestM.ViewModels
             }
         }
         public ObservableCollection<QuestionModel> ItemsSource { get; set; }
+        #endregion
         public QuestionWindowViewModel(IFileService fileService)
         {
             this.fileService = fileService;
