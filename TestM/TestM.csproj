@@ -64,6 +64,7 @@
     <Compile Include="Data\JsonFileService.cs" />
     <Compile Include="Enums\EnumBindingSource.cs" />
     <Compile Include="Enums\RightAnswers.cs" />
+    <Compile Include="Models\Base\Model.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Enums\TypeQuestions.cs" />
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />

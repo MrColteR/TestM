@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestM.Command;
 using TestM.Data.Base;
+using TestM.Models;
 using TestM.ViewModels.Base;
 
 namespace TestM.ViewModels
@@ -135,9 +136,10 @@ namespace TestM.ViewModels
             {
                 return save ?? (save = new RelayCommand(obj =>
                 {
-                    ObservableCollection<QuestionDataGridViewModel> models = new ObservableCollection<QuestionDataGridViewModel>() { };
-                    Data.Add(new QuestionDataGridViewModel(models) 
-                    { 
+                    ObservableCollection<QuestionModel> models = new ObservableCollection<QuestionModel>() { };
+                    QuestionModel model = new QuestionModel();
+                    Data.Add(new QuestionModel()
+                    {
                         Question = Question,
                         TypeQuestion = TypeQuestion,
                         AnswerA = AnswerA,
@@ -147,11 +149,11 @@ namespace TestM.ViewModels
                         RightAnswer = RightAnswer
                     });
 
-                    //fileService.Save(fileName, Data);я
+                    fileService.Save(fileName, Data);
                 }));
             }
         }
-        public ObservableCollection<QuestionDataGridViewModel> Data { get; set;}
+        public ObservableCollection<QuestionModel> Data { get; set; }
         //public ObservableCollection<QuestionDataGridViewModel> OldData { get; set; }
         //public QuestionDataGridViewModel NewData { get; set; }
         public AddQuestionWindowViewModel(QuestionWindowViewModel data, IFileService fileService)

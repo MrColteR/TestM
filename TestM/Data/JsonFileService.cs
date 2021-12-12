@@ -7,25 +7,25 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using TestM.Data.Base;
-using TestM.ViewModels;
+using TestM.Models;
 
 namespace TestM.Data
 {
     public class JsonFileService : IFileService
     {
-        public ObservableCollection<QuestionDataGridViewModel> Open(string filename)
+        public ObservableCollection<QuestionModel> Open(string filename)
         {
-            ObservableCollection<QuestionDataGridViewModel> items = new ObservableCollection<QuestionDataGridViewModel>() { };
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ObservableCollection<QuestionDataGridViewModel>));
+            ObservableCollection<QuestionModel> items = new ObservableCollection<QuestionModel>() { };
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ObservableCollection<QuestionModel>));
             using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
             {
-                items = jsonFormatter.ReadObject(fs) as ObservableCollection<QuestionDataGridViewModel>;
+                items = jsonFormatter.ReadObject(fs) as ObservableCollection<QuestionModel>;
             }
             return items;
         }
-        public void Save(string filename, ObservableCollection<QuestionDataGridViewModel> itemsList)
+        public void Save(string filename, ObservableCollection<QuestionModel> itemsList)
         {
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ObservableCollection<QuestionDataGridViewModel>));
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ObservableCollection<QuestionModel>));
             using (FileStream fs = new FileStream(filename, FileMode.Create))
             {
                 jsonFormatter.WriteObject(fs, itemsList);

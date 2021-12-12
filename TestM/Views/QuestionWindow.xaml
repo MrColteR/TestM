@@ -84,8 +84,12 @@
                     Grid.Row="0"
                     Grid.Column="1">
             <Button Content="Save"
+                    Command="{Binding SaveFile}"
+                    CommandParameter="{Binding}"
                     Style="{StaticResource ChildrenButtonRight}"/>
             <Button Content="Back"
+                    Command="{Binding CloseQuestionWindow}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource ChildrenButtonRight}"/>
         </StackPanel>
         <DataGrid Margin="10,10,10,10"

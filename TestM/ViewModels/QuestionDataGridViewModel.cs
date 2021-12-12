@@ -1,97 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using TestM.Models;
 using TestM.ViewModels.Base;
 
 namespace TestM.ViewModels
 {
-    [DataContract]
     public class QuestionDataGridViewModel : ViewModel
     {
-        private string question;
-        private string typeQuestion;
-        private string answerA;
-        private string answerB;
-        private string answerC;
-        private string answerD;
-        private string rightAnswer;
-        [DataMember]
+        private QuestionModel model;
         public string Question
         {
-            get { return question; }
+            get { return model.Question; }
             set
             {
-                question = value;
+                model.Question = value;
                 OnPropertyChanged(nameof(Question));
             }
         }
-        [DataMember]
         public string TypeQuestion
         {
-            get { return typeQuestion; }
+            get { return model.TypeQuestion; }
             set
             {
-                typeQuestion = value;
+                model.TypeQuestion = value;
                 OnPropertyChanged(nameof(TypeQuestion));
             }
         }
-        [DataMember]
         public string AnswerA
         {
-            get { return answerA; }
+            get { return model.AnswerA; }
             set
             {
-                answerA = value;
+                model.AnswerA = value;
                 OnPropertyChanged(nameof(AnswerA));
             }
         }
-        [DataMember]
         public string AnswerB
         {
-            get { return answerB; }
+            get { return model.AnswerB; }
             set
             {
-                answerB = value;
+                model.AnswerB = value;
                 OnPropertyChanged(nameof(AnswerB));
             }
         }
-        [DataMember]
         public string AnswerC
         {
-            get { return answerC; }
+            get { return model.AnswerC; }
             set
             {
-                answerC = value;
+                model.AnswerC = value;
                 OnPropertyChanged(nameof(AnswerC));
             }
         }
-        [DataMember]
         public string AnswerD
         {
-            get { return answerD; }
+            get { return model.AnswerD; }
             set
             {
-                answerD = value;
+                model.AnswerD = value;
                 OnPropertyChanged(nameof(AnswerD));
             }
         }
-        [DataMember]
         public string RightAnswer
         {
-            get { return rightAnswer; }
+            get { return model.RightAnswer; }
             set
             {
-                rightAnswer = value;
+                model.RightAnswer = value;
                 OnPropertyChanged(nameof(RightAnswer));
             }
         }
-        public ObservableCollection<QuestionDataGridViewModel> Data { get; set; }
-        public QuestionDataGridViewModel(ObservableCollection<QuestionDataGridViewModel> Data)
+        public ObservableCollection<QuestionModel> Data { get; set; }
+        public QuestionDataGridViewModel(ObservableCollection<QuestionModel> Data, QuestionModel model)
         {
+            this.model = model;
             this.Data = Data;
         }
     }

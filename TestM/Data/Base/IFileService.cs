@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using TestM.ViewModels;
+using TestM.Models;
 
 namespace TestM.Data.Base
 {
     public interface IFileService
     {
-        ObservableCollection<QuestionDataGridViewModel> Open(string filename);
-        void Save(string filename, ObservableCollection<QuestionDataGridViewModel> phonesList);
+        ObservableCollection<QuestionModel> Open(string filename);
+        void Save(string filename, ObservableCollection<QuestionModel> phonesList);
     }
 }
