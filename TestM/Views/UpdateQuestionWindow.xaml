@@ -1,13 +1,13 @@
-﻿<Window x:Class="TestM.Views.AddQuestionWindow"
+﻿<Window x:Class="TestM.Views.UpdateQuestionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestM.Views" 
+        xmlns:local="clr-namespace:TestM.Views"
         xmlns:localConvert="clr-namespace:TestM.Enums"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="AddQuestionWindow" Height="700" Width="400">
+        Title="UpdateQuestionWindow" Height="700" Width="400">
     <Grid>
         <Grid.Resources>
             <localConvert:ConvertToString x:Key="ConvertToString"/>
@@ -119,12 +119,13 @@
         </ComboBox>
         <Button Grid.Row="7"
                 Command="{Binding Save}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
                 Height="40" 
                 Width="120"
                 Margin="10,0,0,10"
-                Content="Добавить"
+                Content="Изменить"
                 FontSize="16"/>
         <Button Grid.Row="7"
                 Command="{Binding Close}"

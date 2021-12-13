@@ -34,7 +34,7 @@ namespace TestM.ViewModels
                         RightAnswer = RightAnswer
                     });
 
-                    fileService.Save(fileName, Data);
+                    //fileService.Save(fileName, Data);
                 }));
             }
         }

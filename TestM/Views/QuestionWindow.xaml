@@ -13,7 +13,7 @@
                 <Setter Property="Button.Background" Value="Yellow"/>
                 <Setter Property="Button.BorderBrush" Value="Black"/>
                 <Setter Property="Button.Height" Value="30"/>
-                <Setter Property="Button.Width" Value="100"/>
+                <Setter Property="Button.Width" Value="99"/>
             </Style.Setters>
             <Style.Triggers>
                 <Trigger Property="Button.IsMouseOver" Value="True">
@@ -76,8 +76,14 @@
                 Command="{Binding AddQuestion}"
                 CommandParameter="{Binding}"
                 Style="{StaticResource ChildrenButtonLeft}"/>
+            <Button Content="Update"
+                    Command="{Binding UpdateQuestion}"
+                    CommandParameter="{Binding}"
+                    Style="{StaticResource ChildrenButtonLeft}"/>
             <Button Content="Delete"
-                Style="{StaticResource ChildrenButtonLeft}"/>
+                    Command="{Binding DeleteQuestion}"
+                    CommandParameter="{Binding}"
+                    Style="{StaticResource ChildrenButtonLeft}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"

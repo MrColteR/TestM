@@ -22,10 +22,44 @@ namespace TestM.ViewModels
             {
                 return addQuestion ?? (addQuestion = new RelayCommand(obj =>
                 {
-                    var a = obj as QuestionWindowViewModel;
                     var window = new AddQuestionWindow(obj as QuestionWindowViewModel);
                     window.ShowDialog();
                 }));
+            }
+        }
+        private RelayCommand updateQuestion;
+        public RelayCommand UpdateQuestion 
+        {
+            get
+            {
+                return updateQuestion ?? (updateQuestion = new RelayCommand(obj => 
+                {
+                    var window = new UpdateQuestionWindow(SelectedItem);
+                    window.ShowDialog();
+                }));
+            }
+        }
+        private RelayCommand deleteQustion;
+        public RelayCommand DeleteQuestion 
+        {
+            get
+            {
+                return deleteQustion ?? (deleteQustion = new RelayCommand(obj =>
+                {
+                    var index = ItemsSource.IndexOf(SelectedItem);
+                    if (SelectedItem != null)
+                    {
+                        ItemsSource.Remove(SelectedItem);
+                        if (index == ItemsSource.Count)
+                        {
+                            SelectedIndex = index - 1;
+                        }
+                        else
+                        {
+                            SelectedIndex = index;
+                        }
+                    }
+                }, (obj) => ItemsSource.Count > 0));
             }
         }
         private RelayCommand saveFile;
@@ -35,8 +69,7 @@ namespace TestM.ViewModels
             {
                 return saveFile ?? (saveFile = new RelayCommand(obj =>
                 {
-                    ObservableCollection<QuestionModel> data = obj as ObservableCollection<QuestionModel>;
-                    fileService.Save(fileName, data);
+                    fileService.Save(fileName, ItemsSource);
                 }));
             }
         }
