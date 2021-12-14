@@ -37,7 +37,30 @@ namespace TestM.ViewModels
                 }));
             }
         }
-
+        private RelayCommand minimizeWindow;
+        public RelayCommand MinimizeWindow
+        {
+            get
+            {
+                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
+                {
+                    MainWindow wnd = obj as MainWindow;
+                    wnd.WindowState = System.Windows.WindowState.Minimized;
+                }));
+            }
+        }
+        private RelayCommand closeWindow;
+        public RelayCommand CloseWindow
+        {
+            get
+            {
+                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
+                {
+                    MainWindow wnd = obj as MainWindow;
+                    wnd.Close();
+                }));
+            }
+        }
         #endregion
     }
 }

@@ -14,8 +14,6 @@ namespace TestM.ViewModels
 {
     public class PasswordViewModel : ViewModel
     {
-        #region Commands
-        #endregion
         public bool CheckUserPassword(string password)
         {
             bool checkPassword;
@@ -24,7 +22,7 @@ namespace TestM.ViewModels
             {
                 checkPassword = true;
                 var questionWindow = new QuestionWindow();
-                questionWindow.ShowDialog();
+                questionWindow.Show();
             }
             else
             {

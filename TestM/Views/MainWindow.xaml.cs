@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using TestM.ViewModels;
 
 namespace TestM
@@ -12,6 +13,14 @@ namespace TestM
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+        }
+
+        private void DragMove_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                DragMove();
+            }
         }
     }
 }

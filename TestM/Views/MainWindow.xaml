@@ -6,19 +6,16 @@
         xmlns:local="clr-namespace:TestM"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="500" Width="900">
+        Title="MainWindow" Height="500" Width="900" ResizeMode="NoResize" WindowStyle="None">
     <Window.Resources>
         <Style x:Key="PaternButton" TargetType="Button">
             <Style.Setters>
-                <Setter Property="Background" Value="Yellow"/>
+                <Setter Property="Background" Value="#93CCEA"/>
                 <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Width" Value="99"/>
-                <Setter Property="FontSize" Value="14"/>
             </Style.Setters>
             <Style.Triggers>
                 <Trigger Property="Button.IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="YellowGreen"/>
+                    <Setter Property="Background" Value="#8FE9FA"/>
                     <Setter Property="BorderThickness" Value="1"/>
                     <Setter Property="Template">
                         <Setter.Value>
@@ -34,56 +31,130 @@
                     </Setter>
                 </Trigger>
                 <Trigger Property="Button.IsPressed" Value="True">
-                    <Setter Property="Background" Value="Green"/>
+                    <Setter Property="Background" Value="#00A1E1"/>
                     <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="BorderThickness" Value="1"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="ChildrenToolbarButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Margin" Value="0,0,1,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
         <Style x:Key="ChildrenButtonLeft" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Style.Setters>
-                <Setter Property="Margin" Value="10,5,0,5"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="15 ,5,0,5"/>
             </Style.Setters>
         </Style>
-        <Style x:Key="ChildrenButtonRight" TargetType="Button">
+        <Style x:Key="ChildrenButtonLeftSetting" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Style.Setters>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="30"/>
                 <Setter Property="Margin" Value="0,5,10,5"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="ChildrenButtonRight" TargetType="Button" BasedOn="{StaticResource PaternButton}">
+            <Style.Setters>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="0,5,5,5"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="PatternIcon" TargetType="Image">
+            <Style.Setters>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Width" Value="20"/>
             </Style.Setters>
         </Style>
     </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFD2DFE2" Offset="0"/>
+            <GradientStop Color="#FF66B3E2" Offset="1"/>
+            <GradientStop Color="#FF9ED1DD" Offset="0.495"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel VerticalAlignment="Top"
+        <Grid Name="Header"
+              Grid.Row="0"
+              Grid.ColumnSpan="2"
+              Background="Transparent" MouseDown="DragMove_MouseDown">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Style="{StaticResource ChildrenToolbarButton}"
+                        Command="{Binding MinimizeWindow}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                    <Image Style="{StaticResource PatternIcon}"
+                           Name="MinimizeButton"
+                           Source="/Icon/minimizeIcon.png">
+                    </Image>
+                </Button>
+                <Button Style="{StaticResource ChildrenToolbarButton}"
+                        Command="{Binding CloseWindow}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                    <Image Style="{StaticResource PatternIcon}"
+                           Name="CloseButton" 
+                            Source="/Icon/closeIcon.png">
+                    </Image>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Name="StackPanelLeftButton"
+              Grid.Row="1"
+              Grid.Column="0"
+              Background="Transparent" MouseDown="DragMove_MouseDown">
+            <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Left"
                     Orientation="Horizontal"
                     Grid.Column="0">
-            <Border>
                 <Button Style="{StaticResource ChildrenButtonLeft}"
-                        Content="Test"/>
-            </Border>
-            <Border>
-                <Button Style="{StaticResource ChildrenButtonLeft}"
-                        Content="Quesion"
-                        Command="{Binding CheckPassword}"/>
-            </Border>
-        </StackPanel>
-        <StackPanel VerticalAlignment="Top"
+                        Content="Тест"/>
+            </StackPanel>
+        </Grid>
+        <Grid Name="StackPanelRightButton"
+              Grid.Row="1"
+              Grid.Column="1"
+              Background="Transparent" MouseDown="DragMove_MouseDown">
+            <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Grid.Column="1">
-            <Button Style="{StaticResource ChildrenButtonRight}"
-                    Command="{Binding OpenSetting}">
-                <Image Source="/Icon/settingIcon.jpg"
-                       MaxHeight="30"
-                       MaxWidth="30"/>
-            </Button> 
-        </StackPanel>
+                <Button Style="{StaticResource ChildrenButtonRight}"
+                        Content="Редактирование"
+                        Command="{Binding CheckPassword}"/>
+                <Button Style="{StaticResource ChildrenButtonLeftSetting}"
+                        Command="{Binding OpenSetting}">
+                    <Image Style="{StaticResource PatternIcon}"
+                           Source="/Icon/settingIcon.png"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Name="Test"
+              Grid.Row="2"
+              Grid.ColumnSpan="2"
+              Margin="5">
+            
+        </Grid>
     </Grid>
 </Window>
