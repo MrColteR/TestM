@@ -25,6 +25,19 @@ namespace TestM.ViewModels
             }
             
         }
+        private RelayCommand openSetting;
+        public RelayCommand OpenSetting
+        {
+            get
+            {
+                return openSetting ?? (openSetting = new RelayCommand(obj =>
+                {
+                    SettingWindow wnd = new SettingWindow();
+                    wnd.Show();
+                }));
+            }
+        }
+
         #endregion
     }
 }

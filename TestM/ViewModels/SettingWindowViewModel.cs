@@ -3,28 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using TestM.Command;
 using TestM.Data;
-using TestM.ViewModels.Base;
-using TestM.Views;
 
 namespace TestM.ViewModels
 {
-    public class PasswordViewModel : ViewModel
+    public class SettingWindowViewModel
     {
-        #region Commands
-        #endregion
-        public bool CheckUserPassword(string password)
+        public bool CheckUserPassword(string oldPassword, string newPassword)
         {
             bool checkPassword;
             ChangePassword passwordOriginal = new ChangePassword();
-            if (password == passwordOriginal.Read())
+            if (oldPassword == passwordOriginal.Read())
             {
+                passwordOriginal.Change(newPassword);
                 checkPassword = true;
-                var questionWindow = new QuestionWindow();
-                questionWindow.ShowDialog();
             }
             else
             {

@@ -16,8 +16,8 @@ namespace TestM.Views
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var checkPassword = (DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password);
-            if (checkPassword)
+            //var checkPassword = (DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password);
+            if ((DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password))
             {
                 Close();
             }

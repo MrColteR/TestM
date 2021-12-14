@@ -7,7 +7,7 @@
         xmlns:localConvert="clr-namespace:TestM.Enums"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="AddQuestionWindow" Height="700" Width="400">
+        Title="AddQuestionWindow" Height="700" Width="400" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <Grid.Resources>
             <localConvert:ConvertToString x:Key="ConvertToString"/>
