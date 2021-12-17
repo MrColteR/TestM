@@ -17,15 +17,7 @@ namespace TestM.Views
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if ((DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password))
-            {
-                Close();
-            }
-            else
-            {
-                PasswordBox.Clear();
-                PasswordBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            }
+            (DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password, this);
         }
     }
 }

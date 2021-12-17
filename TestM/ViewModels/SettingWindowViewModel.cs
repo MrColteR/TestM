@@ -3,27 +3,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using TestM.Command;
 using TestM.Data;
+using TestM.Views;
 
 namespace TestM.ViewModels
 {
     public class SettingWindowViewModel
     {
-        public bool CheckUserPassword(string oldPassword, string newPassword)
+        #region Commands
+        private RelayCommand minimizeWindow;
+        public RelayCommand MinimizeWindow
         {
-            bool checkPassword;
+            get 
+            {
+                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
+                {
+                    SettingWindow wnd = obj as SettingWindow;
+                    wnd.WindowState = System.Windows.WindowState.Minimized;
+                }));
+            }
+        }
+        private RelayCommand closeWindow;
+        public RelayCommand CloseWindow
+        {
+            get
+            {
+                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
+                {
+                    SettingWindow wnd = obj as SettingWindow;
+                    wnd.Close();
+                }));
+            }
+        }
+        //private RelayCommand changePassword;
+        //public RelayCommand ChangePassword
+        //{
+        //    get
+        //    {
+        //        return changePassword ?? (changePassword = new RelayCommand(obj =>
+        //        {
+        //            SettingWindow a = obj as SettingWindow;
+        //            var oldP = a.PasswordBoxOld.Password;
+        //            var newP = a.PasswordBoxNew.Password;
+        //        }));
+        //    }
+        //}
+        #endregion
+        public void CheckUserPassword(string oldPassword, string newPassword, SettingWindow settingWindow)
+        {
             ChangePassword passwordOriginal = new ChangePassword();
             if (oldPassword == passwordOriginal.Read())
             {
                 passwordOriginal.Change(newPassword);
-                checkPassword = true;
+                settingWindow.Close();
+                PasswordChanged passwordChangedWindow = new PasswordChanged();
+                passwordChangedWindow.Show();
             }
             else
             {
-                checkPassword = false;
+                settingWindow.PasswordBoxOld.Clear();
+                settingWindow.PasswordBoxNew.Clear();
+                settingWindow.PasswordBoxOld.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+                settingWindow.PasswordBoxNew.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
             }
-
-            return checkPassword;
         }
     }
 }

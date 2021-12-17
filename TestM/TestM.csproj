@@ -69,6 +69,7 @@
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Enums\TypeQuestions.cs" />
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
+    <Compile Include="ViewModels\PasswordChangedViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\QuestionDataGridViewModel.cs" />
     <Compile Include="ViewModels\QuestionWindowViewModel.cs" />
@@ -76,6 +77,9 @@
     <Compile Include="ViewModels\UpdateQuestionViewModel.cs" />
     <Compile Include="Views\AddQuestionWindow.xaml.cs">
       <DependentUpon>AddQuestionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PasswordChanged.xaml.cs">
+      <DependentUpon>PasswordChanged.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PasswordWindow.xaml.cs">
       <DependentUpon>PasswordWindow.xaml</DependentUpon>
@@ -108,6 +112,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PasswordChanged.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

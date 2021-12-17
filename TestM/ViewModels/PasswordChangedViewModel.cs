@@ -1,22 +1,25 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TestM.Command;
-using TestM.Data;
 using TestM.ViewModels.Base;
 using TestM.Views;
 
 namespace TestM.ViewModels
 {
-    public class PasswordViewModel : ViewModel
+    public class PasswordChangedViewModel : ViewModel
     {
         #region Commands
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow
         {
-            get 
+            get
             {
                 return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
                 {
-                    PasswordWindow wnd = obj as PasswordWindow;
+                    PasswordChanged wnd = obj as PasswordChanged;
                     wnd.WindowState = System.Windows.WindowState.Minimized;
                 }));
             }
@@ -28,26 +31,23 @@ namespace TestM.ViewModels
             {
                 return closeWindow ?? (closeWindow = new RelayCommand(obj =>
                 {
-                    PasswordWindow wnd = obj as PasswordWindow;
+                    PasswordChanged wnd = obj as PasswordChanged;
+                    wnd.Close();
+                }));
+            }
+        }
+        private RelayCommand okeyCommand;
+        public RelayCommand OkeyCommand
+        {
+            get
+            {
+                return okeyCommand ?? (okeyCommand = new RelayCommand(obj =>
+                {
+                    PasswordChanged wnd = obj as PasswordChanged;
                     wnd.Close();
                 }));
             }
         }
         #endregion
-        public void CheckUserPassword(string password, PasswordWindow passwordWindow)
-        {
-            ChangePassword passwordOriginal = new ChangePassword();
-            if (password == passwordOriginal.Read())
-            {
-                passwordWindow.Close();
-                var questionWindow = new QuestionWindow();
-                questionWindow.Show();
-            }
-            else
-            {
-                passwordWindow.PasswordBox.Clear();
-                passwordWindow.PasswordBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            }
-        }
     }
 }
