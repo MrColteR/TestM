@@ -13,7 +13,6 @@ namespace TestM.ViewModels
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         IFileService fileService;
-        QuestionModel questionModel;
         #region Commands
         private RelayCommand addQuestion;
         public RelayCommand AddQuestion
@@ -111,6 +110,7 @@ namespace TestM.ViewModels
         #endregion
         public QuestionWindowViewModel(IFileService fileService)
         {
+            QuestionModel questionModel = new QuestionModel();
             this.fileService = fileService;
             ItemsSource = fileService.Open(fileName);
             QuestionDataGridViewModel question = new QuestionDataGridViewModel(ItemsSource, questionModel);

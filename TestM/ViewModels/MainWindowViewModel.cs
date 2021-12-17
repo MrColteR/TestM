@@ -19,7 +19,7 @@ namespace TestM.ViewModels
             {
                 return checkPassword ?? (checkPassword = new RelayCommand(obj =>
                 {
-                    var password = new Password();
+                    var password = new PasswordWindow();
                     password.ShowDialog();
                 }));
             }

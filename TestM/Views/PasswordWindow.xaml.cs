@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using TestM.ViewModels;
 
 namespace TestM.Views
@@ -7,16 +8,15 @@ namespace TestM.Views
     /// <summary>
     /// Логика взаимодействия для Password.xaml
     /// </summary>
-    public partial class Password : Window
+    public partial class PasswordWindow : Window
     {
-        public Password()
+        public PasswordWindow()
         {
             InitializeComponent();
             DataContext = new PasswordViewModel();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var checkPassword = (DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password);
             if ((DataContext as PasswordViewModel).CheckUserPassword(PasswordBox.Password))
             {
                 Close();
@@ -24,7 +24,7 @@ namespace TestM.Views
             else
             {
                 PasswordBox.Clear();
-                MessageBox.Show("Пароль неверный", "Сообщение", MessageBoxButton.OK);
+                PasswordBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
             }
         }
     }
