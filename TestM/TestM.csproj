@@ -60,14 +60,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\ChangePassword.cs" />
-    <Compile Include="Enums\ConvertToString.cs" />
     <Compile Include="Data\Base\IFileService.cs" />
     <Compile Include="Data\JsonFileService.cs" />
-    <Compile Include="Enums\EnumBindingSource.cs" />
-    <Compile Include="Enums\RightAnswers.cs" />
     <Compile Include="Models\Base\Model.cs" />
     <Compile Include="Models\QuestionModel.cs" />
-    <Compile Include="Enums\TypeQuestions.cs" />
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
     <Compile Include="ViewModels\PasswordChangedViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
@@ -169,5 +165,6 @@
   <ItemGroup>
     <Resource Include="Icon\minimizeIcon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
