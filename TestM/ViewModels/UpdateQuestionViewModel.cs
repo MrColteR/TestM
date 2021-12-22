@@ -1,17 +1,38 @@
 ﻿using TestM.Command;
 using TestM.Models;
-using TestM.Enums;
 using TestM.Views;
-using System.Collections.ObjectModel;
 
 namespace TestM.ViewModels
 {
     class UpdateQuestionViewModel
     {
-        private bool ChangeTypeQuesion = false;
-        private bool ChangeRightAnswer = false;
-        private ConvertToString convert = new ConvertToString();
+        private bool checkTypeButton = false;
+        private bool checkAnswerButton = false;
         #region Commands
+        private RelayCommand minimizeWindow;
+        public RelayCommand MinimizeWindow
+        {
+            get
+            {
+                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
+                {
+                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+                    wnd.WindowState = System.Windows.WindowState.Minimized;
+                }));
+            }
+        }
+        private RelayCommand closeWindow;
+        public RelayCommand CloseWindow
+        {
+            get
+            {
+                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
+                {
+                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+                    wnd.Close();
+                }));
+            }
+        }
         private RelayCommand save;
         public RelayCommand Save
         {
@@ -19,18 +40,8 @@ namespace TestM.ViewModels
             {
                 return save ?? (save = new RelayCommand(obj =>
                 {
-                    if (ChangeTypeQuesion)
-                    {
-                        SelectedItem.TypeQuestion = (string)convert.Convert(typeQuestion);
-                    }
-
-                    if (ChangeRightAnswer)
-                    {
-                        SelectedItem.RightAnswer = (string)convert.Convert(rightAnswer);
-                    }
-
-                    ChangeTypeQuesion = false;
-                    ChangeRightAnswer = false;
+                    checkAnswerButton = false;
+                    checkTypeButton = false;
                     UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
                     wnd.Close();
                 }));
@@ -48,8 +59,123 @@ namespace TestM.ViewModels
                     SelectedItem.AnswerB = answerB;
                     SelectedItem.AnswerC = answerC;
                     SelectedItem.AnswerD = answerD;
+                    SelectedItem.TypeQuestion = typeQuestion;
+                    SelectedItem.RightAnswer = rightAnswer;
                     UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
                     wnd.Close();
+                }));
+            }
+        }
+        private RelayCommand openComboBoxType;
+        public RelayCommand OpenComboBoxType
+        {
+            get
+            {
+                return openComboBoxType ?? (openComboBoxType = new RelayCommand(obj =>
+                {
+                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+                    if (!checkTypeButton)
+                    {
+                        wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Visible;
+                        checkTypeButton = true;
+                    }
+                    else if (checkTypeButton)
+                    {
+                        wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
+                        checkTypeButton = false;
+                    }
+                }));
+            }
+        }
+        private RelayCommand choiceType;
+        public RelayCommand ChoiceType
+        {
+            get
+            {
+                return choiceType ?? (choiceType = new RelayCommand(obj =>
+                {
+                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+                    wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
+                    if (wnd.LegalBases.IsFocused)
+                    {
+                        wnd.TypeButton.Content = wnd.LegalBases.Content;
+                        TypeQuestion = wnd.LegalBases.Content.ToString();
+                    }
+                    if (wnd.Safety.IsFocused)
+                    {
+                        wnd.TypeButton.Content = wnd.Safety.Content;
+                        TypeQuestion = wnd.Safety.Content.ToString();
+                    }
+                    if (wnd.TTX.IsFocused)
+                    {
+                        wnd.TypeButton.Content = wnd.TTX.Content;
+                        TypeQuestion = wnd.TTX.Content.ToString();
+                    }
+                    if (wnd.Command.IsFocused)
+                    {
+                        wnd.TypeButton.Content = wnd.Command.Content;
+                        TypeQuestion = wnd.Command.Content.ToString();
+                    }
+                    if (wnd.Delays.IsFocused)
+                    {
+                        wnd.TypeButton.Content = wnd.Delays.Content;
+                        TypeQuestion = wnd.Delays.Content.ToString();
+                    }
+                    checkTypeButton = false;
+                }));
+            }
+        }
+        private RelayCommand openComboBoxAnswer;
+        public RelayCommand OpenComboBoxAnswer
+        {
+            get
+            {
+                return openComboBoxAnswer ?? (openComboBoxAnswer = new RelayCommand(obj =>
+                {
+                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+                    if (!checkAnswerButton)
+                    {
+                        wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Visible;
+                        checkAnswerButton = true;
+                    }
+                    else if (checkAnswerButton)
+                    {
+                        wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
+                        checkAnswerButton = false;
+                    }
+                }));
+            }
+        }
+        private RelayCommand choiceAnswer;
+        public RelayCommand ChoiceAnswer
+        {
+            get
+            {
+                return choiceAnswer ?? (choiceAnswer = new RelayCommand(obj =>
+                {
+                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+                    wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
+                    if (wnd.AnswerA.IsFocused)
+                    {
+                        wnd.RightAnswerButton.Content = wnd.AnswerA.Content;
+                        RightAnswer = wnd.AnswerA.Content.ToString();
+                    }
+                    if (wnd.AnswerB.IsFocused)
+                    {
+                        wnd.RightAnswerButton.Content = wnd.AnswerB.Content;
+                        RightAnswer = wnd.AnswerC.Content.ToString();
+                    }
+                    if (wnd.AnswerC.IsFocused)
+                    {
+                        wnd.RightAnswerButton.Content = wnd.AnswerC.Content;
+                        RightAnswer = wnd.AnswerC.Content.ToString();
+                    }
+                    if (wnd.AnswerD.IsFocused)
+                    {
+                        wnd.RightAnswerButton.Content = wnd.AnswerD.Content;
+                        RightAnswer = wnd.AnswerD.Content.ToString();
+                    }
+                    checkAnswerButton = false;
                 }));
             }
         }
@@ -60,8 +186,8 @@ namespace TestM.ViewModels
         private string answerB;
         private string answerC;
         private string answerD;
-        private TypeQuestions typeQuestion;
-        private RightAnswers rightAnswer;
+        private string typeQuestion;
+        private string rightAnswer;
         public string Question
         {
             get { return SelectedItem.Question; }
@@ -70,30 +196,12 @@ namespace TestM.ViewModels
                 SelectedItem.Question = value;
             }
         }
-        public TypeQuestions TypeQuestion
+        public string TypeQuestion
         {
-            get
-            {
-                //switch (SelectedItem.TypeQuestion)
-                //{
-                //    case "Правовые основания":
-                //        return TypeQuestions.legalBases;
-                //    case "Меры безопастности":
-                //        return TypeQuestions.safety;
-                //    case "ТТХ":
-                //        return TypeQuestions.ttx;
-                //    case "Команды":
-                //        return TypeQuestions.command;
-                //    case "Задержки":
-                //        return TypeQuestions.delays;
-                //}
-                //return typeQuestion;
-                return (TypeQuestions)convert.ConvertBack(SelectedItem.TypeQuestion);
-            }
+            get { return SelectedItem.TypeQuestion; }
             set
             {
-                typeQuestion = value;
-                ChangeTypeQuesion = true;
+                SelectedItem.TypeQuestion = value;
             }
         }
         public string AnswerA
@@ -128,30 +236,12 @@ namespace TestM.ViewModels
                 SelectedItem.AnswerD = value;
             }
         }
-        public RightAnswers RightAnswer
+        public string RightAnswer
         {
-            get
-            {
-                //switch (SelectedItem.RightAnswer)
-                //{
-                //    case "А":
-                //        return RightAnswers.A;
-                //    case "Б":
-                //        return RightAnswers.B;
-                //    case "В":
-                //        return RightAnswers.C;
-                //    case "Г":
-                //        return RightAnswers.D;
-                //    default:
-                //        break;
-                //}
-                //return rightAnswer;
-                return (RightAnswers)convert.ConvertBack(rightAnswer);
-            }
+            get { return SelectedItem.RightAnswer; }
             set
             {
-                rightAnswer = value;
-                ChangeRightAnswer = true;
+                SelectedItem.RightAnswer = value;
             }
         }
         public QuestionModel SelectedItem { get; set; }
@@ -164,6 +254,8 @@ namespace TestM.ViewModels
             answerB = SelectedItem.AnswerB;
             answerC = SelectedItem.AnswerC;
             answerD = SelectedItem.AnswerD;
+            typeQuestion = SelectedItem.TypeQuestion;
+            rightAnswer = SelectedItem.RightAnswer;
         }
     }
 }

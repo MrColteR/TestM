@@ -131,6 +131,7 @@ namespace TestM.ViewModels
                         wnd.TypeButton.Content = wnd.Delays.Content;
                         TypeQuestion = wnd.Delays.Content.ToString();
                     }
+                    checkTypeButton = false;
                 }));
             }
         }
@@ -184,6 +185,7 @@ namespace TestM.ViewModels
                         wnd.RightAnswerButton.Content = wnd.AnswerD.Content;
                         RightAnswer = wnd.AnswerD.Content.ToString();
                     }
+                    checkAnswerButton = false;
                 }));
             }
         }
