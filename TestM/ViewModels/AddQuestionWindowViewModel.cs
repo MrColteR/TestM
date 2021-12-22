@@ -47,6 +47,8 @@ namespace TestM.ViewModels
             {
                 return save ?? (save = new RelayCommand(obj =>
                 {
+                    checkAnswerButton = false;
+                    checkTypeButton = false;
                     ObservableCollection<QuestionModel> models = new ObservableCollection<QuestionModel>() { };
                     QuestionModel model = new QuestionModel();
                     Data.Add(new QuestionModel()
