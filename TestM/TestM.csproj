@@ -59,17 +59,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\AddResultToFile.cs" />
     <Compile Include="Data\ChangePassword.cs" />
     <Compile Include="Data\Base\IFileService.cs" />
     <Compile Include="Data\JsonFileService.cs" />
     <Compile Include="Models\Base\Model.cs" />
     <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Pages\FirstPageTest.xaml.cs">
+      <DependentUpon>FirstPageTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SecondPageTest.xaml.cs">
+      <DependentUpon>SecondPageTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StartPageTest.xaml.cs">
+      <DependentUpon>StartPageTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
+    <Compile Include="ViewModels\FirstPageTestViewModel.cs" />
     <Compile Include="ViewModels\PasswordChangedViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\QuestionDataGridViewModel.cs" />
     <Compile Include="ViewModels\QuestionWindowViewModel.cs" />
+    <Compile Include="ViewModels\SecondPageTestViewModel.cs" />
     <Compile Include="ViewModels\SettingWindowViewModel.cs" />
+    <Compile Include="ViewModels\StartPageTestViewModel.cs" />
     <Compile Include="ViewModels\UpdateQuestionViewModel.cs" />
     <Compile Include="Views\AddQuestionWindow.xaml.cs">
       <DependentUpon>AddQuestionWindow.xaml</DependentUpon>
@@ -89,6 +102,18 @@
     <Compile Include="Views\UpdateQuestionWindow.xaml.cs">
       <DependentUpon>UpdateQuestionWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Pages\FirstPageTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SecondPageTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StartPageTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddQuestionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

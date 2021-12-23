@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestM.Command;
+using TestM.Pages;
 using TestM.ViewModels.Base;
 using TestM.Views;
 
@@ -58,6 +59,18 @@ namespace TestM.ViewModels
                 {
                     MainWindow wnd = obj as MainWindow;
                     wnd.Close();
+                }));
+            }
+        }
+        private RelayCommand startTest;
+        public RelayCommand StartTest
+        {
+            get
+            {
+                return startTest ?? (startTest = new RelayCommand(obj =>
+                {
+                    MainWindow wnd = obj as MainWindow;
+                    wnd.MainFrame.Content = new StartPageTest(wnd);
                 }));
             }
         }

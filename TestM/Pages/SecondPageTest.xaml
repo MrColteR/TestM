@@ -1,0 +1,14 @@
+﻿<Page x:Class="TestM.Pages.SecondPageTest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestM.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="425" d:DesignWidth="890"
+      Title="SecondPageTest">
+
+    <Grid Background="Wheat">
+        
+    </Grid>
+</Page>

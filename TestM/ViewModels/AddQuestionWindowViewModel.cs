@@ -40,13 +40,14 @@ namespace TestM.ViewModels
                 }));
             }
         }
-        private RelayCommand save;
-        public RelayCommand Save
+        private RelayCommand addQuestion;
+        public RelayCommand AddQuestion
         {
             get
             {
-                return save ?? (save = new RelayCommand(obj =>
+                return addQuestion ?? (addQuestion = new RelayCommand(obj =>
                 {
+                    AddQuestionWindow wnd = obj as AddQuestionWindow;
                     checkAnswerButton = false;
                     checkTypeButton = false;
                     ObservableCollection<QuestionModel> models = new ObservableCollection<QuestionModel>() { };
@@ -61,6 +62,13 @@ namespace TestM.ViewModels
                         AnswerD = AnswerD,
                         RightAnswer = RightAnswer
                     });
+                    wnd.Question.Clear();
+                    wnd.AnswerATextBox.Clear();
+                    wnd.AnswerBTextBox.Clear();
+                    wnd.AnswerCTextBox.Clear();
+                    wnd.AnswerDTextBox.Clear();
+                    wnd.TypeButton.Content = "";
+                    wnd.RightAnswerButton.Content = "";
                 }));
             }
         }

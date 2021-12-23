@@ -114,7 +114,9 @@ namespace TestM.ViewModels
             {
                 return saveFile ?? (saveFile = new RelayCommand(obj =>
                 {
+                    QuestionWindow wnd = obj as QuestionWindow;
                     fileService.Save(fileName, ItemsSource);
+                    wnd.Close();
                 }));
             }
         }

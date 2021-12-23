@@ -172,7 +172,7 @@
                     Grid.Column="1">
             <Button Content="Save"
                     Command="{Binding SaveFile}"
-                    CommandParameter="{Binding}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource ChildrenToolBarRightButton}"/>
             <Button Content="Back"
                     Command="{Binding CloseQuestionWindow}"
