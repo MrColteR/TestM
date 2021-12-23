@@ -12,8 +12,54 @@ namespace TestM.ViewModels
     {
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+        private bool checkWindowState = false;
         IFileService fileService;
         #region Commands
+        private RelayCommand minimizeWindow;
+        public RelayCommand MinimizeWindow
+        {
+            get
+            {
+                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
+                {
+                    QuestionWindow wnd = obj as QuestionWindow;
+                    wnd.WindowState = System.Windows.WindowState.Minimized;
+                }));
+            }
+        }
+        private RelayCommand windowStateButton;
+        public RelayCommand WindowStateButton
+        {
+            get
+            {
+                return windowStateButton ?? (windowStateButton = new RelayCommand(obj =>
+                {
+                    QuestionWindow wnd = obj as QuestionWindow;
+                    if (checkWindowState)
+                    {
+                        wnd.WindowState = System.Windows.WindowState.Normal;
+                        checkWindowState = false;
+                    }
+                    else if (!checkWindowState)
+                    {
+                        wnd.WindowState = System.Windows.WindowState.Maximized;
+                        checkWindowState = true;
+                    }
+                }));
+            }
+        }
+        private RelayCommand closeWindow;
+        public RelayCommand CloseWindow
+        {
+            get
+            {
+                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
+                {
+                    QuestionWindow wnd = obj as QuestionWindow;
+                    wnd.Close();
+                }));
+            }
+        }
         private RelayCommand addQuestion;
         public RelayCommand AddQuestion
         {
