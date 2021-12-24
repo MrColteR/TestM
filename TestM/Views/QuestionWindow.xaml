@@ -72,7 +72,6 @@
             <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         </Style>
         <Style x:Key="DataGridCell" TargetType="DataGridCell">
             <Setter Property="Background" Value="#93CCEA"/>
@@ -189,25 +188,22 @@
                   Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Тип вопроса"
-                                    Width="0.55*"
+                                    Width="99"
                                     Binding="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Вопрос"
-                                    Width="2*"
+                                    Width="320"
                                     Binding="{Binding Question, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Ответ А"
-                                    Width="1.2*"
+                                    Width="320"
                                     Binding="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Ответ Б"
-                                    Width="1.2*"
+                                    Width="320"
                                     Binding="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Ответ В"
-                                    Width="1.2*"
+                                    Width="320"
                                     Binding="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Ответ Г"
-                                    Width="1.2*"
-                                    Binding="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Ответ"
-                                    Width="0.27*"
+                                    Width="99"
                                     Binding="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>

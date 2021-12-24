@@ -59,14 +59,12 @@ namespace TestM.ViewModels
                         AnswerA = AnswerA,
                         AnswerB = AnswerB,
                         AnswerC = AnswerC,
-                        AnswerD = AnswerD,
                         RightAnswer = RightAnswer
                     });
                     wnd.Question.Clear();
                     wnd.AnswerATextBox.Clear();
                     wnd.AnswerBTextBox.Clear();
                     wnd.AnswerCTextBox.Clear();
-                    wnd.AnswerDTextBox.Clear();
                     wnd.TypeButton.Content = "";
                     wnd.RightAnswerButton.Content = "";
                 }));
@@ -188,11 +186,6 @@ namespace TestM.ViewModels
                         wnd.RightAnswerButton.Content = wnd.AnswerC.Content;
                         RightAnswer = wnd.AnswerC.Content.ToString();
                     }
-                    if (wnd.AnswerD.IsFocused)
-                    {
-                        wnd.RightAnswerButton.Content = wnd.AnswerD.Content;
-                        RightAnswer = wnd.AnswerD.Content.ToString();
-                    }
                     checkAnswerButton = false;
                 }));
             }
@@ -204,7 +197,6 @@ namespace TestM.ViewModels
         private string answerA;
         private string answerB;
         private string answerC;
-        private string answerD;
         private string rightAnswer;
         public string Question
         {
@@ -247,14 +239,6 @@ namespace TestM.ViewModels
             set
             {
                 answerC = value;
-            }
-        }
-        public string AnswerD
-        {
-            get { return answerD; }
-            set
-            {
-                answerD = value;
             }
         }
         public string RightAnswer

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestM.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="425" d:DesignWidth="890"
+      d:DesignHeight="475" d:DesignWidth="1190"
       Title="StartPageTest">
     <Page.Resources>
         <Style x:Key="TextBlock" TargetType="TextBlock">
@@ -86,9 +86,7 @@
             <Setter Property="Width" Value="120"/>
         </Style>
     </Page.Resources>
-    <Grid Background="Transparent"
-          Width="890"
-          Height="425">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -100,19 +98,19 @@
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="0"
-                   Text="Введите ФИО"/>
+                   Text="ФИО"/>
         <TextBox Style="{StaticResource TextBox}"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="1"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="2"
-                   Text="Введите подразделение"/>
+                   Text="Подразделение"/>
         <TextBox Style="{StaticResource TextBox}"
                  Text="{Binding Subdivision, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="3"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="4"
-                   Text="Введите дату проведение теста"/>
+                   Text="Дата проведения теста"/>
         <TextBox Style="{StaticResource TextBox}"
                  Text="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="5"/>

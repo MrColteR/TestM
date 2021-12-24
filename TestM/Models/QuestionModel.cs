@@ -11,7 +11,6 @@ namespace TestM.Models
         private string answerA;
         private string answerB;
         private string answerC;
-        private string answerD;
         private string rightAnswer;
         [DataMember]
         public string Question
@@ -61,16 +60,6 @@ namespace TestM.Models
             {
                 answerC = value;
                 OnPropertyChanged(nameof(AnswerC)); 
-            }
-        }
-        [DataMember]
-        public string AnswerD
-        {
-            get { return answerD; }
-            set 
-            {
-                answerD = value;
-                OnPropertyChanged(nameof(AnswerD));
             }
         }
         [DataMember]

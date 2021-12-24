@@ -53,15 +53,6 @@ namespace TestM.ViewModels
                 OnPropertyChanged(nameof(AnswerC));
             }
         }
-        public string AnswerD
-        {
-            get { return model.AnswerD; }
-            set
-            {
-                model.AnswerD = value;
-                OnPropertyChanged(nameof(AnswerD));
-            }
-        }
         public string RightAnswer
         {
             get { return model.RightAnswer; }
@@ -72,7 +63,7 @@ namespace TestM.ViewModels
             }
         }
         public ObservableCollection<QuestionModel> Data { get; set; }
-#endregion
+        #endregion
         public QuestionDataGridViewModel(ObservableCollection<QuestionModel> Data, QuestionModel model)
         {
             this.model = model;

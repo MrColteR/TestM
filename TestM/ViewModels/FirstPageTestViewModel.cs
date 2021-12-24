@@ -138,11 +138,6 @@ namespace TestM.ViewModels
                         page.QuestionFirstButton.Content = page.AnswerFirstC.Content;
                         AnswerFirst = "В";
                     }
-                    if (page.AnswerFirstD.IsFocused)
-                    {
-                        page.QuestionFirstButton.Content = page.AnswerFirstD.Content;
-                        AnswerFirst = "Г";
-                    }
                     checkAnswerFirstButton = false;
                 }));
             }
@@ -170,11 +165,6 @@ namespace TestM.ViewModels
                     {
                         page.QuestionSecondButton.Content = page.AnswerSecondC.Content;
                         AnswerSecond = "В";
-                    }
-                    if (page.AnswerSecondD.IsFocused)
-                    {
-                        page.QuestionSecondButton.Content = page.AnswerSecondD.Content;
-                        AnswerSecond = "Г";
                     }
                     checkAnswerSecondButton = false;
                 }));
@@ -204,11 +194,6 @@ namespace TestM.ViewModels
                         page.QuestionThirdButton.Content = page.AnswerThirdC.Content;
                         AnswerThird = "В";
                     }
-                    if (page.AnswerThirdD.IsFocused)
-                    {
-                        page.QuestionThirdButton.Content = page.AnswerThirdD.Content;
-                        AnswerThird = "Г";
-                    }
                     checkAnswerThirdButton = false;
                 }));
             }
@@ -236,11 +221,6 @@ namespace TestM.ViewModels
                     {
                         page.QuestionFourthButton.Content = page.AnswerFourthC.Content;
                         AnswerFourth = "В";
-                    }
-                    if (page.AnswerFourthD.IsFocused)
-                    {
-                        page.QuestionFourthButton.Content = page.AnswerFourthD.Content;
-                        AnswerFourth = "Г";
                     }
                     checkAnswerFourthButton = false;
                 }));
@@ -275,7 +255,6 @@ namespace TestM.ViewModels
         public string AnswerFirstA { get { return questionSortList[questionFirst].AnswerA; } }
         public string AnswerFirstB { get { return questionSortList[questionFirst].AnswerB; } }
         public string AnswerFirstC { get { return questionSortList[questionFirst].AnswerC; } }
-        public string AnswerFirstD { get { return questionSortList[questionFirst].AnswerD; } }
         public string AnswerSecond
         {
             get { return "Выберите вариант ответа"; }
@@ -284,7 +263,6 @@ namespace TestM.ViewModels
         public string AnswerSecondA { get { return questionSortList[questionSecond].AnswerA; } }
         public string AnswerSecondB { get { return questionSortList[questionSecond].AnswerB; } }
         public string AnswerSecondC { get { return questionSortList[questionSecond].AnswerC; } }
-        public string AnswerSecondD { get { return questionSortList[questionSecond].AnswerD; } }
         public string AnswerThird
         {
             get { return "Выберите вариант ответа"; }
@@ -293,7 +271,6 @@ namespace TestM.ViewModels
         public string AnswerThirdA { get { return questionSortList[questionThird].AnswerA; } }
         public string AnswerThirdB { get { return questionSortList[questionThird].AnswerB; } }
         public string AnswerThirdC { get { return questionSortList[questionThird].AnswerC; } }
-        public string AnswerThirdD { get { return questionSortList[questionThird].AnswerD; } }
         public string AnswerFourth
         {
             get { return "Выберите вариант ответа"; }
@@ -302,13 +279,12 @@ namespace TestM.ViewModels
         public string AnswerFourthA { get { return questionSortList[questionFourth].AnswerA; } }
         public string AnswerFourthB { get { return questionSortList[questionFourth].AnswerB; } }
         public string AnswerFourthC { get { return questionSortList[questionFourth].AnswerC; } }
-        public string AnswerFourthD { get { return questionSortList[questionFourth].AnswerD; } }
         #endregion
         public FirstPageTestViewModel(MainWindow window)
         {
             this.window = window;
             SortList();
-            GetRandomNumber();
+            GetRandomIndex();
         }
         private void SortList()
         {
@@ -322,11 +298,10 @@ namespace TestM.ViewModels
                 }
             }
         }
-        private void GetRandomNumber()
+        private void GetRandomIndex()
         {
             Random random = new Random();
             int[] numb = Enumerable.Range(0, questionSortList.Count).ToArray();
-
             for (int i = numb.Length - 1; i > 0; i--)
             {
                 int j = random.Next(i);

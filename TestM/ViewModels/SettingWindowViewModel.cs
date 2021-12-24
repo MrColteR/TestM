@@ -37,19 +37,6 @@ namespace TestM.ViewModels
                 }));
             }
         }
-        //private RelayCommand changePassword;
-        //public RelayCommand ChangePassword
-        //{
-        //    get
-        //    {
-        //        return changePassword ?? (changePassword = new RelayCommand(obj =>
-        //        {
-        //            SettingWindow a = obj as SettingWindow;
-        //            var oldP = a.PasswordBoxOld.Password;
-        //            var newP = a.PasswordBoxNew.Password;
-        //        }));
-        //    }
-        //}
         #endregion
         public void CheckUserPassword(string oldPassword, string newPassword, SettingWindow settingWindow)
         {

@@ -8,7 +8,7 @@
         BorderBrush="black"
         BorderThickness="1"
         WindowStartupLocation="CenterScreen"
-        Title="UpdateQuestionWindow" Height="635" Width="400" WindowStyle="None" ResizeMode="NoResize">
+        Title="UpdateQuestionWindow" Height="555" Width="400" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="PaternButton" TargetType="Button">
             <Style.Setters>
@@ -150,8 +150,6 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
@@ -207,28 +205,22 @@
         <TextBox Style="{StaticResource TextBox}"
                  Grid.Row="10"
                  Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Style="{StaticResource TextBlock}" 
-                   Grid.Row="11"
-                   Text="Ответ Г"/>
-        <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="12"
-                 Text="{Binding AnswerD, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Text="Правильный ответ"
-                   Grid.Row="13"/>
+                   Grid.Row="11"/>
         <Button Style="{StaticResource ChldrenComboBoxButton}"
                 Name="RightAnswerButton"
-                Grid.Row="14" 
+                Grid.Row="12" 
                 Content="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"
                 Command="{Binding OpenComboBoxAnswer}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
         <Button Style="{StaticResource ChildrenLeftButton}"
-                Grid.Row="15"
+                Grid.Row="13"
                 Command="{Binding Save}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Content="Изменить"/>
         <Button Style="{StaticResource ChildrenRightButton}"
-                Grid.Row="15"
+                Grid.Row="13"
                 Command="{Binding Close}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Content="Отмена"/>
@@ -268,15 +260,15 @@
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="10"
+        <Grid Grid.Row="8"
               Grid.RowSpan="6"
               Name="GridComboBoxRihgtAnswer"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
               Background="Transparent"
-              Margin="0,0,0,60"
+              Margin="0,0,0,30"
               Visibility="Hidden">
-            <Rectangle Height="126" Width="360" Margin="1,1,1,1" Fill="#1E90FF"/>
+            <Rectangle Height="96" Width="360" Margin="1,1,1,1" Fill="#1E90FF"/>
             <StackPanel Orientation="Vertical" Margin="1,1,1,1">
                 <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
                         Name="AnswerA"
@@ -291,11 +283,6 @@
                 <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
                         Name="AnswerC"
                         Content="В"
-                        Command="{Binding ChoiceAnswer}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerD"
-                        Content="Г"
                         Command="{Binding ChoiceAnswer}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
             </StackPanel>

@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         BorderBrush="black"
         BorderThickness="1"
-        Title="MainWindow" Height="500" Width="900" ResizeMode="NoResize" WindowStyle="None">
+        Title="MainWindow" Height="550" Width="1200" ResizeMode="NoResize" WindowStyle="None">
     <Window.Resources>
         <Style x:Key="PaternButton" TargetType="Button">
             <Style.Setters>

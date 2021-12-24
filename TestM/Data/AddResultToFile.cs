@@ -15,6 +15,7 @@ namespace TestM.Data
         {
             using (StreamWriter sw = new StreamWriter(fileResult, true))
             {
+                sw.WriteLine();
                 sw.Write(" ");
                 sw.Write(name);
                 sw.Write(" ");

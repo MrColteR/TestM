@@ -58,7 +58,6 @@ namespace TestM.ViewModels
                     SelectedItem.AnswerA = answerA;
                     SelectedItem.AnswerB = answerB;
                     SelectedItem.AnswerC = answerC;
-                    SelectedItem.AnswerD = answerD;
                     SelectedItem.TypeQuestion = typeQuestion;
                     SelectedItem.RightAnswer = rightAnswer;
                     UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
@@ -170,11 +169,6 @@ namespace TestM.ViewModels
                         wnd.RightAnswerButton.Content = wnd.AnswerC.Content;
                         RightAnswer = wnd.AnswerC.Content.ToString();
                     }
-                    if (wnd.AnswerD.IsFocused)
-                    {
-                        wnd.RightAnswerButton.Content = wnd.AnswerD.Content;
-                        RightAnswer = wnd.AnswerD.Content.ToString();
-                    }
                     checkAnswerButton = false;
                 }));
             }
@@ -185,7 +179,6 @@ namespace TestM.ViewModels
         private string answerA;
         private string answerB;
         private string answerC;
-        private string answerD;
         private string typeQuestion;
         private string rightAnswer;
         public string Question
@@ -228,14 +221,6 @@ namespace TestM.ViewModels
                 SelectedItem.AnswerC = value;
             }
         }
-        public string AnswerD
-        {
-            get { return SelectedItem.AnswerD; }
-            set
-            {
-                SelectedItem.AnswerD = value;
-            }
-        }
         public string RightAnswer
         {
             get { return SelectedItem.RightAnswer; }
@@ -253,7 +238,6 @@ namespace TestM.ViewModels
             answerA = SelectedItem.AnswerA;
             answerB = SelectedItem.AnswerB;
             answerC = SelectedItem.AnswerC;
-            answerD = SelectedItem.AnswerD;
             typeQuestion = SelectedItem.TypeQuestion;
             rightAnswer = SelectedItem.RightAnswer;
         }

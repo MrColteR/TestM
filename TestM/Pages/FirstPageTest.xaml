@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestM.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="425" d:DesignWidth="890"
+      d:DesignHeight="455" d:DesignWidth="1190"
       Title="FirstPageTest">
     <Page.Resources>
         <Style x:Key="TextBlock" TargetType="TextBlock">
@@ -13,7 +13,7 @@
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="Width" Value="870"/>
+                <Setter Property="Width" Value="1170"/>
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -59,21 +59,21 @@
             <Setter Property="Width" Value="250"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
-        <Style x:Key="ChildrenStackPanelButtonDown" TargetType="Button" BasedOn="{StaticResource PaternButton}">
+        <Style x:Key="ChildrenStackPanelButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="1,1,1,0"/>
+            <Setter Property="Margin" Value="0,1,0,0"/>
         </Style>
         <Style x:Key="ChildrenNextPageButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
-            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Margin" Value="0,0,20,20"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
     </Page.Resources>
-    <Grid Background="Transparent">
+    <Grid Background="Wheat">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="40"/>
@@ -131,28 +131,23 @@
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
               Background="Transparent"
-              Margin="9,0,0,0"
+              Margin="9,-5,0,0"
               Visibility="Hidden">
-            <Rectangle Height="126" Width="360" Margin="1,1,1,1" Fill="#1E90FF"/>
+            <Rectangle Height="96" Width="360" Margin="1,1,1,1" Fill="Transparent"/>
             <StackPanel Orientation="Vertical" Margin="1,1,1,1">
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerFirstA"
                         Content="{Binding AnswerFirstA}"
                         Command="{Binding ChoiceAnswerFirst}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerFirstB"
                         Content="{Binding AnswerFirstB}"
                         Command="{Binding ChoiceAnswerFirst}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerFirstC"
                         Content="{Binding AnswerFirstC}"
-                        Command="{Binding ChoiceAnswerFirst}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerFirstD"
-                        Content="{Binding AnswerFirstD}"
                         Command="{Binding ChoiceAnswerFirst}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
             </StackPanel>
@@ -163,28 +158,23 @@
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
               Background="Transparent"
-              Margin="9,0,0,0"
+              Margin="9,-5,0,0"
               Visibility="Hidden">
-            <Rectangle Height="126" Width="360" Margin="1,1,1,1" Fill="#1E90FF"/>
+            <Rectangle Height="96" Width="360" Margin="1,1,1,1" Fill="Transparent"/>
             <StackPanel Orientation="Vertical" Margin="1,1,1,1">
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerSecondA"
                         Content="{Binding AnswerSecondA}"
                         Command="{Binding ChoiceAnswerSecond}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerSecondB"
                         Content="{Binding AnswerSecondB}"
                         Command="{Binding ChoiceAnswerSecond}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerSecondC"
                         Content="{Binding AnswerSecondC}"
-                        Command="{Binding ChoiceAnswerSecond}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerSecondD"
-                        Content="{Binding AnswerSecondD}"
                         Command="{Binding ChoiceAnswerSecond}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
             </StackPanel>
@@ -195,60 +185,50 @@
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
               Background="Transparent"
-              Margin="9,0,0,0"
+              Margin="9,-5,0,0"
               Visibility="Hidden">
-            <Rectangle Height="126" Width="360" Margin="1,1,1,1" Fill="#1E90FF"/>
+            <Rectangle Height="96" Width="360" Margin="1,1,1,1" Fill="Transparent"/>
             <StackPanel Orientation="Vertical" Margin="1,1,1,1">
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerThirdA"
                         Content="{Binding AnswerThirdA}"
                         Command="{Binding ChoiceAnswerThird}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerThirdB"
                         Content="{Binding AnswerThirdB}"
                         Command="{Binding ChoiceAnswerThird}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerThirdC"
                         Content="{Binding AnswerThirdC}"
                         Command="{Binding ChoiceAnswerThird}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerThirdD"
-                        Content="{Binding AnswerThirdD}"
-                        Command="{Binding ChoiceAnswerThird}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="4"
+        <Grid Grid.Row="7"
               Grid.RowSpan="3"
               Name="GridComboBoxRihgtAnswerFourth"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
               Background="Transparent"
-              Margin="9,12,0,0"
+              Margin="9,35,0,0"
               Visibility="Hidden">
-            <Rectangle Height="126" Width="360" Margin="1,1,1,1" Fill="#1E90FF"/>
+            <Rectangle Height="96" Width="360" Margin="1,1,1,1" Fill="Transparent"/>
             <StackPanel Orientation="Vertical" Margin="1,1,1,1">
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerFourthA"
                         Content="{Binding AnswerFourthA}"
                         Command="{Binding ChoiceAnswerFourth}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerFourthB"
                         Content="{Binding AnswerFourthB}"
                         Command="{Binding ChoiceAnswerFourth}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
+                <Button Style="{StaticResource ChildrenStackPanelButton}"
                         Name="AnswerFourthC"
                         Content="{Binding AnswerFourthC}"
-                        Command="{Binding ChoiceAnswerFourth}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerFourthD"
-                        Content="{Binding AnswerFourthD}"
                         Command="{Binding ChoiceAnswerFourth}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Page}}}"/>
             </StackPanel>
