@@ -31,5 +31,46 @@ namespace TestM.Data
                 jsonFormatter.WriteObject(fs, itemsList);
             }
         }
+        
+        public ActualQuestion OpenIndex(string filename)
+        {
+            ActualQuestion item = new ActualQuestion();
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
+            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            {
+                item = jsonFormatter.ReadObject(fs) as ActualQuestion;
+            }
+            return item;
+        }
+
+        public void SaveIndexFirst(string filename, ActualQuestion item)
+        {
+            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
+            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            {
+                jsonFormatter.WriteObject(fs, item);
+            }
+        }
+        public void SaveIndex(string filename)
+        {
+            ActualQuestion numberInFile = OpenIndex(filename);
+            if (numberInFile.Index != 19)
+            {
+                numberInFile.Index++;
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
+                using (FileStream fs = new FileStream(filename, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, numberInFile);
+                }
+            }
+            else 
+            {
+                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
+                using (FileStream fs = new FileStream(filename, FileMode.Create))
+                {
+                    jsonFormatter.WriteObject(fs, 0);
+                }
+            }
+        }
     }
 }

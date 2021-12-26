@@ -6,12 +6,12 @@ namespace TestM.Pages
     /// <summary>
     /// Логика взаимодействия для FirstPageTest.xaml
     /// </summary>
-    public partial class FirstPageTest : Page
+    public partial class PageTest : Page
     {
-        public FirstPageTest(MainWindow window)
+        public PageTest()
         {
             InitializeComponent();
-            DataContext = new FirstPageTestViewModel(window);
+            DataContext = new PageTestViewModel();
         }
     }
 }

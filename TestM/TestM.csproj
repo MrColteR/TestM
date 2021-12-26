@@ -64,18 +64,19 @@
     <Compile Include="Data\Base\IFileService.cs" />
     <Compile Include="Data\JsonFileService.cs" />
     <Compile Include="Models\Base\Model.cs" />
+    <Compile Include="Models\ActualQuestion.cs" />
     <Compile Include="Models\QuestionModel.cs" />
-    <Compile Include="Pages\FirstPageTest.xaml.cs">
-      <DependentUpon>FirstPageTest.xaml</DependentUpon>
+    <Compile Include="Pages\LastPageTest.xaml.cs">
+      <DependentUpon>LastPageTest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SecondPageTest.xaml.cs">
-      <DependentUpon>SecondPageTest.xaml</DependentUpon>
+    <Compile Include="Pages\PageTest.xaml.cs">
+      <DependentUpon>PageTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\StartPageTest.xaml.cs">
       <DependentUpon>StartPageTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
-    <Compile Include="ViewModels\FirstPageTestViewModel.cs" />
+    <Compile Include="ViewModels\PageTestViewModel.cs" />
     <Compile Include="ViewModels\PasswordChangedViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\QuestionDataGridViewModel.cs" />
@@ -102,11 +103,11 @@
     <Compile Include="Views\UpdateQuestionWindow.xaml.cs">
       <DependentUpon>UpdateQuestionWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Pages\FirstPageTest.xaml">
+    <Page Include="Pages\LastPageTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SecondPageTest.xaml">
+    <Page Include="Pages\PageTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

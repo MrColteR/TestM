@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestM.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="475" d:DesignWidth="1190"
+      d:DesignHeight="435" d:DesignWidth="1190"
       Title="StartPageTest">
     <Page.Resources>
         <Style x:Key="TextBlock" TargetType="TextBlock">
@@ -81,6 +81,7 @@
         <Style x:Key="ChildrenNextPageButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Margin" Value="0,0,20,20"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
@@ -114,9 +115,10 @@
         <TextBox Style="{StaticResource TextBox}"
                  Text="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="5"/>
-        <Button Style="{StaticResource ChildrenNextPageButton}"
+        <!--<Button Style="{StaticResource ChildrenNextPageButton}"
                 Command="{Binding StartTest}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Grid.Row="6"
-                Content="Начать тест"/>
+                Content="Начать тест"/>-->
     </Grid>
 </Page>

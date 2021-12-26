@@ -8,10 +8,10 @@ namespace TestM.Pages
     /// </summary>
     public partial class StartPageTest : Page
     {
-        public StartPageTest(MainWindow window)
+        public StartPageTest()
         {
             InitializeComponent();
-            DataContext = new StartPageTestViewModel(window);
+            DataContext = new StartPageTestViewModel();
         }
     }
 }

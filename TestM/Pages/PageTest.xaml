@@ -1,0 +1,123 @@
+﻿<Page x:Class="TestM.Pages.PageTest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TestM.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="435" d:DesignWidth="1190"
+      Title="PageTest">
+    <Page.Resources>
+        <!--<Style x:Key="TextBlock" TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Width" Value="1170"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="10,0,10,0"/>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="TextBlockButton" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="1200"/>
+            <Setter Property="TextAlignment" Value="Left"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>-->
+        <Style x:Key="PaternButton" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="#93CCEA"/>
+                <Setter Property="BorderBrush" Value="Black"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#8FE9FA"/>
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#00A1E1"/>
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+        <Style x:Key="ChildrenNextPageButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="0,0,20,20"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="PatternRadioButton" TargetType="RadioButton">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,5,5,0"/>
+            <Setter Property="Width" Value="1180"/>
+        </Style>
+        <Style x:Key="TextBlock" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style x:Key="TextBlockQuestion" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Page.Resources>
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="{Binding QuestionFirst}"
+                       Style="{StaticResource TextBlockQuestion}"/>
+            <RadioButton Name="FirstRadioButton"
+                         GroupName="FirstQuestion"
+                         Style="{StaticResource PatternRadioButton}"
+                         Command="{Binding FirstAnswer}">
+                <TextBlock Name="FirstAnswer"
+                           Text="{Binding AnswerFirst}"
+                           Style="{StaticResource TextBlock}"/>
+            </RadioButton>
+            <RadioButton Name="SecondRadioButton"
+                         GroupName="FirstQuestion"
+                         Style="{StaticResource PatternRadioButton}"
+                         Command="{Binding SecondAnswer}">
+                <TextBlock Name="SecondAnswer"
+                           Text="{Binding AnswerSecond}"
+                           Style="{StaticResource TextBlock}"/>
+            </RadioButton>
+            <RadioButton Name="ThirdRadioButton"
+                         GroupName="FirstQuestion"
+                         Style="{StaticResource PatternRadioButton}"
+                         Command="{Binding ThirdAnswer}">
+                <TextBlock Name="ThirdAnswer" 
+                           Text="{Binding AnswerThird}"
+                           Style="{StaticResource TextBlock}"/>
+            </RadioButton>
+        </StackPanel>
+        <TextBlock Name="RigntAnswer"
+                   Grid.Row="2"
+                   Text="{Binding RightAnswer}"
+                   Visibility="Hidden"/>
+    </Grid>
+</Page>

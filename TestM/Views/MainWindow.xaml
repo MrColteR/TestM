@@ -69,10 +69,18 @@
         <Style x:Key="ChildrenButtonRight" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Style.Setters>
                 <Setter Property="Height" Value="30"/>
-                <Setter Property="Width" Value="120"/>
+                <Setter Property="Width" Value="130"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Margin" Value="0,5,5,5"/>
+                <Setter Property="FontSize" Value="16"/>
             </Style.Setters>
+        </Style>
+        <Style x:Key="ChildrenFrameButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,5,10,5"/>
         </Style>
         <Style x:Key="PatternIcon" TargetType="Image">
             <Style.Setters>
@@ -98,7 +106,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="435"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid Name="Header"
               Grid.Row="0"
@@ -156,11 +165,45 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid Name="TestFrame"
+        <Grid Name="Frame"
               Grid.Row="2"
               Grid.ColumnSpan="2"
               Margin="5">
-            <Frame Name="MainFrame" NavigationUIVisibility="Hidden"/>
+            <Frame Name="MainFrame" 
+                   NavigationUIVisibility="Hidden"
+                   Content="{Binding CurrentPage}"/>
+        </Grid>
+        <Grid Name="FrameButton"
+              Grid.Row="3"
+              Grid.Column="1">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Name="PreviousPageButton"
+                        Style="{StaticResource ChildrenFrameButton}"
+                        Content="Назад"
+                        Command="{Binding PreviousPage}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Visibility="Hidden"/>
+                <Button Name="NextPageButton"
+                        Style="{StaticResource ChildrenFrameButton}"
+                        Content="Вперед"
+                        Command="{Binding NextPage}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Visibility="Hidden"/>
+            </StackPanel>
+        </Grid>
+        <Grid Name="FrameButtonEndTest"
+              Grid.Row="3"
+              Grid.Column="1">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Name="EndTestButton"
+                        Style="{StaticResource ChildrenFrameButton}"
+                        Content="Закончить тест"
+                        Command="{Binding Scoring}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Visibility="Hidden"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>
