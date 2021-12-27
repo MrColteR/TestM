@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using TestM.Command;
-using TestM.Data.Base;
+using TestM.Data;
 using TestM.Models;
 using TestM.ViewModels.Base;
 using TestM.Views;
@@ -10,11 +10,13 @@ namespace TestM.ViewModels
 {
     public class AddQuestionWindowViewModel : ViewModel
     {
-        IFileService fileService;
-        private bool checkTypeButton = false;
-        private bool checkAnswerButton = false;
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+
+        JsonFileService fileService;
+
+        private bool checkTypeButton = false;
+        private bool checkAnswerButton = false;
         #region Commands
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow
@@ -47,7 +49,6 @@ namespace TestM.ViewModels
             {
                 return addQuestion ?? (addQuestion = new RelayCommand(obj =>
                 {
-                    AddQuestionWindow wnd = obj as AddQuestionWindow;
                     checkAnswerButton = false;
                     checkTypeButton = false;
                     ObservableCollection<QuestionModel> models = new ObservableCollection<QuestionModel>() { };
@@ -61,6 +62,8 @@ namespace TestM.ViewModels
                         AnswerC = AnswerC,
                         RightAnswer = RightAnswer
                     });
+
+                    AddQuestionWindow wnd = obj as AddQuestionWindow;
                     wnd.Question.Clear();
                     wnd.AnswerATextBox.Clear();
                     wnd.AnswerBTextBox.Clear();
@@ -200,63 +203,39 @@ namespace TestM.ViewModels
         private string rightAnswer;
         public string Question
         {
-            get { return question; }
-            set
-            {
-                question = value;
-            }
+            get => question;
+            set => question = value;
         }
         public string TypeQuestion
         {
-            get 
-            {
-                return typeQuestion; 
-            }
-            set
-            {
-                typeQuestion = value;
-            }
+            get => typeQuestion;
+            set => typeQuestion = value;
         }
         public string AnswerA
         {
-            get { return answerA; }
-            set
-            {
-                answerA = value;
-            }
+            get => answerA;
+            set => answerA = value;
         }
         public string AnswerB
         {
-            get { return answerB; }
-            set
-            {
-                answerB = value;
-            }
+            get => answerB;
+            set => answerB = value;
         }
         public string AnswerC
         {
-            get { return answerC; }
-            set
-            {
-                answerC = value;
-            }
+            get => answerC;
+            set => answerC = value;
         }
         public string RightAnswer
         {
-            get 
-            {
-                return rightAnswer; 
-            }
-            set
-            {
-                rightAnswer = value;
-            }
+            get => rightAnswer;
+            set => rightAnswer = value;
         }
         public ObservableCollection<QuestionModel> Data { get; set; }
         #endregion
-        public AddQuestionWindowViewModel(QuestionWindowViewModel data, IFileService fileService)
+        public AddQuestionWindowViewModel(QuestionWindowViewModel data)
         {
-            this.fileService = fileService;
+            fileService = new JsonFileService();
             Data = data.ItemsSource;
         }
     }

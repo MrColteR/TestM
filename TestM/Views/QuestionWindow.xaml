@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM"
         mc:Ignorable="d"
+        BorderBrush="Black"
+        BorderThickness="1"
         WindowStartupLocation="CenterScreen"
         Title="QuestionWindow" Height="500" Width="1500" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
@@ -72,6 +74,9 @@
             <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
         </Style>
         <Style x:Key="DataGridCell" TargetType="DataGridCell">
             <Setter Property="Background" Value="#93CCEA"/>
@@ -188,7 +193,7 @@
                   Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Тип вопроса"
-                                    Width="99"
+                                    Width="100"
                                     Binding="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Вопрос"
                                     Width="320"
@@ -203,7 +208,7 @@
                                     Width="320"
                                     Binding="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Ответ"
-                                    Width="99"
+                                    Width="100"
                                     Binding="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>

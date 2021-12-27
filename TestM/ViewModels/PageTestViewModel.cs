@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestM.Command;
 using TestM.Data;
 using TestM.Models;
-using TestM.Pages;
 using TestM.ViewModels.Base;
 
 namespace TestM.ViewModels
@@ -19,12 +13,11 @@ namespace TestM.ViewModels
         private readonly string fileActualQuestion = path.Substring(0, path.IndexOf("bin")) + "ActualQuestion.json";
         private readonly string fileIndex = path.Substring(0, path.IndexOf("bin")) + "Index.json";
 
-        private ObservableCollection<QuestionModel> question;
-        private ActualQuestion index;
+        private ObservableCollection<QuestionModel> questions;
+        private ActualQuestion actualQuestionModel;
+        JsonFileService service;
 
-        //private string rightAnswer;
-        //private int questionFirst;
-        #region Command
+        #region Commands
         private RelayCommand firstAnswer;
         public RelayCommand FirstAnswer
         {
@@ -60,50 +53,41 @@ namespace TestM.ViewModels
         }
         #endregion
         #region Property
-        public string QuestionFirst { get { return question[index.Index].Question; } }
-        private string answerFirst;
+        //private string answerFirst;
+        //private string answerSecond;
+        //private string answerThird; 
+        private string rightAnswer;
+        public string QuestionFirst => questions[actualQuestionModel.Index].Question;
         public string AnswerFirst
         {
-            get
-            {
-                return question[index.Index].AnswerA;
-            }
-            set
-            {
-                answerFirst = value; 
-            }
+            get => questions[actualQuestionModel.Index].AnswerA;
+            //set 
+            //{
+            //    answerFirst = value; 
+            //    OnPropertyChanged(nameof(AnswerFirst));
+            //}
         }
-        private string answerSecond;
-        public string AnswerSecond 
+        public string AnswerSecond
         {
-            get
-            {
-                return question[index.Index].AnswerB;
-            }
-            set
-            {
-                answerSecond = value;
-            }
+            get => questions[actualQuestionModel.Index].AnswerB;
+            //set
+            //{
+            //    answerSecond = value;
+            //    OnPropertyChanged(nameof(AnswerSecond)); 
+            //}
         }
-        private string answerThird;
         public string AnswerThird 
         {
-            get
-            {
-                return question[index.Index].AnswerC;
-            }
-            set
-            {
-                answerThird = value;
-            }
+            get => questions[actualQuestionModel.Index].AnswerC;
+            //set
+            //{
+            //    answerThird = value;
+            //    OnPropertyChanged(nameof(AnswerThird));
+            //}
         }
-        private string rightAnswer;
         public string RightAnswer
         {
-            get 
-            {
-                return rightAnswer; 
-            }
+            get => rightAnswer; 
             set
             {
                 rightAnswer = value;
@@ -113,9 +97,9 @@ namespace TestM.ViewModels
         #endregion
         public PageTestViewModel()
         {
-            JsonFileService service = new JsonFileService();
-            question = service.Open(fileActualQuestion);
-            index = service.OpenIndex(fileIndex);
+            service = new JsonFileService();
+            questions = service.Open(fileActualQuestion);
+            actualQuestionModel = service.OpenIndex(fileIndex);
             service.SaveIndex(fileIndex);
         }
     }

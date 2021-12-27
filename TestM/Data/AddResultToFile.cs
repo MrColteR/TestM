@@ -13,15 +13,36 @@ namespace TestM.Data
         private static string fileResult = path.Substring(0, path.IndexOf("bin")) + "Result.txt";
         public static void Write(string name, string subdivision, string date)
         {
+            bool IsEmpty = false;
+            using (StreamReader sr = new StreamReader(fileResult))
+            {
+                var temp = sr.ReadToEnd();
+                if (temp == "")
+                {
+                    IsEmpty = true;
+                }
+            }
             using (StreamWriter sw = new StreamWriter(fileResult, true))
             {
-                sw.WriteLine();
-                sw.Write(" ");
-                sw.Write(name);
-                sw.Write(" ");
-                sw.Write(subdivision);
-                sw.Write(" ");
-                sw.Write(date);
+                if (IsEmpty)
+                {
+                    sw.Write(name);
+                    sw.Write(" ");
+                    sw.Write(subdivision);
+                    sw.Write(" ");
+                    sw.Write(date);
+                    sw.Write(" ");
+                }
+                else
+                {
+                    sw.WriteLine();
+                    sw.Write(name);
+                    sw.Write(" ");
+                    sw.Write(subdivision);
+                    sw.Write(" ");
+                    sw.Write(date);
+                    sw.Write(" ");
+                }
             }
         }
     }

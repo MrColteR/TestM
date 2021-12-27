@@ -16,8 +16,15 @@ namespace TestM.Models
         [DataMember]
         public int Index
         {
-            get { return index; }
-            set { index = value; OnPropertyChanged(nameof(Index)); }
+            get 
+            {
+                return index;
+            }
+            set 
+            {
+                index = value;
+                OnPropertyChanged(nameof(Index)); 
+            }
         }
     }
 }

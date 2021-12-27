@@ -93,32 +93,21 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="0"
                    Text="ФИО"/>
-        <TextBox Style="{StaticResource TextBox}"
+        <TextBox Name="Name"
+                 Style="{StaticResource TextBox}"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="1"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="2"
                    Text="Подразделение"/>
-        <TextBox Style="{StaticResource TextBox}"
+        <TextBox Name="Subdivision"
+                 Style="{StaticResource TextBox}"
                  Text="{Binding Subdivision, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="3"/>
-        <TextBlock Style="{StaticResource TextBlock}"
-                   Grid.Row="4"
-                   Text="Дата проведения теста"/>
-        <TextBox Style="{StaticResource TextBox}"
-                 Text="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="5"/>
-        <!--<Button Style="{StaticResource ChildrenNextPageButton}"
-                Command="{Binding StartTest}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                Grid.Row="6"
-                Content="Начать тест"/>-->
     </Grid>
 </Page>

@@ -205,5 +205,18 @@
                         Visibility="Hidden"/>
             </StackPanel>
         </Grid>
+        <Grid Name="FrameButtonStartNewTest"
+              Grid.Row="3"
+              Grid.Column="1">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Name="StartNewTestButton"
+                        Style="{StaticResource ChildrenFrameButton}"
+                        Content="Пройти еще раз"
+                        Command="{Binding StartNewTest}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Visibility="Hidden"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

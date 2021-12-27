@@ -8,6 +8,7 @@ namespace TestM.ViewModels
     {
         private bool checkTypeButton = false;
         private bool checkAnswerButton = false;
+
         #region Commands
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow
@@ -183,51 +184,33 @@ namespace TestM.ViewModels
         private string rightAnswer;
         public string Question
         {
-            get { return SelectedItem.Question; }
-            set
-            {
-                SelectedItem.Question = value;
-            }
+            get => SelectedItem.Question;
+            set => SelectedItem.Question = value;
         }
         public string TypeQuestion
         {
-            get { return SelectedItem.TypeQuestion; }
-            set
-            {
-                SelectedItem.TypeQuestion = value;
-            }
+            get => SelectedItem.TypeQuestion;
+            set => SelectedItem.TypeQuestion = value;
         }
         public string AnswerA
         {
-            get { return SelectedItem.AnswerA; }
-            set
-            {
-                SelectedItem.AnswerA = value;
-            }
+            get => SelectedItem.AnswerA;
+            set => SelectedItem.AnswerA = value;
         }
         public string AnswerB
         {
-            get { return SelectedItem.AnswerB; }
-            set
-            {
-                SelectedItem.AnswerB = value;
-            }
+            get => SelectedItem.AnswerB;
+            set => SelectedItem.AnswerB = value;
         }
         public string AnswerC
         {
-            get { return SelectedItem.AnswerC; }
-            set
-            {
-                SelectedItem.AnswerC = value;
-            }
+            get => SelectedItem.AnswerC;
+            set => SelectedItem.AnswerC = value;
         }
         public string RightAnswer
         {
-            get { return SelectedItem.RightAnswer; }
-            set
-            {
-                SelectedItem.RightAnswer = value;
-            }
+            get => SelectedItem.RightAnswer;
+            set => SelectedItem.RightAnswer = value;
         }
         public QuestionModel SelectedItem { get; set; }
         #endregion

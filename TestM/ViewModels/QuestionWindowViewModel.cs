@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using TestM.Command;
-using TestM.Data.Base;
+using TestM.Data;
 using TestM.Models;
 using TestM.ViewModels.Base;
 using TestM.Views;
@@ -12,8 +12,12 @@ namespace TestM.ViewModels
     {
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+
+        JsonFileService fileService;
+        QuestionDataGridViewModel question;
+
         private bool checkWindowState = false;
-        IFileService fileService;
+
         #region Commands
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow
@@ -67,7 +71,7 @@ namespace TestM.ViewModels
             {
                 return addQuestion ?? (addQuestion = new RelayCommand(obj =>
                 {
-                    var window = new AddQuestionWindow(obj as QuestionWindowViewModel);
+                    AddQuestionWindow window = new AddQuestionWindow(obj as QuestionWindowViewModel);
                     window.ShowDialog();
                 }));
             }
@@ -79,7 +83,7 @@ namespace TestM.ViewModels
             {
                 return updateQuestion ?? (updateQuestion = new RelayCommand(obj => 
                 {
-                    var window = new UpdateQuestionWindow(SelectedItem);
+                    UpdateQuestionWindow window = new UpdateQuestionWindow(SelectedItem);
                     window.ShowDialog();
                 }));
             }
@@ -136,9 +140,10 @@ namespace TestM.ViewModels
         #region Property
         private QuestionModel selectedItem;
         private int selectedIndex;
+        private ObservableCollection<QuestionModel> itemsSource;
         public QuestionModel SelectedItem
         {
-            get { return selectedItem; }
+            get => selectedItem;
             set
             {
                 selectedItem = value;
@@ -147,21 +152,28 @@ namespace TestM.ViewModels
         }
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get => selectedIndex;
             set
             {
                 selectedIndex = value;
                 OnPropertyChanged(nameof(SelectedIndex));
             }
         }
-        public ObservableCollection<QuestionModel> ItemsSource { get; set; }
-        #endregion
-        public QuestionWindowViewModel(IFileService fileService)
+        public ObservableCollection<QuestionModel> ItemsSource
         {
-            QuestionModel questionModel = new QuestionModel();
-            this.fileService = fileService;
+            get => itemsSource;
+            set 
+            {
+                itemsSource = value;
+                OnPropertyChanged(nameof(ItemsSource));
+            }
+        }
+        #endregion
+        public QuestionWindowViewModel()
+        {
+            question = new QuestionDataGridViewModel();
+            fileService = new JsonFileService();
             ItemsSource = fileService.Open(fileName);
-            QuestionDataGridViewModel question = new QuestionDataGridViewModel(ItemsSource, questionModel);
         }
     }
 }

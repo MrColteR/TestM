@@ -13,6 +13,7 @@ namespace TestM.Data
 {
     public class JsonFileService : IFileService
     {
+        #region JsonCollection QuestionModel
         public ObservableCollection<QuestionModel> Open(string filename)
         {
             ObservableCollection<QuestionModel> items = new ObservableCollection<QuestionModel>() { };
@@ -31,7 +32,8 @@ namespace TestM.Data
                 jsonFormatter.WriteObject(fs, itemsList);
             }
         }
-        
+        #endregion
+        #region JsonActualQuestion
         public ActualQuestion OpenIndex(string filename)
         {
             ActualQuestion item = new ActualQuestion();
@@ -42,7 +44,6 @@ namespace TestM.Data
             }
             return item;
         }
-
         public void SaveIndexFirst(string filename, ActualQuestion item)
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
@@ -63,14 +64,15 @@ namespace TestM.Data
                     jsonFormatter.WriteObject(fs, numberInFile);
                 }
             }
-            else 
+            else
             {
                 DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
                 using (FileStream fs = new FileStream(filename, FileMode.Create))
                 {
-                    jsonFormatter.WriteObject(fs, 0);
+                    jsonFormatter.WriteObject(fs, new ActualQuestion());
                 }
             }
         }
+        #endregion
     }
 }

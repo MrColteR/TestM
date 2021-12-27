@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
+using TestM.Data;
 using TestM.Models;
 using TestM.ViewModels.Base;
 
@@ -6,11 +8,16 @@ namespace TestM.ViewModels
 {
     public class QuestionDataGridViewModel : ViewModel
     {
+        private static string path = Directory.GetCurrentDirectory();
+        private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+
         private QuestionModel model;
+        JsonFileService service;
+
         #region Property
         public string Question
         {
-            get { return model.Question; }
+            get => model.Question;
             set
             {
                 model.Question = value;
@@ -19,7 +26,7 @@ namespace TestM.ViewModels
         }
         public string TypeQuestion
         {
-            get { return model.TypeQuestion; }
+            get => model.TypeQuestion;
             set
             {
                 model.TypeQuestion = value;
@@ -28,7 +35,7 @@ namespace TestM.ViewModels
         }
         public string AnswerA
         {
-            get { return model.AnswerA; }
+            get => model.AnswerA;
             set
             {
                 model.AnswerA = value;
@@ -37,7 +44,7 @@ namespace TestM.ViewModels
         }
         public string AnswerB
         {
-            get { return model.AnswerB; }
+            get => model.AnswerB;
             set
             {
                 model.AnswerB = value;
@@ -46,7 +53,7 @@ namespace TestM.ViewModels
         }
         public string AnswerC
         {
-            get { return model.AnswerC; }
+            get => model.AnswerC;
             set
             {
                 model.AnswerC = value;
@@ -55,7 +62,7 @@ namespace TestM.ViewModels
         }
         public string RightAnswer
         {
-            get { return model.RightAnswer; }
+            get => model.RightAnswer;
             set
             {
                 model.RightAnswer = value;
@@ -64,10 +71,11 @@ namespace TestM.ViewModels
         }
         public ObservableCollection<QuestionModel> Data { get; set; }
         #endregion
-        public QuestionDataGridViewModel(ObservableCollection<QuestionModel> Data, QuestionModel model)
+        public QuestionDataGridViewModel()
         {
-            this.model = model;
-            this.Data = Data;
+            model = new QuestionModel();
+            service = new JsonFileService();
+            Data = service.Open(fileData);
         }
     }
 }

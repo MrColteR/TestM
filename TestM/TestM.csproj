@@ -76,12 +76,12 @@
       <DependentUpon>StartPageTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
+    <Compile Include="ViewModels\LastPageTestViewModel.cs" />
     <Compile Include="ViewModels\PageTestViewModel.cs" />
     <Compile Include="ViewModels\PasswordChangedViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\QuestionDataGridViewModel.cs" />
     <Compile Include="ViewModels\QuestionWindowViewModel.cs" />
-    <Compile Include="ViewModels\SecondPageTestViewModel.cs" />
     <Compile Include="ViewModels\SettingWindowViewModel.cs" />
     <Compile Include="ViewModels\StartPageTestViewModel.cs" />
     <Compile Include="ViewModels\UpdateQuestionViewModel.cs" />

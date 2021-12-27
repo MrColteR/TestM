@@ -12,7 +12,7 @@ namespace TestM.Views
         public AddQuestionWindow(QuestionWindowViewModel data)
         {
             InitializeComponent();
-            DataContext = new AddQuestionWindowViewModel(data, new JsonFileService());
+            DataContext = new AddQuestionWindowViewModel(data);
         }
     }
 }

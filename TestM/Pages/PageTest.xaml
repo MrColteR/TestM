@@ -8,26 +8,6 @@
       d:DesignHeight="435" d:DesignWidth="1190"
       Title="PageTest">
     <Page.Resources>
-        <!--<Style x:Key="TextBlock" TargetType="TextBlock">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="Width" Value="1170"/>
-                <Setter Property="Height" Value="40"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="10,0,10,0"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBlockButton" TargetType="TextBlock">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Width" Value="1200"/>
-            <Setter Property="TextAlignment" Value="Left"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>-->
         <Style x:Key="PaternButton" TargetType="Button">
             <Style.Setters>
                 <Setter Property="Background" Value="#93CCEA"/>
@@ -68,22 +48,22 @@
         </Style>
         <Style x:Key="PatternRadioButton" TargetType="RadioButton">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5,5,5,0"/>
+            <Setter Property="Margin" Value="10,5,10,0"/>
             <Setter Property="Width" Value="1180"/>
         </Style>
         <Style x:Key="TextBlock" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
         <Style x:Key="TextBlockQuestion" TargetType="TextBlock">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="10,5,10,5"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
     </Page.Resources>
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -116,7 +96,7 @@
             </RadioButton>
         </StackPanel>
         <TextBlock Name="RigntAnswer"
-                   Grid.Row="2"
+                   Grid.Row="1"
                    Text="{Binding RightAnswer}"
                    Visibility="Hidden"/>
     </Grid>

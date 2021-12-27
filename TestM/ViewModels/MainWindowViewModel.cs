@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using TestM.Command;
 using TestM.Data;
@@ -21,6 +19,9 @@ namespace TestM.ViewModels
         private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         private readonly string fileActualQuestion = path.Substring(0, path.IndexOf("bin")) + "ActualQuestion.json";
         private readonly string fileIndex = path.Substring(0, path.IndexOf("bin")) + "Index.json";
+        //private readonly string fileCountPoints = path.Substring(0, path.IndexOf("bin")) + "CountPoints.json";
+
+        JsonFileService service;
 
         StartPageTest startPageTest;
         List<PageTest> pages;
@@ -28,7 +29,7 @@ namespace TestM.ViewModels
 
         ObservableCollection<QuestionModel> questionsList;
         ObservableCollection<QuestionModel> actualQuestions;
-
+        List<string> rightAnswer;
         List<string> answerUser;
 
         int indexPage;
@@ -45,7 +46,7 @@ namespace TestM.ViewModels
                 {
                     var password = new PasswordWindow();
                     password.ShowDialog();
-                }));
+                }, (obj) =>  IsStart == false));
             }
             
         }
@@ -58,7 +59,7 @@ namespace TestM.ViewModels
                 {
                     SettingWindow wnd = new SettingWindow();
                     wnd.Show();
-                }));
+                }, (obj) =>  IsStart == false));
             }
         }
         private RelayCommand minimizeWindow;
@@ -95,8 +96,10 @@ namespace TestM.ViewModels
                     MainWindow wnd = obj as MainWindow;
                     wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
                     wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
+
                     CurrentPage = startPageTest;
                     IsStart = true;
+
                 }, (obj) =>  IsStart == false));
             }
         }
@@ -148,11 +151,79 @@ namespace TestM.ViewModels
             {
                 return scoring ?? (scoring = new RelayCommand(obj =>
                 {
+                    MainWindow wnd = obj as MainWindow;
+                    wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
+                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
+                    wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
+
+                    var a = pages[0];
+                    var b = startPageTest;
+
+                    Name = startPageTest.Name.Text;
+                    Subdivision = startPageTest.Subdivision.Text;
+                    DateTest = DateTime.Now.Date.ToShortDateString();
+                    AddResultToFile.Write(Name, Subdivision, DateTest);
+
                     foreach (var item in pages)
                     {
                         answerUser.Add(item.RigntAnswer.Text);
                     }
+                    for (int i = 0; i < answerUser.Count; i++)
+                    {
+                        if (answerUser[i] == rightAnswer[i])
+                        {
+                            CountPoints++;
+                        }
+                    }
+
+                    lastPageTest.Points.Text = CountPoints.ToString();
+                    if (CountPoints >= 17)
+                    {
+                        lastPageTest.Result.Text = "Вы успешно прошли тест";
+                    }
+                    else {
+                        lastPageTest.Result.Text = $"Вы не прошли тест Вам не хватило {17 - CountPoints} баллов";
+                    }
                     CurrentPage = lastPageTest;
+                }));
+            }
+        }
+        private RelayCommand startNewTest;
+        public RelayCommand StartNewTest
+        {
+            get 
+            {
+                return startNewTest ?? (startNewTest = new RelayCommand(obj =>
+                {
+                    MainWindow wnd = obj as MainWindow;
+                    wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
+                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
+                    wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
+                    //startPageTest.Name.Text = "";
+                    //startPageTest.Subdivision.Text = "";
+
+                    CurrentPage = startPageTest;
+                    indexPage = 0;
+                    actualQuestions.Clear();
+                    rightAnswer.Clear();
+                    answerUser.Clear();
+
+                    SortList();
+                    SaveRandomQuestion();
+
+
+
+                    //for (int i = 0; i < pages.Count; i++)
+                    //{
+
+                    //}
+                    startPageTest = new StartPageTest();
+                    pages = new List<PageTest>();
+                    for (int i = 0; i < 20; i++)
+                    {
+                        pages.Add(new PageTest());
+                    }
+                    lastPageTest = new LastPageTest();
                 }));
             }
         }
@@ -161,36 +232,73 @@ namespace TestM.ViewModels
         private Page currentPage;
         public Page CurrentPage
         {
-            get
-            {
-                return currentPage;
-            }
+            get => currentPage;
             set
             {
                 currentPage = value;
                 OnPropertyChanged(nameof(CurrentPage));
             }
         }
+        private string name;
+        public string Name
+        {
+            get => name;
+            set 
+            {
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        private string subdivision;
+        public string Subdivision
+        {
+            get => subdivision;
+            set 
+            {
+                subdivision = value;
+                OnPropertyChanged(nameof(Subdivision));
+            }
+        }
+        private string dateTest;
+        public string DateTest
+        {
+            get => dateTest;
+            set
+            {
+                dateTest = value;
+                OnPropertyChanged(nameof(DateTest));
+            }
+        }
+        private int countPoints;
+        public int CountPoints
+        {
+            get => countPoints;
+            set
+            {
+                countPoints = value;
+                OnPropertyChanged(nameof(CountPoints));
+            }
+        }
         #endregion
         public MainWindowViewModel()
         {
             actualQuestions = new ObservableCollection<QuestionModel>();
+            rightAnswer = new List<string>();
             answerUser = new List<string>();
 
-            startPageTest = new StartPageTest();
-            lastPageTest = new LastPageTest();
+            SortList();
+            SaveRandomQuestion();
 
+            startPageTest = new StartPageTest();
             pages = new List<PageTest>();
             for (int i = 0; i < 20; i++)
             {
                 pages.Add(new PageTest());
             }
+            lastPageTest = new LastPageTest();
 
-            JsonFileService service = new JsonFileService();
+            service = new JsonFileService();
             service.SaveIndexFirst(fileIndex, new ActualQuestion());
-
-            SortList();
-            SaveRandomQuestion();
         }
         private void SortList()
         {
@@ -200,8 +308,8 @@ namespace TestM.ViewModels
                 questionCollection.Add(new ObservableCollection<QuestionModel>());
             }
 
-            JsonFileService jsonFile = new JsonFileService();
-            questionsList = jsonFile.Open(fileData);
+            service = new JsonFileService();
+            questionsList = service.Open(fileData);
 
             List<string> types = new List<string>()
             {
@@ -248,11 +356,12 @@ namespace TestM.ViewModels
             for (int i = 0; i < 4; i++)
             {
                 actualQuestions.Add(questions[numb[i]]);
+                rightAnswer.Add(questions[numb[i]].RightAnswer);
             }
         }
         private void SaveRandomQuestion()
         {
-            JsonFileService service = new JsonFileService();
+            service = new JsonFileService();
             service.Save(fileActualQuestion, actualQuestions);
         }
     }
