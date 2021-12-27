@@ -130,7 +130,12 @@ namespace TestM.ViewModels
             {
                 return nextPage ?? (nextPage = new RelayCommand(obj =>
                 {
-                    MainWindow wnd = obj as MainWindow; 
+                    MainWindow wnd = obj as MainWindow;
+                    //var a = startPageTest.NameTextBox.Text;
+                    if (indexPage == 0)
+                    {
+                        AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
+                    }
                     indexPage++;
                     CurrentPage = pages[indexPage];
 
@@ -156,14 +161,6 @@ namespace TestM.ViewModels
                     wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
                     wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
 
-                    var a = pages[0];
-                    var b = startPageTest;
-
-                    Name = startPageTest.Name.Text;
-                    Subdivision = startPageTest.Subdivision.Text;
-                    DateTest = DateTime.Now.Date.ToShortDateString();
-                    AddResultToFile.Write(Name, Subdivision, DateTest);
-
                     foreach (var item in pages)
                     {
                         answerUser.Add(item.RigntAnswer.Text);
@@ -177,12 +174,13 @@ namespace TestM.ViewModels
                     }
 
                     lastPageTest.Points.Text = CountPoints.ToString();
+                    AddResultToFile.WritePoints(CountPoints.ToString());
                     if (CountPoints >= 17)
                     {
                         lastPageTest.Result.Text = "Вы успешно прошли тест";
                     }
                     else {
-                        lastPageTest.Result.Text = $"Вы не прошли тест Вам не хватило {17 - CountPoints} баллов";
+                        lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {17 - CountPoints} баллов";
                     }
                     CurrentPage = lastPageTest;
                 }));
@@ -199,10 +197,10 @@ namespace TestM.ViewModels
                     wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
                     wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
                     wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
-                    //startPageTest.Name.Text = "";
-                    //startPageTest.Subdivision.Text = "";
+                    startPageTest.NameTextBox.Text = "";
+                    startPageTest.SubdivisionTextBox.Text = "";
 
-                    CurrentPage = startPageTest;
+                    
                     indexPage = 0;
                     actualQuestions.Clear();
                     rightAnswer.Clear();
@@ -210,13 +208,6 @@ namespace TestM.ViewModels
 
                     SortList();
                     SaveRandomQuestion();
-
-
-
-                    //for (int i = 0; i < pages.Count; i++)
-                    //{
-
-                    //}
                     startPageTest = new StartPageTest();
                     pages = new List<PageTest>();
                     for (int i = 0; i < 20; i++)
@@ -224,6 +215,8 @@ namespace TestM.ViewModels
                         pages.Add(new PageTest());
                     }
                     lastPageTest = new LastPageTest();
+                    //startPageTest.NameTextBox.Text = "1";
+                    CurrentPage = startPageTest;
                 }));
             }
         }

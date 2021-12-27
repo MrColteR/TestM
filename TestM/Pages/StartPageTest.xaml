@@ -98,14 +98,14 @@
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="0"
                    Text="ФИО"/>
-        <TextBox Name="Name"
+        <TextBox Name="NameTextBox"
                  Style="{StaticResource TextBox}"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="1"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="2"
                    Text="Подразделение"/>
-        <TextBox Name="Subdivision"
+        <TextBox Name="SubdivisionTextBox"
                  Style="{StaticResource TextBox}"
                  Text="{Binding Subdivision, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="3"/>

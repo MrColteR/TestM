@@ -11,7 +11,7 @@ namespace TestM.Data
     {
         private static string path = Directory.GetCurrentDirectory();
         private static string fileResult = path.Substring(0, path.IndexOf("bin")) + "Result.txt";
-        public static void Write(string name, string subdivision, string date)
+        public static void WriteName(string name, string subdivision, string date)
         {
             bool IsEmpty = false;
             using (StreamReader sr = new StreamReader(fileResult))
@@ -26,23 +26,38 @@ namespace TestM.Data
             {
                 if (IsEmpty)
                 {
+                    sw.Write("ФИО: ");
                     sw.Write(name);
                     sw.Write(" ");
+                    sw.Write("Подразделение: ");
                     sw.Write(subdivision);
                     sw.Write(" ");
+                    sw.Write("Дата: ");
                     sw.Write(date);
                     sw.Write(" ");
                 }
                 else
                 {
                     sw.WriteLine();
+                    sw.Write("ФИО: ");
                     sw.Write(name);
                     sw.Write(" ");
+                    sw.Write("Подразделение: ");
                     sw.Write(subdivision);
                     sw.Write(" ");
+                    sw.Write("Дата: ");
                     sw.Write(date);
                     sw.Write(" ");
                 }
+            }
+        }
+        public static void WritePoints(string points)
+        {
+            using (StreamWriter sw = new StreamWriter(fileResult, true))
+            {
+                sw.Write("Резальтат:");
+                sw.Write(points);
+                sw.Write(" ");
             }
         }
     }
