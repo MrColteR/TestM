@@ -19,7 +19,6 @@ namespace TestM.ViewModels
         private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         private readonly string fileActualQuestion = path.Substring(0, path.IndexOf("bin")) + "ActualQuestion.json";
         private readonly string fileIndex = path.Substring(0, path.IndexOf("bin")) + "Index.json";
-        //private readonly string fileCountPoints = path.Substring(0, path.IndexOf("bin")) + "CountPoints.json";
 
         JsonFileService service;
 
@@ -131,7 +130,6 @@ namespace TestM.ViewModels
                 return nextPage ?? (nextPage = new RelayCommand(obj =>
                 {
                     MainWindow wnd = obj as MainWindow;
-                    //var a = startPageTest.NameTextBox.Text;
                     if (indexPage == 0)
                     {
                         AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
@@ -215,7 +213,6 @@ namespace TestM.ViewModels
                         pages.Add(new PageTest());
                     }
                     lastPageTest = new LastPageTest();
-                    //startPageTest.NameTextBox.Text = "1";
                     CurrentPage = startPageTest;
                 }));
             }

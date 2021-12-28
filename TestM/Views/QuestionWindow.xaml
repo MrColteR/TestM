@@ -59,11 +59,13 @@
         <Style x:Key="ChildrenToolBarLeftButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Margin" Value="10,0,0,0"/>
         </Style>
         <Style x:Key="ChildrenToolBarRightButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Margin" Value="0,0,10,0"/>
         </Style>
         <Style x:Key="DataGrid" TargetType="DataGrid">
@@ -75,6 +77,7 @@
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
             <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
         </Style>
@@ -157,15 +160,15 @@
                     HorizontalAlignment="Left"
                     Grid.Row="1"
                     Grid.Column="0">
-            <Button Content="Add"
+            <Button Content="Добавить"
                 Command="{Binding AddQuestion}"
                 CommandParameter="{Binding}"
                 Style="{StaticResource ChildrenToolBarLeftButton}"/>
-            <Button Content="Update"
+            <Button Content="Изменить"
                     Command="{Binding UpdateQuestion}"
                     CommandParameter="{Binding}"
                     Style="{StaticResource ChildrenToolBarLeftButton}"/>
-            <Button Content="Delete"
+            <Button Content="Удалить"
                     Command="{Binding DeleteQuestion}"
                     CommandParameter="{Binding}"
                     Style="{StaticResource ChildrenToolBarLeftButton}"/>
@@ -174,11 +177,11 @@
                     HorizontalAlignment="Right"
                     Grid.Row="1"
                     Grid.Column="1">
-            <Button Content="Save"
+            <Button Content="Сохранить"
                     Command="{Binding SaveFile}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource ChildrenToolBarRightButton}"/>
-            <Button Content="Back"
+            <Button Content="Назад"
                     Command="{Binding CloseQuestionWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource ChildrenToolBarRightButton}"/>

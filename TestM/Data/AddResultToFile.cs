@@ -10,9 +10,14 @@ namespace TestM.Data
     public static class AddResultToFile
     {
         private static string path = Directory.GetCurrentDirectory();
+        private static string newFileResult = path.Substring(0, path.IndexOf("bin"));
         private static string fileResult = path.Substring(0, path.IndexOf("bin")) + "Result.txt";
         public static void WriteName(string name, string subdivision, string date)
         {
+            if (!File.Exists(fileResult))
+            {
+                File.Create(newFileResult);
+            }
             bool IsEmpty = false;
             using (StreamReader sr = new StreamReader(fileResult))
             {

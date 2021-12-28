@@ -53,38 +53,11 @@ namespace TestM.ViewModels
         }
         #endregion
         #region Property
-        //private string answerFirst;
-        //private string answerSecond;
-        //private string answerThird; 
         private string rightAnswer;
         public string QuestionFirst => questions[actualQuestionModel.Index].Question;
-        public string AnswerFirst
-        {
-            get => questions[actualQuestionModel.Index].AnswerA;
-            //set 
-            //{
-            //    answerFirst = value; 
-            //    OnPropertyChanged(nameof(AnswerFirst));
-            //}
-        }
-        public string AnswerSecond
-        {
-            get => questions[actualQuestionModel.Index].AnswerB;
-            //set
-            //{
-            //    answerSecond = value;
-            //    OnPropertyChanged(nameof(AnswerSecond)); 
-            //}
-        }
-        public string AnswerThird 
-        {
-            get => questions[actualQuestionModel.Index].AnswerC;
-            //set
-            //{
-            //    answerThird = value;
-            //    OnPropertyChanged(nameof(AnswerThird));
-            //}
-        }
+        public string AnswerFirst => questions[actualQuestionModel.Index].AnswerA;
+        public string AnswerSecond => questions[actualQuestionModel.Index].AnswerB;
+        public string AnswerThird => questions[actualQuestionModel.Index].AnswerC;
         public string RightAnswer
         {
             get => rightAnswer; 

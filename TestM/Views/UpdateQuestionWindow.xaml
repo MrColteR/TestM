@@ -57,7 +57,7 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Margin" Value="10,5,0,5"/>
         </Style>
         <Style x:Key="ChildrenRightButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
@@ -65,7 +65,7 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Margin" Value="0,5,10,5"/>
         </Style>
         <Style x:Key="ChldrenComboBoxButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
