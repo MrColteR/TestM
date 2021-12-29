@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -6,70 +7,73 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
-using TestM.Data.Base;
 using TestM.Models;
 
 namespace TestM.Data
 {
-    public class JsonFileService : IFileService
+    public class JsonFileService
     {
         #region JsonCollection QuestionModel
-        public ObservableCollection<QuestionModel> Open(string filename)
+        public ObservableCollection<QuestionModel> Open(string filePath)
         {
-            ObservableCollection<QuestionModel> items = new ObservableCollection<QuestionModel>() { };
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ObservableCollection<QuestionModel>));
-            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            if (!File.Exists(filePath))
             {
-                items = jsonFormatter.ReadObject(fs) as ObservableCollection<QuestionModel>;
+                return new ObservableCollection<QuestionModel>();
             }
-            return items;
-        }
-        public void Save(string filename, ObservableCollection<QuestionModel> itemsList)
-        {
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ObservableCollection<QuestionModel>));
-            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            using (StreamReader reader = File.OpenText(filePath))
             {
-                jsonFormatter.WriteObject(fs, itemsList);
+                var data = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<ObservableCollection<QuestionModel>>(data);
+            }
+        }
+        public void Save(string filePath, ObservableCollection<QuestionModel> itemsList)
+        {
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(itemsList);
+                writer.Write(data);
             }
         }
         #endregion
         #region JsonActualQuestion
-        public ActualQuestion OpenIndex(string filename)
+        public ActualQuestion OpenIndex(string filePath)
         {
-            ActualQuestion item = new ActualQuestion();
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
-            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+            if (!File.Exists(filePath))
             {
-                item = jsonFormatter.ReadObject(fs) as ActualQuestion;
+                return new ActualQuestion();
             }
-            return item;
-        }
-        public void SaveIndexFirst(string filename, ActualQuestion item)
-        {
-            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
-            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            using (StreamReader reader = File.OpenText(filePath))
             {
-                jsonFormatter.WriteObject(fs, item);
+                var data = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<ActualQuestion>(data);
             }
         }
-        public void SaveIndex(string filename)
+        public void SaveIndexFirst(string filePath, ActualQuestion item)
         {
-            ActualQuestion numberInFile = OpenIndex(filename);
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(item);
+                writer.Write(data);
+            }
+        }
+        public void SaveIndex(string filePath)
+        {
+            ActualQuestion numberInFile = OpenIndex(filePath);
             if (numberInFile.Index != 19)
             {
                 numberInFile.Index++;
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
-                using (FileStream fs = new FileStream(filename, FileMode.Create))
+                using (StreamWriter writer = File.CreateText(filePath))
                 {
-                    jsonFormatter.WriteObject(fs, numberInFile);
+                    var data = JsonConvert.SerializeObject(numberInFile);
+                    writer.Write(data);
                 }
             }
             else
             {
-                DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(ActualQuestion));
-                using (FileStream fs = new FileStream(filename, FileMode.Create))
+                using (StreamWriter writer = File.CreateText(filePath))
                 {
-                    jsonFormatter.WriteObject(fs, new ActualQuestion());
+                    var data = JsonConvert.SerializeObject(new ActualQuestion());
+                    writer.Write(data);
                 }
             }
         }
