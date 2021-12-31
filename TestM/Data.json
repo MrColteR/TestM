@@ -37,7 +37,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "1",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Правовые основания"
   },
   {
@@ -45,7 +45,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "2",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Правовые основания"
   },
   {
@@ -53,7 +53,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "3",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Правовые основания"
   },
   {
@@ -61,7 +61,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "4",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Правовые основания"
   },
   {
@@ -69,7 +69,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "5",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "ТТХ"
   },
   {
@@ -77,7 +77,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "6",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "ТТХ"
   },
   {
@@ -85,7 +85,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "7",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "ТТХ"
   },
   {
@@ -93,7 +93,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "8",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "ТТХ"
   },
   {
@@ -101,7 +101,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "9",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Команды"
   },
   {
@@ -109,7 +109,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "10",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Команды"
   },
   {
@@ -117,7 +117,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "11",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Команды"
   },
   {
@@ -125,7 +125,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "12",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Команды"
   },
   {
@@ -133,7 +133,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "13",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Задержки"
   },
   {
@@ -141,7 +141,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "14",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Задержки"
   },
   {
@@ -149,7 +149,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "15",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Задержки"
   },
   {
@@ -157,7 +157,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "16",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Задержки"
   },
   {
@@ -165,7 +165,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "17",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Правовые основания"
   },
   {
@@ -173,7 +173,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "18",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Меры безопастности"
   },
   {
@@ -181,7 +181,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "19",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "ТТХ"
   },
   {
@@ -189,7 +189,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "20",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Команды"
   },
   {
@@ -197,7 +197,7 @@
     "AnswerB": null,
     "AnswerC": null,
     "Question": "21",
-    "RightAnswer": null,
+    "RightAnswer": "А",
     "TypeQuestion": "Задержки"
   }
 ]

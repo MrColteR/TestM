@@ -31,28 +31,12 @@ namespace TestM.Data
             {
                 if (IsEmpty)
                 {
-                    sw.Write("ФИО: ");
-                    sw.Write(name);
-                    sw.Write(" ");
-                    sw.Write("Подразделение: ");
-                    sw.Write(subdivision);
-                    sw.Write(" ");
-                    sw.Write("Дата: ");
-                    sw.Write(date);
-                    sw.Write(" ");
+                    sw.Write($"ФИО: {name}, подразделение: {subdivision}, дата: {date}, ");
                 }
                 else
                 {
                     sw.WriteLine();
-                    sw.Write("ФИО: ");
-                    sw.Write(name);
-                    sw.Write(" ");
-                    sw.Write("Подразделение: ");
-                    sw.Write(subdivision);
-                    sw.Write(" ");
-                    sw.Write("Дата: ");
-                    sw.Write(date);
-                    sw.Write(" ");
+                    sw.Write($"ФИО: {name}, подразделение: {subdivision}, дата: {date}, ");
                 }
             }
         }
@@ -60,9 +44,7 @@ namespace TestM.Data
         {
             using (StreamWriter sw = new StreamWriter(fileResult, true))
             {
-                sw.Write("Резальтат:");
-                sw.Write(points);
-                sw.Write(" ");
+                sw.Write($"результат: {points}");
             }
         }
     }

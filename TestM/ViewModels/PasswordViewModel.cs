@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.IO;
+using System.Windows.Media;
 using TestM.Command;
 using TestM.Data;
 using TestM.ViewModels.Base;
@@ -8,6 +9,8 @@ namespace TestM.ViewModels
 {
     public class PasswordViewModel : ViewModel
     {
+        private static string path = Directory.GetCurrentDirectory();
+        private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
         #region Commands
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow
@@ -36,8 +39,8 @@ namespace TestM.ViewModels
         #endregion
         public void CheckUserPassword(string password, PasswordWindow passwordWindow)
         {
-            ChangePassword passwordOriginal = new ChangePassword();
-            if (password == passwordOriginal.Read())
+            JsonFileService service = new JsonFileService();
+            if (password == service.OpenPassword(fileInfo))
             {
                 passwordWindow.Close();
                 var questionWindow = new QuestionWindow();

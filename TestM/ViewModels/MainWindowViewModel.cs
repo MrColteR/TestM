@@ -18,9 +18,10 @@ namespace TestM.ViewModels
         private static string path = Directory.GetCurrentDirectory();
         private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         private readonly string fileActualQuestion = path.Substring(0, path.IndexOf("bin")) + "ActualQuestion.json";
-        private readonly string fileIndex = path.Substring(0, path.IndexOf("bin")) + "Index.json";
+        private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
 
         JsonFileService service;
+        Info info;
 
         StartPageTest startPageTest;
         List<PageTest> pages;
@@ -92,6 +93,9 @@ namespace TestM.ViewModels
             {
                 return startTest ?? (startTest = new RelayCommand(obj =>
                 {
+                    SortList();
+                    SaveRandomQuestion();
+
                     MainWindow wnd = obj as MainWindow;
                     wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
                     wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
@@ -177,7 +181,8 @@ namespace TestM.ViewModels
                     {
                         lastPageTest.Result.Text = "Вы успешно прошли тест";
                     }
-                    else {
+                    else 
+                    {
                         lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {17 - CountPoints} баллов";
                     }
                     CurrentPage = lastPageTest;
@@ -198,8 +203,7 @@ namespace TestM.ViewModels
                     startPageTest.NameTextBox.Text = "";
                     startPageTest.SubdivisionTextBox.Text = "";
 
-                    
-                    indexPage = 0;
+                    indexPage = -1;
                     actualQuestions.Clear();
                     rightAnswer.Clear();
                     answerUser.Clear();
@@ -208,7 +212,7 @@ namespace TestM.ViewModels
                     SaveRandomQuestion();
                     startPageTest = new StartPageTest();
                     pages = new List<PageTest>();
-                    for (int i = 0; i < 20; i++)
+                    for (int i = 0; i < info.CountQuestion; i++)
                     {
                         pages.Add(new PageTest());
                     }
@@ -275,31 +279,31 @@ namespace TestM.ViewModels
             actualQuestions = new ObservableCollection<QuestionModel>();
             rightAnswer = new List<string>();
             answerUser = new List<string>();
+            service = new JsonFileService();
 
-            SortList();
-            SaveRandomQuestion();
+            info = service.OpenInfo(fileInfo);
+            indexPage = -1;
 
             startPageTest = new StartPageTest();
             pages = new List<PageTest>();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < info.CountQuestion; i++)
             {
                 pages.Add(new PageTest());
             }
             lastPageTest = new LastPageTest();
 
-            service = new JsonFileService();
-            service.SaveIndexFirst(fileIndex, new ActualQuestion());
+            service.SaveFirstIndex(fileInfo);
         }
         private void SortList()
         {
+            service = new JsonFileService();
+            questionsList = service.Open(fileData);
+
             List<ObservableCollection<QuestionModel>> questionCollection = new List<ObservableCollection<QuestionModel>>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < info.QuestionCollection; i++)
             {
                 questionCollection.Add(new ObservableCollection<QuestionModel>());
             }
-
-            service = new JsonFileService();
-            questionsList = service.Open(fileData);
 
             List<string> types = new List<string>()
             {
@@ -343,7 +347,7 @@ namespace TestM.ViewModels
                 numb[i] = numb[j];
                 numb[j] = t;
             }
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < info.CountQuestionOneType; i++)
             {
                 actualQuestions.Add(questions[numb[i]]);
                 rightAnswer.Add(questions[numb[i]].RightAnswer);

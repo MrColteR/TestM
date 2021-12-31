@@ -13,7 +13,7 @@ namespace TestM.Data
 {
     public class JsonFileService
     {
-        #region JsonCollection QuestionModel
+        #region Json Collection QuestionModel
         public ObservableCollection<QuestionModel> Open(string filePath)
         {
             if (!File.Exists(filePath))
@@ -35,46 +35,71 @@ namespace TestM.Data
             }
         }
         #endregion
-        #region JsonActualQuestion
-        public ActualQuestion OpenIndex(string filePath)
+        #region Json ActualQuestion
+        public Info OpenInfo(string filePath)
         {
+            string json = File.ReadAllText(filePath);
+            Info question = new Info();
+            JsonConvert.PopulateObject(json, question);
             if (!File.Exists(filePath))
             {
-                return new ActualQuestion();
+                question.Index = 0;
+                return question;
             }
-            using (StreamReader reader = File.OpenText(filePath))
-            {
-                var data = reader.ReadToEnd();
-                return JsonConvert.DeserializeObject<ActualQuestion>(data);
-            }
+
+            return JsonConvert.DeserializeObject<Info>(json);
         }
-        public void SaveIndexFirst(string filePath, ActualQuestion item)
+        public void SaveFirstIndex(string filePath)
         {
+            string json = File.ReadAllText(filePath);
+            Info question = new Info();
+            JsonConvert.PopulateObject(json, question);
+            question.Index = 0;
+            
             using (StreamWriter writer = File.CreateText(filePath))
             {
-                var data = JsonConvert.SerializeObject(item);
+                var data = JsonConvert.SerializeObject(question);
                 writer.Write(data);
             }
         }
         public void SaveIndex(string filePath)
         {
-            ActualQuestion numberInFile = OpenIndex(filePath);
-            if (numberInFile.Index != 19)
+            string json = File.ReadAllText(filePath);
+            Info question = new Info();
+            JsonConvert.PopulateObject(json, question);
+            if (question.Index != 19)
             {
-                numberInFile.Index++;
+                question.Index++;
                 using (StreamWriter writer = File.CreateText(filePath))
                 {
-                    var data = JsonConvert.SerializeObject(numberInFile);
+                    var data = JsonConvert.SerializeObject(question);
                     writer.Write(data);
                 }
             }
             else
             {
-                using (StreamWriter writer = File.CreateText(filePath))
-                {
-                    var data = JsonConvert.SerializeObject(new ActualQuestion());
-                    writer.Write(data);
-                }
+                SaveFirstIndex(filePath);
+            }
+        }
+        #endregion
+        #region Json Password
+        public string OpenPassword(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.Password;
+        }
+        public void SavePassword(string filePath, string password)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            info.Password = password;
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(info);
+                writer.Write(data);
             }
         }
         #endregion

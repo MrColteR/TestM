@@ -11,10 +11,10 @@ namespace TestM.ViewModels
     {
         private static string path = Directory.GetCurrentDirectory();
         private readonly string fileActualQuestion = path.Substring(0, path.IndexOf("bin")) + "ActualQuestion.json";
-        private readonly string fileIndex = path.Substring(0, path.IndexOf("bin")) + "Index.json";
+        private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
 
         private ObservableCollection<QuestionModel> questions;
-        private ActualQuestion actualQuestionModel;
+        private Info actualQuestionModel;
         JsonFileService service;
 
         #region Commands
@@ -72,8 +72,8 @@ namespace TestM.ViewModels
         {
             service = new JsonFileService();
             questions = service.Open(fileActualQuestion);
-            actualQuestionModel = service.OpenIndex(fileIndex);
-            service.SaveIndex(fileIndex);
+            actualQuestionModel = service.OpenInfo(fileInfo);
+            service.SaveIndex(fileInfo);
         }
     }
 }

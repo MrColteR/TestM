@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,10 +63,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\AddResultToFile.cs" />
-    <Compile Include="Data\ChangePassword.cs" />
     <Compile Include="Data\JsonFileService.cs" />
     <Compile Include="Models\Base\Model.cs" />
-    <Compile Include="Models\ActualQuestion.cs" />
+    <Compile Include="Models\Info.cs" />
     <Compile Include="Models\QuestionModel.cs" />
     <Compile Include="Pages\LastPageTest.xaml.cs">
       <DependentUpon>LastPageTest.xaml</DependentUpon>
