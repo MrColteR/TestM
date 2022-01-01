@@ -211,7 +211,7 @@
                                     Width="320"
                                     Binding="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Ответ"
-                                    Width="100"
+                                    Width="*"
                                     Binding="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>

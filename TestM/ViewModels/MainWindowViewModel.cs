@@ -123,7 +123,7 @@ namespace TestM.ViewModels
                         IsLastPage = false;
                     }
                     
-                }, (obj) => indexPage > 1));
+                }, (obj) => indexPage > 0));
             }
         }
         private RelayCommand nextPage;
