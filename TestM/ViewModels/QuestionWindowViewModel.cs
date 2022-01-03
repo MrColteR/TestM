@@ -85,7 +85,7 @@ namespace TestM.ViewModels
                 {
                     UpdateQuestionWindow window = new UpdateQuestionWindow(SelectedItem);
                     window.ShowDialog();
-                }));
+                }, (obj) => ItemsSource.Count > 0));
             }
         }
         private RelayCommand deleteQustion;
@@ -136,6 +136,20 @@ namespace TestM.ViewModels
                 }));
             }
         }
+        private RelayCommand openSettingInfo;
+
+        public RelayCommand OpenSettingInfo
+        {
+            get 
+            {
+                return openSettingInfo ?? (openSettingInfo = new RelayCommand(obj =>
+                {
+                    InfoSettingWindow wnd = new InfoSettingWindow();
+                    wnd.Show();
+                }));
+            }
+        }
+
         #endregion
         #region Property
         private QuestionModel selectedItem;

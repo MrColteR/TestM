@@ -11,13 +11,17 @@ namespace TestM.Data
     {
         private static string path = Directory.GetCurrentDirectory();
         private static string newFileResult = path.Substring(0, path.IndexOf("bin"));
-        private static string fileResult = path.Substring(0, path.IndexOf("bin")) + "Result.txt";
+        private static string fileResult = path.Substring(0, path.IndexOf("bin")) + "Result.csv";
         public static void WriteName(string name, string subdivision, string date)
         {
             if (!File.Exists(fileResult))
             {
-                File.Create(newFileResult);
+                using (FileStream file = File.Create(fileResult))
+                {
+                    ;
+                }
             }
+
             bool IsEmpty = false;
             using (StreamReader sr = new StreamReader(fileResult))
             {
@@ -27,24 +31,31 @@ namespace TestM.Data
                     IsEmpty = true;
                 }
             }
-            using (StreamWriter sw = new StreamWriter(fileResult, true))
+            using (StreamWriter sw = new StreamWriter(fileResult, true, Encoding.GetEncoding(1251)))
             {
                 if (IsEmpty)
                 {
-                    sw.Write($"ФИО: {name}, подразделение: {subdivision}, дата: {date}, ");
+                    sw.Write(name + ";" + subdivision + ";" + date.ToString());
                 }
                 else
                 {
                     sw.WriteLine();
-                    sw.Write($"ФИО: {name}, подразделение: {subdivision}, дата: {date}, ");
+                    sw.Write(name + ";" + subdivision + ";" + date.ToString());
                 }
             }
         }
         public static void WritePoints(string points)
         {
-            using (StreamWriter sw = new StreamWriter(fileResult, true))
+            using (StreamWriter sw = new StreamWriter(fileResult, true, Encoding.GetEncoding(1251)))
             {
-                sw.Write($"результат: {points}");
+                if (Convert.ToInt32(points) >= 17)
+                {
+                    sw.Write(";" + points + "удовлетворительно");
+                }
+                else
+                {
+                    sw.Write(";" + points + "не удовлетворительно");
+                }
             }
         }
     }

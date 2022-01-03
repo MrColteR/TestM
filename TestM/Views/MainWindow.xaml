@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         BorderBrush="black"
         BorderThickness="1"
-        Title="MainWindow" Height="550" Width="1200" ResizeMode="NoResize" WindowStyle="None">
+        Title="MainWindow" Height="700" Width="1200" ResizeMode="NoResize" WindowStyle="None">
     <Window.Resources>
         <Style x:Key="PaternButton" TargetType="Button">
             <Style.Setters>
@@ -107,7 +107,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="435"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid Name="Header"
@@ -122,6 +122,14 @@
                     <Image Style="{StaticResource PatternIcon}"
                            Name="MinimizeButton"
                            Source="/Icon/minimizeIcon.png">
+                    </Image>
+                </Button>
+                <Button Style="{StaticResource ChildrenToolbarButton}"
+                    Command="{Binding WindowStateButton}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                    <Image Style="{StaticResource PatternIcon}"
+                       Name="WindowStateButton"
+                       Source="/Icon/squareIcon.png">
                     </Image>
                 </Button>
                 <Button Style="{StaticResource ChildrenToolbarButton}"

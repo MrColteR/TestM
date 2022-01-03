@@ -20,21 +20,23 @@ namespace TestM.ViewModels
         private readonly string fileActualQuestion = path.Substring(0, path.IndexOf("bin")) + "ActualQuestion.json";
         private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
 
-        JsonFileService service;
-        Info info;
+        private JsonFileService service;
+        private Info info;
 
-        StartPageTest startPageTest;
-        List<PageTest> pages;
-        LastPageTest lastPageTest;
+        private MainPage mainPage;
+        private StartPageTest startPageTest;
+        private List<PageTest> pages;
+        private LastPageTest lastPageTest;
 
-        ObservableCollection<QuestionModel> questionsList;
-        ObservableCollection<QuestionModel> actualQuestions;
-        List<string> rightAnswer;
-        List<string> answerUser;
+        private ObservableCollection<QuestionModel> questionsList;
+        private ObservableCollection<QuestionModel> actualQuestions;
+        private List<string> rightAnswer;
+        private List<string> answerUser;
 
-        int indexPage;
-        bool IsStart;
-        bool IsLastPage;
+        private int indexPage;
+        private bool IsStart;
+        private bool IsLastPage;
+        private bool checkWindowState = false;
 
         #region Command
         private RelayCommand checkPassword;
@@ -74,6 +76,27 @@ namespace TestM.ViewModels
                 }));
             }
         }
+        private RelayCommand windowStateButton;
+        public RelayCommand WindowStateButton
+        {
+            get
+            {
+                return windowStateButton ?? (windowStateButton = new RelayCommand(obj =>
+                {
+                    MainWindow wnd = obj as MainWindow;
+                    if (checkWindowState)
+                    {
+                        wnd.WindowState = System.Windows.WindowState.Normal;
+                        checkWindowState = false;
+                    }
+                    else if (!checkWindowState)
+                    {
+                        wnd.WindowState = System.Windows.WindowState.Maximized;
+                        checkWindowState = true;
+                    }
+                }));
+            }
+        }
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow
         {
@@ -93,9 +116,16 @@ namespace TestM.ViewModels
             {
                 return startTest ?? (startTest = new RelayCommand(obj =>
                 {
+                    info = service.OpenInfo(fileInfo);
                     SortList();
                     SaveRandomQuestion();
 
+                    pages = new List<PageTest>();
+                    for (int i = 0; i < info.CountQuestion; i++)
+                    {
+                        pages.Add(new PageTest());
+                    }
+                    
                     MainWindow wnd = obj as MainWindow;
                     wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
                     wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
@@ -134,7 +164,7 @@ namespace TestM.ViewModels
                 return nextPage ?? (nextPage = new RelayCommand(obj =>
                 {
                     MainWindow wnd = obj as MainWindow;
-                    if (indexPage == 0)
+                    if (indexPage == -1)
                     {
                         AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
                     }
@@ -179,11 +209,11 @@ namespace TestM.ViewModels
                     AddResultToFile.WritePoints(CountPoints.ToString());
                     if (CountPoints >= 17)
                     {
-                        lastPageTest.Result.Text = "Вы успешно прошли тест";
+                        lastPageTest.Result.Text = $"Вы успешно прошли тест, Вы набрали {CountPoints}";
                     }
                     else 
                     {
-                        lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {17 - CountPoints} баллов";
+                        lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {17 - CountPoints} баллов до минимального порога";
                     }
                     CurrentPage = lastPageTest;
                 }));
@@ -197,19 +227,19 @@ namespace TestM.ViewModels
                 return startNewTest ?? (startNewTest = new RelayCommand(obj =>
                 {
                     MainWindow wnd = obj as MainWindow;
-                    wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
-                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
+                    wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
+                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
                     wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
                     startPageTest.NameTextBox.Text = "";
                     startPageTest.SubdivisionTextBox.Text = "";
 
+                    IsStart = false;
                     indexPage = -1;
+                    countPoints = 0;
                     actualQuestions.Clear();
                     rightAnswer.Clear();
                     answerUser.Clear();
 
-                    SortList();
-                    SaveRandomQuestion();
                     startPageTest = new StartPageTest();
                     pages = new List<PageTest>();
                     for (int i = 0; i < info.CountQuestion; i++)
@@ -217,7 +247,7 @@ namespace TestM.ViewModels
                         pages.Add(new PageTest());
                     }
                     lastPageTest = new LastPageTest();
-                    CurrentPage = startPageTest;
+                    CurrentPage = mainPage;
                 }));
             }
         }
@@ -281,16 +311,14 @@ namespace TestM.ViewModels
             answerUser = new List<string>();
             service = new JsonFileService();
 
-            info = service.OpenInfo(fileInfo);
             indexPage = -1;
+            countPoints = 0;
 
+            mainPage = new MainPage();
             startPageTest = new StartPageTest();
             pages = new List<PageTest>();
-            for (int i = 0; i < info.CountQuestion; i++)
-            {
-                pages.Add(new PageTest());
-            }
             lastPageTest = new LastPageTest();
+            CurrentPage = mainPage;
 
             service.SaveFirstIndex(fileInfo);
         }
@@ -307,11 +335,11 @@ namespace TestM.ViewModels
 
             List<string> types = new List<string>()
             {
-                "Меры безопастности",
-                "Правовые основания",
-                "ТТХ",
-                "Команды",
-                "Задержки"
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
             };
             
             for (int i = 0; i < questionCollection.Count; i++)

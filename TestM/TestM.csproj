@@ -70,6 +70,9 @@
     <Compile Include="Pages\LastPageTest.xaml.cs">
       <DependentUpon>LastPageTest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageTest.xaml.cs">
       <DependentUpon>PageTest.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,7 @@
       <DependentUpon>StartPageTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
+    <Compile Include="ViewModels\InfoSettingViewModel.cs" />
     <Compile Include="ViewModels\LastPageTestViewModel.cs" />
     <Compile Include="ViewModels\PageTestViewModel.cs" />
     <Compile Include="ViewModels\PasswordChangedViewModel.cs" />
@@ -88,6 +92,9 @@
     <Compile Include="ViewModels\UpdateQuestionViewModel.cs" />
     <Compile Include="Views\AddQuestionWindow.xaml.cs">
       <DependentUpon>AddQuestionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InfoSettingWindow.xaml.cs">
+      <DependentUpon>InfoSettingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PasswordChanged.xaml.cs">
       <DependentUpon>PasswordChanged.xaml</DependentUpon>
@@ -108,6 +115,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\PageTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddQuestionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InfoSettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

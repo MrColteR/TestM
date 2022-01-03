@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestM.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="435" d:DesignWidth="1190"
+      d:DesignHeight="800" d:DesignWidth="1190"
       Title="PageTest">
     <Page.Resources>
         <Style x:Key="PaternButton" TargetType="Button">
@@ -48,8 +48,8 @@
         </Style>
         <Style x:Key="PatternRadioButton" TargetType="RadioButton">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10,5,10,0"/>
-            <Setter Property="Width" Value="1180"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="10,15,10,0"/>
         </Style>
         <Style x:Key="TextBlock" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
@@ -63,41 +63,39 @@
         </Style>
     </Page.Resources>
     <Grid Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="{Binding QuestionFirst}"
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Background="Transparent">
+                <TextBlock Text="{Binding QuestionFirst}"
                        Style="{StaticResource TextBlockQuestion}"/>
-            <RadioButton Name="FirstRadioButton"
+                <RadioButton Name="FirstRadioButton"
                          GroupName="FirstQuestion"
                          Style="{StaticResource PatternRadioButton}"
                          Command="{Binding FirstAnswer}">
-                <TextBlock Name="FirstAnswer"
+                    <TextBlock Name="FirstAnswer"
                            Text="{Binding AnswerFirst}"
                            Style="{StaticResource TextBlock}"/>
-            </RadioButton>
-            <RadioButton Name="SecondRadioButton"
+                </RadioButton>
+                <RadioButton Name="SecondRadioButton"
                          GroupName="FirstQuestion"
                          Style="{StaticResource PatternRadioButton}"
                          Command="{Binding SecondAnswer}">
-                <TextBlock Name="SecondAnswer"
+                    <TextBlock Name="SecondAnswer"
                            Text="{Binding AnswerSecond}"
                            Style="{StaticResource TextBlock}"/>
-            </RadioButton>
-            <RadioButton Name="ThirdRadioButton"
+                </RadioButton>
+                <RadioButton Name="ThirdRadioButton"
                          GroupName="FirstQuestion"
                          Style="{StaticResource PatternRadioButton}"
                          Command="{Binding ThirdAnswer}">
-                <TextBlock Name="ThirdAnswer" 
+                    <TextBlock Name="ThirdAnswer" 
                            Text="{Binding AnswerThird}"
                            Style="{StaticResource TextBlock}"/>
-            </RadioButton>
-        </StackPanel>
-        <TextBlock Name="RigntAnswer"
-                   Grid.Row="1"
+                </RadioButton>
+                <TextBlock Name="RigntAnswer"
+                   
                    Text="{Binding RightAnswer}"
                    Visibility="Hidden"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

@@ -103,5 +103,42 @@ namespace TestM.Data
             }
         }
         #endregion
+        #region Json Info Setting
+        public int OpenQuestionCollection(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.QuestionCollection;
+        }
+        public int OpenCountQuestionOneType(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.CountQuestionOneType;
+        }
+        public int OpenCountQuestion(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.CountQuestion;
+        }
+        public void SaveQuestionsInfo(string filePath, int questionCollection, int countQuestionOneType, int countQuestion)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            info.QuestionCollection = questionCollection;
+            info.CountQuestionOneType = countQuestionOneType;
+            info.CountQuestion = countQuestion;
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(info);
+                writer.Write(data);
+            }
+        }
+        #endregion
     }
 }
