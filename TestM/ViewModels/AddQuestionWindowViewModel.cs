@@ -13,7 +13,7 @@ namespace TestM.ViewModels
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
 
-        JsonFileService fileService;
+        private JsonFileService fileService;
 
         private bool checkTypeButton = false;
         private bool checkAnswerButton = false;

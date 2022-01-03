@@ -2,7 +2,7 @@
 
 namespace TestM.ViewModels
 {
-    class StartPageTestViewModel : ViewModel
+    public class StartPageTestViewModel : ViewModel
     {
         #region Property
         private string name;

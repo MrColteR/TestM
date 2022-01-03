@@ -4,7 +4,7 @@ using TestM.Views;
 
 namespace TestM.ViewModels
 {
-    class UpdateQuestionViewModel
+    public class UpdateQuestionViewModel
     {
         private bool checkTypeButton = false;
         private bool checkAnswerButton = false;

@@ -10,7 +10,6 @@ namespace TestM.Data
     public static class AddResultToFile
     {
         private static string path = Directory.GetCurrentDirectory();
-        private static string newFileResult = path.Substring(0, path.IndexOf("bin"));
         private static string fileResult = path.Substring(0, path.IndexOf("bin")) + "Result.csv";
         public static void WriteName(string name, string subdivision, string date)
         {
@@ -25,7 +24,7 @@ namespace TestM.Data
             bool IsEmpty = false;
             using (StreamReader sr = new StreamReader(fileResult))
             {
-                var temp = sr.ReadToEnd();
+                string temp = sr.ReadToEnd();
                 if (temp == "")
                 {
                     IsEmpty = true;

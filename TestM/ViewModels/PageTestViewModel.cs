@@ -15,7 +15,7 @@ namespace TestM.ViewModels
 
         private ObservableCollection<QuestionModel> questions;
         private Info actualQuestionModel;
-        JsonFileService service;
+        private JsonFileService service;
 
         #region Commands
         private RelayCommand firstAnswer;

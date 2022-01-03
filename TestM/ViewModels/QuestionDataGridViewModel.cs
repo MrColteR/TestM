@@ -12,7 +12,7 @@ namespace TestM.ViewModels
         private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
 
         private QuestionModel model;
-        JsonFileService service;
+        private JsonFileService service;
 
         #region Property
         public string Question
