@@ -49,11 +49,11 @@ namespace TestM.Data
             {
                 if (Convert.ToInt32(points) >= 17)
                 {
-                    sw.Write(";" + points + "удовлетворительно");
+                    sw.Write(";" + points + " удовлетворительно");
                 }
                 else
                 {
-                    sw.Write(";" + points + "не удовлетворительно");
+                    sw.Write(";" + points + " не удовлетворительно");
                 }
             }
         }

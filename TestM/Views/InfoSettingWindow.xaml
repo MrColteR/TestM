@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         BorderBrush="Black"
         BorderThickness="1"
-        Title="InfoSettingWindow" Height="285" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="InfoSettingWindow" Height="415" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <Style x:Key="PaternButton" TargetType="Button">
             <Style.Setters>
@@ -79,6 +79,9 @@
                 <Setter Property="VerticalAlignment" Value="Center"/>
             </Style.Setters>
         </Style>
+        <Style x:Key="TextBlockCheckBox" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
         <Style x:Key="TextBlockGrid" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -124,6 +127,14 @@
                 <Setter Property="Width" Value="20"/>
             </Style.Setters>
         </Style>
+        <Style x:Key="CheckBox" TargetType="CheckBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -135,6 +146,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>
@@ -165,90 +178,62 @@
         </StackPanel>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="1"
-                   Text="Количество используемых тем"/>
-        <Button Style="{StaticResource ChldrenComboBoxButton}"
-                Grid.Row="2"
-                Command="{Binding OpenComboBoxType}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-            <TextBlock Text="{Binding QuestionCollection, UpdateSourceTrigger=PropertyChanged}"
-                       Name="TypeButton"
-                       Style="{StaticResource TextBlockGrid}"/>
-        </Button>
+                   Text="Используемые темы"/>
+        <StackPanel Grid.Row="2">
+            <CheckBox IsChecked="{Binding FirstCheckBoxButton}"
+                      Style="{StaticResource CheckBox}">
+                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+                           Text="1"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding SecondCheckBoxButton}"
+                      Style="{StaticResource CheckBox}">
+                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+                           Text="2"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding ThreeCheckBoxButton}"
+                      Style="{StaticResource CheckBox}">
+                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+                           Text="3"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding FourtCheckBoxButton}"
+                      Style="{StaticResource CheckBox}" >
+                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+                           Text="4"/>
+            </CheckBox>
+            <CheckBox IsChecked="{Binding FiveCheckBoxButton}"
+                      Style="{StaticResource CheckBox}">
+                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+                           Text="5"/>
+            </CheckBox>
+        </StackPanel>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="3"
-                   Text="Количество вопросов по теме"/>
+                   Text="Минимальный порог баллов"/>
         <TextBox Style="{StaticResource TextBox}"
                  Grid.Row="4"
-                 Name="countQuestionOneTypeTextBox"
-                 Text="{Binding CountQuestionOneType, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding MinimalCountPoints, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="5"
-                   Text="Количество вопросов в тесте"/>
+                   Text="Количество вопросов по теме"/>
         <TextBox Style="{StaticResource TextBox}"
                  Grid.Row="6"
-                 Name="countQuestionTextBox"
+                 Text="{Binding CountQuestionOneType, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Style="{StaticResource TextBlock}"
+                   Grid.Row="7"
+                   Text="Количество вопросов в тесте"/>
+        <TextBox Style="{StaticResource TextBox}"
+                 Grid.Row="8"
                  IsReadOnly="True"
                  Text="{Binding CountQuestion, UpdateSourceTrigger=PropertyChanged}"/>
         <Button Style="{StaticResource ChildrenLeftButton}"
-                Grid.Row="7"
+                Grid.Row="9"
                 Command="{Binding ChangeSettingInfo}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Content="Изменить"/>
         <Button Style="{StaticResource ChildrenRightButton}"
-                Grid.Row="7"
+                Grid.Row="9"
                 Command="{Binding CloseWindow}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                 Content="Отмена"/>
-        <Grid Grid.Row="3"
-              Grid.RowSpan="5"
-              Name="GridComboBoxType"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              Margin="0,-35,0,0"
-              Visibility="Hidden">
-            <Rectangle Height="157" Width="280" Margin="0,0,0,0" Fill="#1E90FF"/>
-            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
-                <Button Name="OneButton"
-                        Style="{StaticResource ChildrenStackPanelButton}" 
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <TextBlock Name="OneTextBlock"
-                               Text="1"
-                               Style="{StaticResource TextBlockGrid}"/>
-                </Button>
-                <Button Style="{StaticResource ChildrenStackPanelButton}"
-                        Name="TwoButton"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <TextBlock Name="TwoTextBlock"
-                               Text="2"
-                               Style="{StaticResource TextBlockGrid}"/>
-                </Button>
-                <Button Style="{StaticResource ChildrenStackPanelButton}"
-                        Name="ThreeButton"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <TextBlock Name="ThreeTextBlock"
-                               Text="3"
-                               Style="{StaticResource TextBlockGrid}"/>
-                </Button>
-                <Button Style="{StaticResource ChildrenStackPanelButton}"
-                        Name="FourButton"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <TextBlock Name="FourTextBlock"
-                               Text="4"
-                               Style="{StaticResource TextBlockGrid}"/>
-                </Button>
-                <Button Style="{StaticResource ChildrenStackPanelButton}"
-                        Name="FiveButton"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <TextBlock Name="FiveTextBlock"
-                               Text="5"
-                               Style="{StaticResource TextBlockGrid}"/>
-                </Button>
-            </StackPanel>
-        </Grid>
     </Grid>
 </Window>

@@ -82,6 +82,7 @@
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
     <Compile Include="ViewModels\InfoSettingViewModel.cs" />
     <Compile Include="ViewModels\LastPageTestViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\PageTestViewModel.cs" />
     <Compile Include="ViewModels\PasswordChangedViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />

@@ -120,12 +120,14 @@ namespace TestM.ViewModels
                     SortList();
                     SaveRandomQuestion();
 
+                    startPageTest = new StartPageTest();
                     pages = new List<PageTest>();
                     for (int i = 0; i < info.CountQuestion; i++)
                     {
                         pages.Add(new PageTest());
                     }
-                    
+                    lastPageTest = new LastPageTest();
+
                     MainWindow wnd = obj as MainWindow;
                     wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
                     wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
@@ -193,6 +195,8 @@ namespace TestM.ViewModels
                     wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
                     wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
 
+                    int points = Convert.ToInt32(service.OpenMinimalCountPonits(fileInfo));
+
                     foreach (var item in pages)
                     {
                         answerUser.Add(item.RigntAnswer.Text);
@@ -207,13 +211,13 @@ namespace TestM.ViewModels
 
                     lastPageTest.Points.Text = CountPoints.ToString();
                     AddResultToFile.WritePoints(CountPoints.ToString());
-                    if (CountPoints >= 17)
+                    if (CountPoints >= points)
                     {
                         lastPageTest.Result.Text = $"Вы успешно прошли тест, Вы набрали {CountPoints}";
                     }
                     else 
                     {
-                        lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {17 - CountPoints} баллов до минимального порога";
+                        lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога";
                     }
                     CurrentPage = lastPageTest;
                 }));
@@ -240,13 +244,18 @@ namespace TestM.ViewModels
                     rightAnswer.Clear();
                     answerUser.Clear();
 
-                    startPageTest = new StartPageTest();
-                    pages = new List<PageTest>();
-                    for (int i = 0; i < info.CountQuestion; i++)
-                    {
-                        pages.Add(new PageTest());
-                    }
-                    lastPageTest = new LastPageTest();
+                    //SortList();
+                    //SaveRandomQuestion();
+
+                    //startPageTest = new StartPageTest();
+                    //pages = new List<PageTest>();
+                    //for (int i = 0; i < info.CountQuestion; i++)
+                    //{
+                    //    pages.Add(new PageTest());
+                    //}
+                    //lastPageTest = new LastPageTest();
+                    
+                    service.SaveFirstIndex(fileInfo);
                     CurrentPage = mainPage;
                 }));
             }
@@ -315,9 +324,9 @@ namespace TestM.ViewModels
             countPoints = 0;
 
             mainPage = new MainPage();
-            startPageTest = new StartPageTest();
+            //startPageTest = new StartPageTest();
             pages = new List<PageTest>();
-            lastPageTest = new LastPageTest();
+            //lastPageTest = new LastPageTest();
             CurrentPage = mainPage;
 
             service.SaveFirstIndex(fileInfo);
@@ -327,21 +336,23 @@ namespace TestM.ViewModels
             service = new JsonFileService();
             questionsList = service.Open(fileData);
 
+            Dictionary<int, bool> stateType = service.OpenButtonStates(fileInfo);
+            List<string> types = new List<string>();
+
+            foreach (var item in stateType)
+            {
+                if (item.Value == true)
+                {
+                    types.Add(item.Key.ToString());
+                }
+            }
+
             List<ObservableCollection<QuestionModel>> questionCollection = new List<ObservableCollection<QuestionModel>>();
-            for (int i = 0; i < info.QuestionCollection; i++)
+            for (int i = 0; i < types.Count; i++)
             {
                 questionCollection.Add(new ObservableCollection<QuestionModel>());
             }
-
-            List<string> types = new List<string>()
-            {
-                "1",
-                "2",
-                "3",
-                "4",
-                "5"
-            };
-            
+                        
             for (int i = 0; i < questionCollection.Count; i++)
             {
                 questionCollection[i] = SortType(types[i], questionsList);

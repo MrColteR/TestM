@@ -50,6 +50,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="10,15,10,0"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
         <Style x:Key="TextBlock" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>

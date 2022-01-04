@@ -18,7 +18,8 @@ namespace TestM.ViewModels
 
         private JsonFileService service;
 
-        private bool checkTypeButton = false;
+        private Dictionary<int, bool> buttonsStates;
+        private int countType;
 
         #region Commands
         private RelayCommand minimizeWindow;
@@ -45,65 +46,6 @@ namespace TestM.ViewModels
                 }));
             }
         }
-        private RelayCommand openComboBoxType;
-        public RelayCommand OpenComboBoxType
-        {
-            get
-            {
-                return openComboBoxType ?? (openComboBoxType = new RelayCommand(obj =>
-                {
-                    InfoSettingWindow wnd = obj as InfoSettingWindow;
-                    if (!checkTypeButton)
-                    {
-                        wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Visible;
-                        checkTypeButton = true;
-                    }
-                    else if (checkTypeButton)
-                    {
-                        wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
-                        checkTypeButton = false;
-                    }
-                }));
-            }
-        }
-        private RelayCommand choiceType;
-        public RelayCommand ChoiceType
-        {
-            get
-            {
-                return choiceType ?? (choiceType = new RelayCommand(obj =>
-                {
-                    InfoSettingWindow wnd = obj as InfoSettingWindow;
-                    wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
-                    if (wnd.OneButton.IsFocused)
-                    {
-                        wnd.TypeButton.Text = wnd.OneTextBlock.Text;
-                        QuestionCollection = Convert.ToInt32(wnd.OneTextBlock.Text);
-                    }
-                    if (wnd.TwoButton.IsFocused)
-                    {
-                        wnd.TypeButton.Text = wnd.TwoTextBlock.Text;
-                        QuestionCollection = Convert.ToInt32(wnd.TwoTextBlock.Text);
-                    }
-                    if (wnd.ThreeButton.IsFocused)
-                    {
-                        wnd.TypeButton.Text = wnd.ThreeTextBlock.Text;
-                        QuestionCollection = Convert.ToInt32(wnd.ThreeTextBlock.Text);
-                    }
-                    if (wnd.FourButton.IsFocused)
-                    {
-                        wnd.TypeButton.Text = wnd.FourTextBlock.Text;
-                        QuestionCollection = Convert.ToInt32(wnd.FourTextBlock.Text);
-                    }
-                    if (wnd.FiveButton.IsFocused)
-                    {
-                        wnd.TypeButton.Text = wnd.FiveTextBlock.Text;
-                        QuestionCollection = Convert.ToInt32(wnd.FiveTextBlock.Text);
-                    }
-                    checkTypeButton = false;
-                }));
-            }
-        }
         private RelayCommand changeSettingInfo;
         public RelayCommand ChangeSettingInfo
         {
@@ -111,8 +53,8 @@ namespace TestM.ViewModels
             {
                 return changeSettingInfo ?? (changeSettingInfo = new RelayCommand(obj =>
                 {
-                    service.SaveQuestionsInfo(fileInfo, questionCollection, countQuestionOneType, countQuestion);
-
+                    service.SaveQuestionsInfo(fileInfo, countQuestionOneType, countQuestion);
+                    service.SaveButtonsStates(fileInfo, buttonsStates, minimalCountPoints);
                     InfoSettingWindow wnd = obj as InfoSettingWindow;
                     wnd.Close();
                 }));
@@ -120,17 +62,6 @@ namespace TestM.ViewModels
         }
         #endregion
         #region Property
-        private int questionCollection;
-        public int QuestionCollection
-        {
-            get => questionCollection;
-            set
-            {
-                questionCollection = value;
-                CountQuestion = QuestionCollection * CountQuestionOneType;
-                OnPropertyChanged(nameof(QuestionCollection));
-            }
-        }
         private int countQuestionOneType;
         public int CountQuestionOneType
         {
@@ -138,7 +69,7 @@ namespace TestM.ViewModels
             set
             {
                 countQuestionOneType = value;
-                CountQuestion = QuestionCollection * CountQuestionOneType;
+                CountQuestion = countType * CountQuestionOneType;
                 OnPropertyChanged(nameof(CountQuestionOneType));
             }
         }
@@ -152,13 +83,92 @@ namespace TestM.ViewModels
                 OnPropertyChanged(nameof(CountQuestion));
             }
         }
+        private string minimalCountPoints;
+        public string MinimalCountPoints
+        {
+            get => minimalCountPoints; 
+            set
+            {
+                minimalCountPoints = value;
+                OnPropertyChanged(nameof(MinimalCountPoints));
+            }
+        }
+        public bool FirstCheckBoxButton
+        {
+            get => buttonsStates[1];
+            set
+            {
+                buttonsStates[1] = value;
+                CountType();
+                CountQuestion = countType * CountQuestionOneType;
+                OnPropertyChanged(nameof(FirstCheckBoxButton));
+            }
+        }
+        public bool SecondCheckBoxButton
+        {
+            get => buttonsStates[2];
+            set
+            {
+                buttonsStates[2] = value;
+                CountType();
+                CountQuestion = countType * CountQuestionOneType;
+                OnPropertyChanged(nameof(SecondCheckBoxButton));
+            }
+        }
+        public bool ThreeCheckBoxButton
+        {
+            get => buttonsStates[3];
+            set
+            {
+                buttonsStates[3] = value;
+                CountType();
+                CountQuestion = countType * CountQuestionOneType;
+                OnPropertyChanged(nameof(ThreeCheckBoxButton));
+            }
+        }
+        public bool FourtCheckBoxButton
+        {
+            get => buttonsStates[4];
+            set
+            {
+                buttonsStates[4] = value;
+                CountType();
+                CountQuestion = countType * CountQuestionOneType;
+                OnPropertyChanged(nameof(FourtCheckBoxButton));
+            }
+        }
+        public bool FiveCheckBoxButton
+        {
+            get => buttonsStates[5];
+            set
+            {
+                buttonsStates[5] = value;
+                CountType();
+                CountQuestion = countType * CountQuestionOneType;
+                OnPropertyChanged(nameof(FiveCheckBoxButton));
+            }
+        }
         #endregion
         public InfoSettingViewModel()
         {
             service = new JsonFileService();
-            QuestionCollection = service.OpenQuestionCollection(fileInfo);
+
             CountQuestionOneType = service.OpenCountQuestionOneType(fileInfo);
             CountQuestion = service.OpenCountQuestion(fileInfo);
+            MinimalCountPoints = service.OpenMinimalCountPonits(fileInfo);
+            buttonsStates = service.OpenButtonStates(fileInfo);
+            CountType();
+        }
+        private void CountType()
+        {
+            countType = 0;
+            foreach (var item in buttonsStates)
+            {
+                if (item.Value)
+                {
+                    countType++;
+                }
+            }
         }
     }
 }

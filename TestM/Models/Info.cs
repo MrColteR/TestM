@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using TestM.Models.Base;
 
 namespace TestM.Models
@@ -7,7 +8,6 @@ namespace TestM.Models
     public class Info : Model
     {
         private int index;
-
         [DataMember]
         public int Index
         {
@@ -18,8 +18,8 @@ namespace TestM.Models
                 OnPropertyChanged(nameof(Index)); 
             }
         }
-        [DataMember]
         private string password;
+        [DataMember]
         public string Password
         {
             get => password; 
@@ -29,8 +29,8 @@ namespace TestM.Models
                 OnPropertyChanged(nameof(Password));
             }
         }
-        [DataMember]
         private int countQuestion;
+        [DataMember]
         public int CountQuestion
         {
             get => countQuestion; 
@@ -40,8 +40,8 @@ namespace TestM.Models
                 OnPropertyChanged(nameof(CountQuestion));
             }
         }
-        [DataMember]
         private int countQuestionOneType;
+        [DataMember]
         public int CountQuestionOneType
         {
             get => countQuestionOneType; 
@@ -51,17 +51,27 @@ namespace TestM.Models
                 OnPropertyChanged(nameof(CountQuestionOneType)); 
             }
         }
+        private string minimalCountPoints;
         [DataMember]
-        private int questionCollection;
-        public int QuestionCollection
+        public string MinimalCountPoints
         {
-            get => questionCollection; 
+            get => minimalCountPoints;
             set
             {
-                questionCollection = value; 
-                OnPropertyChanged(nameof(QuestionCollection));
+                minimalCountPoints = value;
+                OnPropertyChanged(nameof(MinimalCountPoints));
             }
         }
-
+        private Dictionary<int, bool> buttonsStates;
+        [DataMember]
+        public Dictionary<int, bool> ButtonsStates
+        {
+            get => buttonsStates; 
+            set 
+            {
+                buttonsStates = value;
+                OnPropertyChanged(nameof(ButtonsStates));
+            }
+        }
     }
 }
