@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         BorderBrush="Black"
         BorderThickness="1"
-        Title="InfoSettingWindow" Height="415" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="InfoSettingWindow" Height="450" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <Style x:Key="PaternButton" TargetType="Button">
             <Style.Setters>
@@ -128,12 +128,43 @@
             </Style.Setters>
         </Style>
         <Style x:Key="CheckBox" TargetType="CheckBox">
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10,0,0,0"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <BulletDecorator Background="Transparent"
+                                             Cursor="Hand"
+                                             Margin="0,5,0,0">
+                                <BulletDecorator.Bullet>
+                                    <Grid Height="20"
+                                          Width="20"
+                                          Margin="10,0,0,0">
+                                        <Border Name="RadioOuter"
+                                                Background="Transparent"
+                                                BorderBrush="#005eff"
+                                                BorderThickness="2"
+                                                CornerRadius="4"/>
+                                        <Border Name="RadioMark"
+                                                CornerRadius="6"
+                                                Margin="4" 
+                                                Background="#005eff" 
+                                                Visibility="Hidden"/>
+                                    </Grid>
+                                </BulletDecorator.Bullet>
+                                <TextBlock Margin="15,0,0,0">
+                                    <ContentPresenter />
+                                </TextBlock>
+                            </BulletDecorator>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Setter TargetName="RadioMark" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="RadioOuter" Property="BorderBrush" Value="#005eff" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
         </Style>
     </Window.Resources>
     <Window.Background>
@@ -147,7 +178,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="135"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>

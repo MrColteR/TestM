@@ -243,17 +243,6 @@ namespace TestM.ViewModels
                     actualQuestions.Clear();
                     rightAnswer.Clear();
                     answerUser.Clear();
-
-                    //SortList();
-                    //SaveRandomQuestion();
-
-                    //startPageTest = new StartPageTest();
-                    //pages = new List<PageTest>();
-                    //for (int i = 0; i < info.CountQuestion; i++)
-                    //{
-                    //    pages.Add(new PageTest());
-                    //}
-                    //lastPageTest = new LastPageTest();
                     
                     service.SaveFirstIndex(fileInfo);
                     CurrentPage = mainPage;
@@ -324,9 +313,7 @@ namespace TestM.ViewModels
             countPoints = 0;
 
             mainPage = new MainPage();
-            //startPageTest = new StartPageTest();
             pages = new List<PageTest>();
-            //lastPageTest = new LastPageTest();
             CurrentPage = mainPage;
 
             service.SaveFirstIndex(fileInfo);
