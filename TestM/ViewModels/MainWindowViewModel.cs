@@ -60,7 +60,7 @@ namespace TestM.ViewModels
                 return openSetting ?? (openSetting = new RelayCommand(obj =>
                 {
                     SettingWindow wnd = new SettingWindow();
-                    wnd.Show();
+                    wnd.ShowDialog();
                 }, (obj) =>  IsStart == false));
             }
         }

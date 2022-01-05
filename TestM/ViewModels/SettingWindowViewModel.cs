@@ -11,18 +11,6 @@ namespace TestM.ViewModels
         private static string path = Directory.GetCurrentDirectory();
         private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
         #region Commands
-        private RelayCommand minimizeWindow;
-        public RelayCommand MinimizeWindow
-        {
-            get 
-            {
-                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
-                {
-                    SettingWindow wnd = obj as SettingWindow;
-                    wnd.WindowState = System.Windows.WindowState.Minimized;
-                }));
-            }
-        }
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow
         {

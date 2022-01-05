@@ -126,14 +126,6 @@
                         HorizontalAlignment="Right"
                     Grid.Row="0">
             <Button Style="{StaticResource ChildrenToolbarButton}"
-                        Command="{Binding MinimizeWindow}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{StaticResource PatternIcon}"
-                           Name="MinimizeButton"
-                           Source="/Icon/minimizeIcon.png">
-                </Image>
-            </Button>
-            <Button Style="{StaticResource ChildrenToolbarButton}"
                         Command="{Binding CloseWindow}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                 <Image Style="{StaticResource PatternIcon}"
