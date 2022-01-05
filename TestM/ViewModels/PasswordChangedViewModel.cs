@@ -7,18 +7,6 @@ namespace TestM.ViewModels
     public class PasswordChangedViewModel : ViewModel
     {
         #region Commands
-        private RelayCommand minimizeWindow;
-        public RelayCommand MinimizeWindow
-        {
-            get
-            {
-                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
-                {
-                    PasswordChanged wnd = obj as PasswordChanged;
-                    wnd.WindowState = System.Windows.WindowState.Minimized;
-                }));
-            }
-        }
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow
         {
