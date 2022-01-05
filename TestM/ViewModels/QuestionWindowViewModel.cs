@@ -145,7 +145,7 @@ namespace TestM.ViewModels
                 return openSettingInfo ?? (openSettingInfo = new RelayCommand(obj =>
                 {
                     InfoSettingWindow wnd = new InfoSettingWindow();
-                    wnd.Show();
+                    wnd.ShowDialog();
                 }));
             }
         }

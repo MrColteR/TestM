@@ -22,18 +22,6 @@ namespace TestM.ViewModels
         private int countType;
 
         #region Commands
-        private RelayCommand minimizeWindow;
-        public RelayCommand MinimizeWindow
-        {
-            get
-            {
-                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
-                {
-                    InfoSettingWindow wnd = obj as InfoSettingWindow;
-                    wnd.WindowState = System.Windows.WindowState.Minimized;
-                }));
-            }
-        }
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow
         {
