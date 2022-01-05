@@ -197,10 +197,5 @@ namespace TestM.ViewModels
             fileService = new JsonFileService();
             ItemsSource = fileService.Open(fileName);
         }
-        
-        private void Check(object parameter)
-        {
-            
-        }
     }
 }
