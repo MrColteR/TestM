@@ -80,6 +80,7 @@
       <DependentUpon>StartPageTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
+    <Compile Include="ViewModels\ChangeDataViewModel.cs" />
     <Compile Include="ViewModels\InfoSettingViewModel.cs" />
     <Compile Include="ViewModels\LastPageTestViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
@@ -93,6 +94,9 @@
     <Compile Include="ViewModels\UpdateQuestionViewModel.cs" />
     <Compile Include="Views\AddQuestionWindow.xaml.cs">
       <DependentUpon>AddQuestionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChangeData.xaml.cs">
+      <DependentUpon>ChangeData.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InfoSettingWindow.xaml.cs">
       <DependentUpon>InfoSettingWindow.xaml</DependentUpon>
@@ -129,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddQuestionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChangeData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

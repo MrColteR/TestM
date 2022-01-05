@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using TestM.Command;
 using TestM.Data;
@@ -12,12 +13,14 @@ namespace TestM.ViewModels
     {
         private static string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+        public readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
 
         private JsonFileService fileService;
         private QuestionDataGridViewModel question;
 
         private bool checkWindowState = false;
-
+        private bool IsEditing = false;
+ 
         #region Commands
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow
@@ -53,17 +56,33 @@ namespace TestM.ViewModels
             }
         }
         private RelayCommand closeWindow;
-        public RelayCommand CloseWindow
+        public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            get
+            if (!IsEditing)
             {
-                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
-                {
-                    QuestionWindow wnd = obj as QuestionWindow;
-                    wnd.Close();
-                }));
+                QuestionWindow wnd = obj as QuestionWindow;
+                wnd.Close();
             }
-        }
+            else
+            {
+                ChangeData wnd = new ChangeData();
+                wnd.ShowDialog();
+
+                IsEditing = false;
+                var check = fileService.OpenSaveFileCheck(fileInfo);
+
+                if (check)
+                {
+                    RelayCommand relayCommand = SaveFile;
+                    relayCommand.Execute(obj);
+                }
+                else
+                {
+                    RelayCommand relayCommand = CloseWindow;
+                    relayCommand.Execute(obj);
+                }
+            }
+        }));
         private RelayCommand addQuestion;
         public RelayCommand AddQuestion
         {
@@ -71,6 +90,7 @@ namespace TestM.ViewModels
             {
                 return addQuestion ?? (addQuestion = new RelayCommand(obj =>
                 {
+                    IsEditing = true;
                     AddQuestionWindow window = new AddQuestionWindow(obj as QuestionWindowViewModel);
                     window.ShowDialog();
                 }));
@@ -83,6 +103,7 @@ namespace TestM.ViewModels
             {
                 return updateQuestion ?? (updateQuestion = new RelayCommand(obj => 
                 {
+                    IsEditing = true;
                     UpdateQuestionWindow window = new UpdateQuestionWindow(SelectedItem);
                     window.ShowDialog();
                 }, (obj) => ItemsSource.Count > 0));
@@ -95,6 +116,7 @@ namespace TestM.ViewModels
             {
                 return deleteQustion ?? (deleteQustion = new RelayCommand(obj =>
                 {
+                    IsEditing = true;
                     var index = ItemsSource.IndexOf(SelectedItem);
                     if (SelectedItem != null)
                     {
@@ -124,20 +146,7 @@ namespace TestM.ViewModels
                 }));
             }
         }
-        private RelayCommand closeQuestionWindow;
-        public RelayCommand CloseQuestionWindow
-        {
-            get
-            {
-                return closeQuestionWindow ?? (closeQuestionWindow = new RelayCommand(obj =>
-                {
-                    QuestionWindow wnd = obj as QuestionWindow;
-                    wnd.Close();
-                }));
-            }
-        }
         private RelayCommand openSettingInfo;
-
         public RelayCommand OpenSettingInfo
         {
             get 
@@ -149,7 +158,6 @@ namespace TestM.ViewModels
                 }));
             }
         }
-
         #endregion
         #region Property
         private QuestionModel selectedItem;
@@ -188,6 +196,11 @@ namespace TestM.ViewModels
             question = new QuestionDataGridViewModel();
             fileService = new JsonFileService();
             ItemsSource = fileService.Open(fileName);
+        }
+        
+        private void Check(object parameter)
+        {
+            
         }
     }
 }

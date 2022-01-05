@@ -104,6 +104,13 @@ namespace TestM.Data
         }
         #endregion
         #region Json Info Setting
+        public bool OpenSaveFileCheck(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.SaveFileCheck;
+        }
         public int OpenCountQuestionOneType(string filePath)
         {
             string json = File.ReadAllText(filePath);
@@ -152,6 +159,18 @@ namespace TestM.Data
             JsonConvert.PopulateObject(json, info);
             info.ButtonsStates = buttonsStates;
             info.MinimalCountPoints = minimalCountPonits;
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(info);
+                writer.Write(data);
+            }
+        }
+        public void SaveFileCheck(string filePath, bool check)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            info.SaveFileCheck = check;
             using (StreamWriter writer = File.CreateText(filePath))
             {
                 var data = JsonConvert.SerializeObject(info);

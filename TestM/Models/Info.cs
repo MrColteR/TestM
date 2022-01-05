@@ -7,6 +7,17 @@ namespace TestM.Models
     [DataContract]
     public class Info : Model
     {
+        private bool saveFileCheck;
+        [DataMember]
+        public bool SaveFileCheck
+        {
+            get => saveFileCheck;
+            set
+            {
+                saveFileCheck = value;
+                OnPropertyChanged(nameof(SaveFileCheck));
+            }
+        }
         private int index;
         [DataMember]
         public int Index
