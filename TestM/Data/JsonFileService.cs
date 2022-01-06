@@ -111,6 +111,13 @@ namespace TestM.Data
             JsonConvert.PopulateObject(json, info);
             return info.SaveFileCheck;
         }
+        public bool OpenStopCheckCheck(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.StopTestCheck;
+        }
         public int OpenCountQuestionOneType(string filePath)
         {
             string json = File.ReadAllText(filePath);
@@ -171,6 +178,18 @@ namespace TestM.Data
             Info info = new Info();
             JsonConvert.PopulateObject(json, info);
             info.SaveFileCheck = check;
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(info);
+                writer.Write(data);
+            }
+        }
+        public void SaveStopTestCheck(string filePath, bool check)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            info.StopTestCheck = check;
             using (StreamWriter writer = File.CreateText(filePath))
             {
                 var data = JsonConvert.SerializeObject(info);

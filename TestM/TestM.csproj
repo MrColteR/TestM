@@ -91,12 +91,13 @@
     <Compile Include="ViewModels\QuestionWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingWindowViewModel.cs" />
     <Compile Include="ViewModels\StartPageTestViewModel.cs" />
+    <Compile Include="ViewModels\StopTestWindowViewModel.cs" />
     <Compile Include="ViewModels\UpdateQuestionViewModel.cs" />
     <Compile Include="Views\AddQuestionWindow.xaml.cs">
       <DependentUpon>AddQuestionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChangeData.xaml.cs">
-      <DependentUpon>ChangeData.xaml</DependentUpon>
+    <Compile Include="Views\ChangeDataWindow.xaml.cs">
+      <DependentUpon>ChangeDataWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InfoSettingWindow.xaml.cs">
       <DependentUpon>InfoSettingWindow.xaml</DependentUpon>
@@ -112,6 +113,9 @@
     </Compile>
     <Compile Include="Views\SettingWindow.xaml.cs">
       <DependentUpon>SettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StopTestWindow.xaml.cs">
+      <DependentUpon>StopTestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UpdateQuestionWindow.xaml.cs">
       <DependentUpon>UpdateQuestionWindow.xaml</DependentUpon>
@@ -136,7 +140,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ChangeData.xaml">
+    <Page Include="Views\ChangeDataWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -172,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StopTestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

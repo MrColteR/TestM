@@ -39,7 +39,8 @@ namespace TestM.ViewModels
         private bool IsLastPage;
         private bool checkWindowState = false;
         private bool IsStartPageTextBoolIsNull;
-        private bool IsPassedTheCheck =  false;
+        private bool IsPassedTheCheck = false;
+        private bool closeTest = false;
 
         #region Command
         private RelayCommand checkPassword;
@@ -82,8 +83,24 @@ namespace TestM.ViewModels
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            MainWindow wnd = obj as MainWindow;
-            wnd.Close();
+            if (IsStart && !closeTest)
+            {
+                StopTestWindow wnd = new StopTestWindow();
+                wnd.ShowDialog();
+                
+                var check = service.OpenStopCheckCheck(fileInfo);
+                if (check)
+                {
+                    closeTest = true;
+                    RelayCommand relayCommand = CloseWindow;
+                    relayCommand.Execute(obj);
+                }
+            }
+            else
+            {
+                MainWindow wndMain = obj as MainWindow;
+                wndMain.Close();
+            }
         }));
 
         private RelayCommand startTest;
@@ -109,6 +126,21 @@ namespace TestM.ViewModels
             IsStart = true;
         }, (obj) =>  IsStart == false));
 
+        private RelayCommand stopTest;
+        public RelayCommand StopTest => stopTest ?? (stopTest = new RelayCommand(obj => 
+        {
+            StopTestWindow wnd = new StopTestWindow();
+            wnd.ShowDialog();
+
+            var check = service.OpenStopCheckCheck(fileInfo);
+
+            if (check)
+            {
+                RelayCommand relayCommand = StartNewTest;
+                relayCommand.Execute(obj);
+            }
+        }));
+
         private RelayCommand previousPage;
         public RelayCommand PreviousPage => previousPage ?? (previousPage = new RelayCommand(obj => 
         {
@@ -119,6 +151,7 @@ namespace TestM.ViewModels
             {
                 wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
                 wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
+                wnd.StopTestButton.Visibility = System.Windows.Visibility.Visible;
                 IsLastPage = false;
             }
 
@@ -151,7 +184,7 @@ namespace TestM.ViewModels
                 MainWindow wnd = obj as MainWindow;
                 if (indexPage == -1)
                 {
-                    AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
+                    wnd.StopTestButton.Visibility = System.Windows.Visibility.Visible;
                 }
                 indexPage++;
                 CurrentPage = pages[indexPage];
@@ -161,6 +194,7 @@ namespace TestM.ViewModels
                     IsLastPage = true;
                     wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
                     wnd.EndTestButton.Visibility = System.Windows.Visibility.Visible;
+                    wnd.StopTestButton.Visibility = System.Windows.Visibility.Hidden;
                 }
                 IsPassedTheCheck = true;
             }
@@ -189,6 +223,9 @@ namespace TestM.ViewModels
             }
 
             lastPageTest.Points.Text = CountPoints.ToString();
+            AddResultToFile.WriteName(startPageTest.NameTextBox.Text,
+                                      startPageTest.SubdivisionTextBox.Text,
+                                      DateTime.Now.Date.ToShortDateString());
             AddResultToFile.WritePoints(CountPoints.ToString());
             if (CountPoints >= points)
             {
@@ -207,6 +244,7 @@ namespace TestM.ViewModels
             wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.StopTestButton.Visibility = System.Windows.Visibility.Hidden;
             startPageTest.NameTextBox.Text = "";
             startPageTest.SubdivisionTextBox.Text = "";
 

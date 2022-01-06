@@ -54,7 +54,7 @@ namespace TestM.ViewModels
             }
             else
             {
-                ChangeData wnd = new ChangeData();
+                ChangeDataWindow wnd = new ChangeDataWindow();
                 wnd.ShowDialog();
 
                 IsEditing = false;

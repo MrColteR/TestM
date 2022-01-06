@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace TestM.Views
 {
     /// <summary>
-    /// Логика взаимодействия для ChangeData.xaml
+    /// Логика взаимодействия для StopTestWindow.xaml
     /// </summary>
-    public partial class ChangeData : Window
+    public partial class StopTestWindow : Window
     {
-        public ChangeData()
+        public StopTestWindow()
         {
             InitializeComponent();
         }

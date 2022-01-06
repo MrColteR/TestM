@@ -18,6 +18,17 @@ namespace TestM.Models
                 OnPropertyChanged(nameof(SaveFileCheck));
             }
         }
+        private bool stopTestCheck;
+        [DataMember]
+        public bool StopTestCheck
+        {
+            get => stopTestCheck;
+            set
+            {
+                stopTestCheck = value;
+                OnPropertyChanged(nameof(StopTestCheck));
+            }
+        }
         private int index;
         [DataMember]
         public int Index

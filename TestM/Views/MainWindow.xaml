@@ -83,6 +83,14 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0,5,10,5"/>
         </Style>
+        <Style x:Key="ChildrenFrameLeftButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="130"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,5,0,5"/>
+        </Style>
         <Style x:Key="PatternIcon" TargetType="Image">
             <Style.Setters>
                 <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -223,6 +231,19 @@
                         Style="{StaticResource ChildrenFrameButton}"
                         Content="Пройти еще раз"
                         Command="{Binding StartNewTest}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Visibility="Hidden"/>
+            </StackPanel>
+        </Grid>
+        <Grid Name="FrameButtonEarlyCompletion"
+              Grid.Row="3"
+              Grid.Column="0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <Button x:Name="StopTestButton"
+                        Style="{StaticResource ChildrenFrameLeftButton}"
+                        Content="Прервать тест"
+                        Command="{Binding StopTest}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                         Visibility="Hidden"/>
             </StackPanel>
