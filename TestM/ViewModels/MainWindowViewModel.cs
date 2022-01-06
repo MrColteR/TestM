@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Media;
 using TestM.Command;
 using TestM.Data;
 using TestM.Models;
@@ -37,6 +38,8 @@ namespace TestM.ViewModels
         private bool IsStart;
         private bool IsLastPage;
         private bool checkWindowState = false;
+        private bool IsStartPageTextBoolIsNull;
+        private bool IsPassedTheCheck =  false;
 
         #region Command
         private RelayCommand checkPassword;
@@ -104,7 +107,6 @@ namespace TestM.ViewModels
 
             CurrentPage = startPageTest;
             IsStart = true;
-
         }, (obj) =>  IsStart == false));
 
         private RelayCommand previousPage;
@@ -124,22 +126,44 @@ namespace TestM.ViewModels
 
         private RelayCommand nextPage;
         public RelayCommand NextPage => nextPage ?? (nextPage = new RelayCommand(obj =>
+        {
+            if (!IsPassedTheCheck)
+            {
+                IsStartPageTextBoolIsNull = false;
+                if (startPageTest.NameTextBox.Text == "")
                 {
-            MainWindow wnd = obj as MainWindow;
-            if (indexPage == -1)
-            {
-                AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
-            }
-            indexPage++;
-            CurrentPage = pages[indexPage];
+                    startPageTest.NameTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+                    IsStartPageTextBoolIsNull = true;
+                }
+                else
+                    startPageTest.NameTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
+                if (startPageTest.SubdivisionTextBox.Text == "")
+                {
+                    startPageTest.SubdivisionTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+                    IsStartPageTextBoolIsNull = true;
+                }
+                else
+                    startPageTest.SubdivisionTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
 
-            if (indexPage == pages.Count - 1)
-            {
-                IsLastPage = true;
-                wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
-                wnd.EndTestButton.Visibility = System.Windows.Visibility.Visible;
             }
+            if (!IsStartPageTextBoolIsNull)
+            {
+                MainWindow wnd = obj as MainWindow;
+                if (indexPage == -1)
+                {
+                    AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
+                }
+                indexPage++;
+                CurrentPage = pages[indexPage];
 
+                if (indexPage == pages.Count - 1)
+                {
+                    IsLastPage = true;
+                    wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
+                    wnd.EndTestButton.Visibility = System.Windows.Visibility.Visible;
+                }
+                IsPassedTheCheck = true;
+            }
         }, (obj) => indexPage<pages.Count - 1));
 
         private RelayCommand scoring;
