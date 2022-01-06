@@ -11,169 +11,126 @@ namespace TestM.ViewModels
 
         #region Commands
         private RelayCommand minimizeWindow;
-        public RelayCommand MinimizeWindow
+        public RelayCommand MinimizeWindow => minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
-                {
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    wnd.WindowState = System.Windows.WindowState.Minimized;
-                }));
-            }
-        }
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            wnd.WindowState = System.Windows.WindowState.Minimized;
+        }));
+
         private RelayCommand closeWindow;
-        public RelayCommand CloseWindow
+        public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
-                {
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    wnd.Close();
-                }));
-            }
-        }
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            wnd.Close();
+        }));
+
         private RelayCommand save;
-        public RelayCommand Save
+        public RelayCommand Save => save ?? (save = new RelayCommand(obj =>
         {
-            get
-            {
-                return save ?? (save = new RelayCommand(obj =>
-                {
-                    checkAnswerButton = false;
-                    checkTypeButton = false;
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    wnd.Close();
-                }));
-            }
-        }
+            checkAnswerButton = false;
+            checkTypeButton = false;
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            wnd.Close();
+        }));
         private RelayCommand close;
-        public RelayCommand Close
+        public RelayCommand Close => close ?? (close = new RelayCommand(obj =>
         {
-            get
-            {
-                return close ?? (close = new RelayCommand(obj =>
-                {
-                    SelectedItem.Question = question;
-                    SelectedItem.AnswerA = answerA;
-                    SelectedItem.AnswerB = answerB;
-                    SelectedItem.AnswerC = answerC;
-                    SelectedItem.TypeQuestion = typeQuestion;
-                    SelectedItem.RightAnswer = rightAnswer;
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    wnd.Close();
-                }));
-            }
-        }
+            SelectedItem.Question = question;
+            SelectedItem.AnswerA = answerA;
+            SelectedItem.AnswerB = answerB;
+            SelectedItem.AnswerC = answerC;
+            SelectedItem.TypeQuestion = typeQuestion;
+            SelectedItem.RightAnswer = rightAnswer;
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            wnd.Close();
+        }));
+
         private RelayCommand openComboBoxType;
-        public RelayCommand OpenComboBoxType
+        public RelayCommand OpenComboBoxType => openComboBoxType ?? (openComboBoxType = new RelayCommand(obj =>
         {
-            get
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            if (!checkTypeButton)
             {
-                return openComboBoxType ?? (openComboBoxType = new RelayCommand(obj =>
-                {
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    if (!checkTypeButton)
-                    {
-                        wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Visible;
-                        checkTypeButton = true;
-                    }
-                    else if (checkTypeButton)
-                    {
-                        wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
-                        checkTypeButton = false;
-                    }
-                }));
+                wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Visible;
+                checkTypeButton = true;
             }
-        }
+            else if (checkTypeButton)
+            {
+                wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
+                checkTypeButton = false;
+            }
+        }));
         private RelayCommand choiceType;
-        public RelayCommand ChoiceType
+        public RelayCommand ChoiceType => choiceType ?? (choiceType = new RelayCommand(obj =>
         {
-            get
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
+            if (wnd.LegalBases.IsFocused)
             {
-                return choiceType ?? (choiceType = new RelayCommand(obj =>
-                {
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
-                    if (wnd.LegalBases.IsFocused)
-                    {
-                        wnd.TypeButton.Content = wnd.LegalBases.Content;
-                        TypeQuestion = wnd.LegalBases.Content.ToString();
-                    }
-                    if (wnd.Safety.IsFocused)
-                    {
-                        wnd.TypeButton.Content = wnd.Safety.Content;
-                        TypeQuestion = wnd.Safety.Content.ToString();
-                    }
-                    if (wnd.TTX.IsFocused)
-                    {
-                        wnd.TypeButton.Content = wnd.TTX.Content;
-                        TypeQuestion = wnd.TTX.Content.ToString();
-                    }
-                    if (wnd.Command.IsFocused)
-                    {
-                        wnd.TypeButton.Content = wnd.Command.Content;
-                        TypeQuestion = wnd.Command.Content.ToString();
-                    }
-                    if (wnd.Delays.IsFocused)
-                    {
-                        wnd.TypeButton.Content = wnd.Delays.Content;
-                        TypeQuestion = wnd.Delays.Content.ToString();
-                    }
-                    checkTypeButton = false;
-                }));
+                wnd.TypeButton.Content = wnd.LegalBases.Content;
+                TypeQuestion = wnd.LegalBases.Content.ToString();
             }
-        }
+            if (wnd.Safety.IsFocused)
+            {
+                wnd.TypeButton.Content = wnd.Safety.Content;
+                TypeQuestion = wnd.Safety.Content.ToString();
+            }
+            if (wnd.TTX.IsFocused)
+            {
+                wnd.TypeButton.Content = wnd.TTX.Content;
+                TypeQuestion = wnd.TTX.Content.ToString();
+            }
+            if (wnd.Command.IsFocused)
+            {
+                wnd.TypeButton.Content = wnd.Command.Content;
+                TypeQuestion = wnd.Command.Content.ToString();
+            }
+            if (wnd.Delays.IsFocused)
+            {
+                wnd.TypeButton.Content = wnd.Delays.Content;
+                TypeQuestion = wnd.Delays.Content.ToString();
+            }
+            checkTypeButton = false;
+        }));
+
         private RelayCommand openComboBoxAnswer;
-        public RelayCommand OpenComboBoxAnswer
+        public RelayCommand OpenComboBoxAnswer => openComboBoxAnswer ?? (openComboBoxAnswer = new RelayCommand(obj =>
         {
-            get
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            if (!checkAnswerButton)
             {
-                return openComboBoxAnswer ?? (openComboBoxAnswer = new RelayCommand(obj =>
-                {
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    if (!checkAnswerButton)
-                    {
-                        wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Visible;
-                        checkAnswerButton = true;
-                    }
-                    else if (checkAnswerButton)
-                    {
-                        wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
-                        checkAnswerButton = false;
-                    }
-                }));
+                wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Visible;
+                checkAnswerButton = true;
             }
-        }
+            else if (checkAnswerButton)
+            {
+                wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
+                checkAnswerButton = false;
+            }
+        }));
+
         private RelayCommand choiceAnswer;
-        public RelayCommand ChoiceAnswer
+        public RelayCommand ChoiceAnswer => choiceAnswer ?? (choiceAnswer = new RelayCommand(obj =>
         {
-            get
+            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+            wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
+            if (wnd.AnswerA.IsFocused)
             {
-                return choiceAnswer ?? (choiceAnswer = new RelayCommand(obj =>
-                {
-                    UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-                    wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
-                    if (wnd.AnswerA.IsFocused)
-                    {
-                        wnd.RightAnswerButton.Content = wnd.AnswerA.Content;
-                        RightAnswer = wnd.AnswerA.Content.ToString();
-                    }
-                    if (wnd.AnswerB.IsFocused)
-                    {
-                        wnd.RightAnswerButton.Content = wnd.AnswerB.Content;
-                        RightAnswer = wnd.AnswerC.Content.ToString();
-                    }
-                    if (wnd.AnswerC.IsFocused)
-                    {
-                        wnd.RightAnswerButton.Content = wnd.AnswerC.Content;
-                        RightAnswer = wnd.AnswerC.Content.ToString();
-                    }
-                    checkAnswerButton = false;
-                }));
+                wnd.RightAnswerButton.Content = wnd.AnswerA.Content;
+                RightAnswer = wnd.AnswerA.Content.ToString();
             }
-        }
+            if (wnd.AnswerB.IsFocused)
+            {
+                wnd.RightAnswerButton.Content = wnd.AnswerB.Content;
+                RightAnswer = wnd.AnswerC.Content.ToString();
+            }
+            if (wnd.AnswerC.IsFocused)
+            {
+                wnd.RightAnswerButton.Content = wnd.AnswerC.Content;
+                RightAnswer = wnd.AnswerC.Content.ToString();
+            }
+            checkAnswerButton = false;
+        }));
         #endregion
         #region Property
         private string question;

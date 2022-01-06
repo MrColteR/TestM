@@ -4,6 +4,5 @@ namespace TestM.ViewModels
 {
     public class MainPageViewModel : ViewModel
     {
-
     }
 }

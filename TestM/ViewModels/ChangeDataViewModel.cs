@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using TestM.Command;
 using TestM.Data;
 using TestM.ViewModels.Base;
@@ -13,11 +8,11 @@ namespace TestM.ViewModels
 {
     public class ChangeDataViewModel : ViewModel
     {
-        private static string path = Directory.GetCurrentDirectory();
+        private static readonly string path = Directory.GetCurrentDirectory();
         public readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
 
-        JsonFileService service;
-             
+        private readonly JsonFileService service;
+     
         #region Commands
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>

@@ -8,11 +8,11 @@ namespace TestM.ViewModels
 {
     public class QuestionDataGridViewModel : ViewModel
     {
-        private static string path = Directory.GetCurrentDirectory();
+        private static readonly string path = Directory.GetCurrentDirectory();
         private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
 
         private QuestionModel model;
-        private JsonFileService service;
+        private readonly JsonFileService service;
 
         #region Property
         public string Question

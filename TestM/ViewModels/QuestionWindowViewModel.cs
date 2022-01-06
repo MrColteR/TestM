@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using TestM.Command;
 using TestM.Data;
@@ -11,11 +10,11 @@ namespace TestM.ViewModels
 {
     public class QuestionWindowViewModel : ViewModel
     {
-        private static string path = Directory.GetCurrentDirectory();
+        private static readonly string path = Directory.GetCurrentDirectory();
         public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         public readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
 
-        private JsonFileService fileService;
+        private readonly JsonFileService fileService;
         private QuestionDataGridViewModel question;
 
         private bool checkWindowState = false;
@@ -23,38 +22,28 @@ namespace TestM.ViewModels
  
         #region Commands
         private RelayCommand minimizeWindow;
-        public RelayCommand MinimizeWindow
+        public RelayCommand MinimizeWindow => minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
-                {
-                    QuestionWindow wnd = obj as QuestionWindow;
-                    wnd.WindowState = System.Windows.WindowState.Minimized;
-                }));
-            }
-        }
+            QuestionWindow wnd = obj as QuestionWindow;
+            wnd.WindowState = System.Windows.WindowState.Minimized;
+        }));
+
         private RelayCommand windowStateButton;
-        public RelayCommand WindowStateButton
+        public RelayCommand WindowStateButton => windowStateButton ?? (windowStateButton = new RelayCommand(obj =>
         {
-            get
+            QuestionWindow wnd = obj as QuestionWindow;
+            if (checkWindowState)
             {
-                return windowStateButton ?? (windowStateButton = new RelayCommand(obj =>
-                {
-                    QuestionWindow wnd = obj as QuestionWindow;
-                    if (checkWindowState)
-                    {
-                        wnd.WindowState = System.Windows.WindowState.Normal;
-                        checkWindowState = false;
-                    }
-                    else if (!checkWindowState)
-                    {
-                        wnd.WindowState = System.Windows.WindowState.Maximized;
-                        checkWindowState = true;
-                    }
-                }));
+                wnd.WindowState = System.Windows.WindowState.Normal;
+                checkWindowState = false;
             }
-        }
+            else if (!checkWindowState)
+            {
+                wnd.WindowState = System.Windows.WindowState.Maximized;
+                checkWindowState = true;
+            }
+        }));
+
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
@@ -83,81 +72,56 @@ namespace TestM.ViewModels
                 }
             }
         }));
+
         private RelayCommand addQuestion;
-        public RelayCommand AddQuestion
+        public RelayCommand AddQuestion => addQuestion ?? (addQuestion = new RelayCommand(obj =>
         {
-            get
-            {
-                return addQuestion ?? (addQuestion = new RelayCommand(obj =>
-                {
-                    IsEditing = true;
-                    AddQuestionWindow window = new AddQuestionWindow(obj as QuestionWindowViewModel);
-                    window.ShowDialog();
-                }));
-            }
-        }
+            IsEditing = true;
+            AddQuestionWindow window = new AddQuestionWindow(obj as QuestionWindowViewModel);
+            window.ShowDialog();
+        }));
+
         private RelayCommand updateQuestion;
-        public RelayCommand UpdateQuestion 
+        public RelayCommand UpdateQuestion => updateQuestion ?? (updateQuestion = new RelayCommand(obj => 
         {
-            get
-            {
-                return updateQuestion ?? (updateQuestion = new RelayCommand(obj => 
-                {
-                    IsEditing = true;
-                    UpdateQuestionWindow window = new UpdateQuestionWindow(SelectedItem);
-                    window.ShowDialog();
-                }, (obj) => ItemsSource.Count > 0));
-            }
-        }
+            IsEditing = true;
+            UpdateQuestionWindow window = new UpdateQuestionWindow(SelectedItem);
+            window.ShowDialog();
+        }, (obj) => ItemsSource.Count > 0));
+
         private RelayCommand deleteQustion;
-        public RelayCommand DeleteQuestion 
+        public RelayCommand DeleteQuestion => deleteQustion ?? (deleteQustion = new RelayCommand(obj =>
         {
-            get
+            IsEditing = true;
+            var index = ItemsSource.IndexOf(SelectedItem);
+            if (SelectedItem != null)
             {
-                return deleteQustion ?? (deleteQustion = new RelayCommand(obj =>
+                ItemsSource.Remove(SelectedItem);
+                if (index == ItemsSource.Count)
                 {
-                    IsEditing = true;
-                    var index = ItemsSource.IndexOf(SelectedItem);
-                    if (SelectedItem != null)
-                    {
-                        ItemsSource.Remove(SelectedItem);
-                        if (index == ItemsSource.Count)
-                        {
-                            SelectedIndex = index - 1;
-                        }
-                        else
-                        {
-                            SelectedIndex = index;
-                        }
-                    }
-                }, (obj) => ItemsSource.Count > 0));
+                    SelectedIndex = index - 1;
+                }
+                else
+                {
+                    SelectedIndex = index;
+                }
             }
-        }
+        }, (obj) => ItemsSource.Count > 0));
+
         private RelayCommand saveFile;
-        public RelayCommand SaveFile
+        public RelayCommand SaveFile => saveFile ?? (saveFile = new RelayCommand(obj =>
         {
-            get
-            {
-                return saveFile ?? (saveFile = new RelayCommand(obj =>
-                {
-                    QuestionWindow wnd = obj as QuestionWindow;
-                    fileService.Save(fileName, ItemsSource);
-                    wnd.Close();
-                }));
-            }
-        }
+            QuestionWindow wnd = obj as QuestionWindow;
+            fileService.Save(fileName, ItemsSource);
+            wnd.Close();
+        }));
+
         private RelayCommand openSettingInfo;
-        public RelayCommand OpenSettingInfo
+        public RelayCommand OpenSettingInfo => openSettingInfo ?? (openSettingInfo = new RelayCommand(obj =>
         {
-            get 
-            {
-                return openSettingInfo ?? (openSettingInfo = new RelayCommand(obj =>
-                {
-                    InfoSettingWindow wnd = new InfoSettingWindow();
-                    wnd.ShowDialog();
-                }));
-            }
-        }
+            InfoSettingWindow wnd = new InfoSettingWindow();
+            wnd.ShowDialog();
+        }));
         #endregion
         #region Property
         private QuestionModel selectedItem;

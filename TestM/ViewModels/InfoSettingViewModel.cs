@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestM.Command;
 using TestM.Data;
 using TestM.ViewModels.Base;
@@ -13,41 +9,30 @@ namespace TestM.ViewModels
 {
     public class InfoSettingViewModel : ViewModel
     {
-        private static string path = Directory.GetCurrentDirectory();
+        private static readonly string path = Directory.GetCurrentDirectory();
         public readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
 
-        private JsonFileService service;
+        private readonly JsonFileService service;
 
         private Dictionary<int, bool> buttonsStates;
         private int countType;
 
         #region Commands
         private RelayCommand closeWindow;
-        public RelayCommand CloseWindow
+        public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
-                {
-                    InfoSettingWindow wnd = obj as InfoSettingWindow;
-                    wnd.Close();
-                }));
-            }
-        }
+            InfoSettingWindow wnd = obj as InfoSettingWindow;
+            wnd.Close();
+        }));
+
         private RelayCommand changeSettingInfo;
-        public RelayCommand ChangeSettingInfo
+        public RelayCommand ChangeSettingInfo => changeSettingInfo ?? (changeSettingInfo = new RelayCommand(obj =>
         {
-            get
-            {
-                return changeSettingInfo ?? (changeSettingInfo = new RelayCommand(obj =>
-                {
-                    service.SaveQuestionsInfo(fileInfo, countQuestionOneType, countQuestion);
-                    service.SaveButtonsStates(fileInfo, buttonsStates, minimalCountPoints);
-                    InfoSettingWindow wnd = obj as InfoSettingWindow;
-                    wnd.Close();
-                }));
-            }
-        }
+            service.SaveQuestionsInfo(fileInfo, countQuestionOneType, countQuestion);
+            service.SaveButtonsStates(fileInfo, buttonsStates, minimalCountPoints);
+            InfoSettingWindow wnd = obj as InfoSettingWindow;
+            wnd.Close();
+        }));
         #endregion
         #region Property
         private int countQuestionOneType;

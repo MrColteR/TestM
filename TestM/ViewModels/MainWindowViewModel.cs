@@ -15,7 +15,7 @@ namespace TestM.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
-        private static string path = Directory.GetCurrentDirectory();
+        private static readonly string path = Directory.GetCurrentDirectory();
         private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         private readonly string fileActualQuestion = path.Substring(0, path.IndexOf("bin")) + "ActualQuestion.json";
         private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
@@ -40,215 +40,162 @@ namespace TestM.ViewModels
 
         #region Command
         private RelayCommand checkPassword;
-        public RelayCommand CheckPassword 
-        { 
-            get
-            {
-                return checkPassword ?? (checkPassword = new RelayCommand(obj =>
-                {
-                    var password = new PasswordWindow();
-                    password.ShowDialog();
-                }, (obj) =>  IsStart == false));
-            }
-            
-        }
+        public RelayCommand CheckPassword => checkPassword ?? (checkPassword = new RelayCommand(obj =>
+        {
+            var password = new PasswordWindow();
+            password.ShowDialog();
+        }, (obj) =>  IsStart == false));
+
         private RelayCommand openSetting;
-        public RelayCommand OpenSetting
+        public RelayCommand OpenSetting => openSetting ?? (openSetting = new RelayCommand(obj =>
         {
-            get
-            {
-                return openSetting ?? (openSetting = new RelayCommand(obj =>
-                {
-                    SettingWindow wnd = new SettingWindow();
-                    wnd.ShowDialog();
-                }, (obj) =>  IsStart == false));
-            }
-        }
+            SettingWindow wnd = new SettingWindow();
+            wnd.ShowDialog();
+        }, (obj) =>  IsStart == false));
+
         private RelayCommand minimizeWindow;
-        public RelayCommand MinimizeWindow
+        public RelayCommand MinimizeWindow => minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
-                {
-                    MainWindow wnd = obj as MainWindow;
-                    wnd.WindowState = System.Windows.WindowState.Minimized;
-                }));
-            }
-        }
+            MainWindow wnd = obj as MainWindow;
+            wnd.WindowState = System.Windows.WindowState.Minimized;
+        }));
+
         private RelayCommand windowStateButton;
-        public RelayCommand WindowStateButton
+        public RelayCommand WindowStateButton => windowStateButton ?? (windowStateButton = new RelayCommand(obj =>
         {
-            get
+            MainWindow wnd = obj as MainWindow;
+            if (checkWindowState)
             {
-                return windowStateButton ?? (windowStateButton = new RelayCommand(obj =>
-                {
-                    MainWindow wnd = obj as MainWindow;
-                    if (checkWindowState)
-                    {
-                        wnd.WindowState = System.Windows.WindowState.Normal;
-                        checkWindowState = false;
-                    }
-                    else if (!checkWindowState)
-                    {
-                        wnd.WindowState = System.Windows.WindowState.Maximized;
-                        checkWindowState = true;
-                    }
-                }));
+                wnd.WindowState = System.Windows.WindowState.Normal;
+                checkWindowState = false;
             }
-        }
+            else if (!checkWindowState)
+            {
+                wnd.WindowState = System.Windows.WindowState.Maximized;
+                checkWindowState = true;
+            }
+        }));
+
         private RelayCommand closeWindow;
-        public RelayCommand CloseWindow
+        public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
-                {
-                    MainWindow wnd = obj as MainWindow;
-                    wnd.Close();
-                }));
-            }
-        }
+            MainWindow wnd = obj as MainWindow;
+            wnd.Close();
+        }));
+
         private RelayCommand startTest;
-        public RelayCommand StartTest
+        public RelayCommand StartTest => startTest ?? (startTest = new RelayCommand(obj =>
         {
-            get
+            info = service.OpenInfo(fileInfo);
+            SortList();
+            SaveRandomQuestion();
+
+            startPageTest = new StartPageTest();
+            pages = new List<PageTest>();
+            for (int i = 0; i < info.CountQuestion; i++)
             {
-                return startTest ?? (startTest = new RelayCommand(obj =>
-                {
-                    info = service.OpenInfo(fileInfo);
-                    SortList();
-                    SaveRandomQuestion();
-
-                    startPageTest = new StartPageTest();
-                    pages = new List<PageTest>();
-                    for (int i = 0; i < info.CountQuestion; i++)
-                    {
-                        pages.Add(new PageTest());
-                    }
-                    lastPageTest = new LastPageTest();
-
-                    MainWindow wnd = obj as MainWindow;
-                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
-                    wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
-
-                    CurrentPage = startPageTest;
-                    IsStart = true;
-
-                }, (obj) =>  IsStart == false));
+                pages.Add(new PageTest());
             }
-        }
+            lastPageTest = new LastPageTest();
+
+            MainWindow wnd = obj as MainWindow;
+            wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
+
+            CurrentPage = startPageTest;
+            IsStart = true;
+
+        }, (obj) =>  IsStart == false));
+
         private RelayCommand previousPage;
-        public RelayCommand PreviousPage
+        public RelayCommand PreviousPage => previousPage ?? (previousPage = new RelayCommand(obj => 
         {
-            get
+            MainWindow wnd = obj as MainWindow;
+            indexPage--;
+            CurrentPage = pages[indexPage];
+            if (IsLastPage)
             {
-                return previousPage ?? (previousPage = new RelayCommand(obj => 
-                {
-                    MainWindow wnd = obj as MainWindow;
-                    indexPage--;
-                    CurrentPage = pages[indexPage];
-                    if (IsLastPage)
-                    {
-                        wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
-                        wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
-                        IsLastPage = false;
-                    }
-                    
-                }, (obj) => indexPage > 0));
+                wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
+                wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
+                IsLastPage = false;
             }
-        }
+
+        }, (obj) => indexPage > 0));
+
         private RelayCommand nextPage;
-        public RelayCommand NextPage
-        {
-            get
-            {
-                return nextPage ?? (nextPage = new RelayCommand(obj =>
+        public RelayCommand NextPage => nextPage ?? (nextPage = new RelayCommand(obj =>
                 {
-                    MainWindow wnd = obj as MainWindow;
-                    if (indexPage == -1)
-                    {
-                        AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
-                    }
-                    indexPage++;
-                    CurrentPage = pages[indexPage];
-
-                    if (indexPage == pages.Count - 1)
-                    {
-                        IsLastPage = true;
-                        wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
-                        wnd.EndTestButton.Visibility = System.Windows.Visibility.Visible;
-                    }
-
-                }, (obj) => indexPage < pages.Count - 1));
+            MainWindow wnd = obj as MainWindow;
+            if (indexPage == -1)
+            {
+                AddResultToFile.WriteName(startPageTest.NameTextBox.Text, startPageTest.SubdivisionTextBox.Text, DateTime.Now.Date.ToShortDateString());
             }
-        }
+            indexPage++;
+            CurrentPage = pages[indexPage];
+
+            if (indexPage == pages.Count - 1)
+            {
+                IsLastPage = true;
+                wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
+                wnd.EndTestButton.Visibility = System.Windows.Visibility.Visible;
+            }
+
+        }, (obj) => indexPage<pages.Count - 1));
+
         private RelayCommand scoring;
-        public RelayCommand Scoring
+        public RelayCommand Scoring => scoring ?? (scoring = new RelayCommand(obj =>
         {
-            get
+            MainWindow wnd = obj as MainWindow;
+            wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
+
+            int points = Convert.ToInt32(service.OpenMinimalCountPonits(fileInfo));
+
+            foreach (var item in pages)
             {
-                return scoring ?? (scoring = new RelayCommand(obj =>
-                {
-                    MainWindow wnd = obj as MainWindow;
-                    wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
-                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
-                    wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
-
-                    int points = Convert.ToInt32(service.OpenMinimalCountPonits(fileInfo));
-
-                    foreach (var item in pages)
-                    {
-                        answerUser.Add(item.RigntAnswer.Text);
-                    }
-                    for (int i = 0; i < answerUser.Count; i++)
-                    {
-                        if (answerUser[i] == rightAnswer[i])
-                        {
-                            CountPoints++;
-                        }
-                    }
-
-                    lastPageTest.Points.Text = CountPoints.ToString();
-                    AddResultToFile.WritePoints(CountPoints.ToString());
-                    if (CountPoints >= points)
-                    {
-                        lastPageTest.Result.Text = $"Вы успешно прошли тест, Вы набрали {CountPoints}";
-                    }
-                    else 
-                    {
-                        lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога";
-                    }
-                    CurrentPage = lastPageTest;
-                }));
+                answerUser.Add(item.RigntAnswer.Text);
             }
-        }
+            for (int i = 0; i < answerUser.Count; i++)
+            {
+                if (answerUser[i] == rightAnswer[i])
+                {
+                    CountPoints++;
+                }
+            }
+
+            lastPageTest.Points.Text = CountPoints.ToString();
+            AddResultToFile.WritePoints(CountPoints.ToString());
+            if (CountPoints >= points)
+            {
+                lastPageTest.Result.Text = $"Вы успешно прошли тест, Вы набрали {CountPoints}";
+            }
+            else
+            {
+                lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога";
+            }
+            CurrentPage = lastPageTest;
+        }));
         private RelayCommand startNewTest;
-        public RelayCommand StartNewTest
+        public RelayCommand StartNewTest => startNewTest ?? (startNewTest = new RelayCommand(obj =>
         {
-            get 
-            {
-                return startNewTest ?? (startNewTest = new RelayCommand(obj =>
-                {
-                    MainWindow wnd = obj as MainWindow;
-                    wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
-                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
-                    wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
-                    startPageTest.NameTextBox.Text = "";
-                    startPageTest.SubdivisionTextBox.Text = "";
+            MainWindow wnd = obj as MainWindow;
+            wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
+            startPageTest.NameTextBox.Text = "";
+            startPageTest.SubdivisionTextBox.Text = "";
 
-                    IsStart = false;
-                    indexPage = -1;
-                    countPoints = 0;
-                    actualQuestions.Clear();
-                    rightAnswer.Clear();
-                    answerUser.Clear();
-                    
-                    service.SaveFirstIndex(fileInfo);
-                    CurrentPage = mainPage;
-                }));
-            }
-        }
+            IsStart = false;
+            indexPage = -1;
+            countPoints = 0;
+            actualQuestions.Clear();
+            rightAnswer.Clear();
+            answerUser.Clear();
+
+            service.SaveFirstIndex(fileInfo);
+            CurrentPage = mainPage;
+        }));
         #endregion
         #region Property
         private Page currentPage;
@@ -275,7 +222,7 @@ namespace TestM.ViewModels
         public string Subdivision
         {
             get => subdivision;
-            set 
+            set
             {
                 subdivision = value;
                 OnPropertyChanged(nameof(Subdivision));

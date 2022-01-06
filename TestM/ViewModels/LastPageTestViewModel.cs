@@ -2,8 +2,7 @@
 
 namespace TestM.ViewModels
 {
-    public class LastPageTestViewModel : ViewModel 
+    public class LastPageTestViewModel : ViewModel
     {
-        
     }
 }

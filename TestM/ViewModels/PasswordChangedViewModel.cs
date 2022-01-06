@@ -8,29 +8,18 @@ namespace TestM.ViewModels
     {
         #region Commands
         private RelayCommand closeWindow;
-        public RelayCommand CloseWindow
+        public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
-                {
-                    PasswordChanged wnd = obj as PasswordChanged;
-                    wnd.Close();
-                }));
-            }
-        }
+            PasswordChanged wnd = obj as PasswordChanged;
+            wnd.Close();
+        }));
+
         private RelayCommand okeyCommand;
-        public RelayCommand OkeyCommand
+        public RelayCommand OkeyCommand =>  okeyCommand ?? (okeyCommand = new RelayCommand(obj =>
         {
-            get
-            {
-                return okeyCommand ?? (okeyCommand = new RelayCommand(obj =>
-                {
-                    PasswordChanged wnd = obj as PasswordChanged;
-                    wnd.Close();
-                }));
-            }
-        }
+            PasswordChanged wnd = obj as PasswordChanged;
+            wnd.Close();
+        }));
         #endregion
     }
 }

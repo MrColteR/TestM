@@ -9,21 +9,15 @@ namespace TestM.ViewModels
 {
     public class PasswordViewModel : ViewModel
     {
-        private static string path = Directory.GetCurrentDirectory();
+        private static readonly string path = Directory.GetCurrentDirectory();
         private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
         #region Commands
         private RelayCommand closeWindow;
-        public RelayCommand CloseWindow
+        public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            get
-            {
-                return closeWindow ?? (closeWindow = new RelayCommand(obj =>
-                {
-                    PasswordWindow wnd = obj as PasswordWindow;
-                    wnd.Close();
-                }));
-            }
-        }
+            PasswordWindow wnd = obj as PasswordWindow;
+            wnd.Close();
+        }));
         #endregion
         public void CheckUserPassword(string password, PasswordWindow passwordWindow)
         {
