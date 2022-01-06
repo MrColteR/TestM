@@ -19,6 +19,27 @@ namespace TestM.ViewModels
             wnd.Close();
         }));
         #endregion
+        private bool _isFocused = false;
+
+        public bool IsTextBoxFocused
+        {
+            get { return _isFocused; }
+            set
+            {
+                if (_isFocused == value)
+                {
+                    _isFocused = false;
+
+                    
+                    OnPropertyChanged("IsTextBoxFocused");
+                }
+                _isFocused = value;
+                OnPropertyChanged("IsTextBoxFocused");
+            }
+
+
+
+        }
         public void CheckUserPassword(string password, PasswordWindow passwordWindow)
         {
             JsonFileService service = new JsonFileService();
