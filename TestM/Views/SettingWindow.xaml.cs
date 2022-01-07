@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using TestM.ViewModels;
 
 namespace TestM.Views
@@ -13,10 +14,16 @@ namespace TestM.Views
             InitializeComponent();
             DataContext = new SettingWindowViewModel();
         }
-
-        private void btn_ChangePassword(object sender, RoutedEventArgs e)
+        private void ChangePasswordButton(object sender, RoutedEventArgs e)
         {
             (DataContext as SettingWindowViewModel).CheckUserPassword(PasswordBoxOld.Password, PasswordBoxNew.Password, this);
+        }
+        private void ChangePassword(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                ChangePasswordButton(sender, e);
+            }
         }
     }
 }

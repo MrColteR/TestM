@@ -36,7 +36,7 @@ namespace TestM.ViewModels
 
         private int indexPage;
         private bool IsStart;
-        private bool IsLastPage;
+        private bool IsLastPage = false;
         private bool checkWindowState = false;
         private bool IsStartPageTextBoolIsNull;
         private bool IsPassedTheCheck = false;
@@ -48,14 +48,14 @@ namespace TestM.ViewModels
         {
             var password = new PasswordWindow();
             password.ShowDialog();
-        }, (obj) =>  IsStart == false));
+        }, (obj) => IsStart == false));
 
         private RelayCommand openSetting;
         public RelayCommand OpenSetting => openSetting ?? (openSetting = new RelayCommand(obj =>
         {
             SettingWindow wnd = new SettingWindow();
             wnd.ShowDialog();
-        }, (obj) =>  IsStart == false));
+        }, (obj) => IsStart == false));
 
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow => minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
@@ -87,7 +87,7 @@ namespace TestM.ViewModels
             {
                 StopTestWindow wnd = new StopTestWindow();
                 wnd.ShowDialog();
-                
+
                 var check = service.OpenStopCheckCheck(fileInfo);
                 if (check)
                 {
@@ -124,10 +124,10 @@ namespace TestM.ViewModels
 
             CurrentPage = startPageTest;
             IsStart = true;
-        }, (obj) =>  IsStart == false));
+        }, (obj) => IsStart == false));
 
         private RelayCommand stopTest;
-        public RelayCommand StopTest => stopTest ?? (stopTest = new RelayCommand(obj => 
+        public RelayCommand StopTest => stopTest ?? (stopTest = new RelayCommand(obj =>
         {
             StopTestWindow wnd = new StopTestWindow();
             wnd.ShowDialog();
@@ -142,7 +142,7 @@ namespace TestM.ViewModels
         }));
 
         private RelayCommand previousPage;
-        public RelayCommand PreviousPage => previousPage ?? (previousPage = new RelayCommand(obj => 
+        public RelayCommand PreviousPage => previousPage ?? (previousPage = new RelayCommand(obj =>
         {
             MainWindow wnd = obj as MainWindow;
             indexPage--;
@@ -198,7 +198,7 @@ namespace TestM.ViewModels
                 }
                 IsPassedTheCheck = true;
             }
-        }, (obj) => indexPage<pages.Count - 1));
+        }, (obj) => indexPage < pages.Count - 1));
 
         private RelayCommand scoring;
         public RelayCommand Scoring => scoring ?? (scoring = new RelayCommand(obj =>
@@ -235,8 +235,10 @@ namespace TestM.ViewModels
             {
                 lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога";
             }
+            IsStart = false;
+            IsLastPage = false;
             CurrentPage = lastPageTest;
-        }));
+        }, (obj) => IsLastPage));
         private RelayCommand startNewTest;
         public RelayCommand StartNewTest => startNewTest ?? (startNewTest = new RelayCommand(obj =>
         {
@@ -248,7 +250,6 @@ namespace TestM.ViewModels
             startPageTest.NameTextBox.Text = "";
             startPageTest.SubdivisionTextBox.Text = "";
 
-            IsStart = false;
             indexPage = -1;
             countPoints = 0;
             actualQuestions.Clear();

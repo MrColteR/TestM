@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestM.Pages"
+      xmlns:focus="clr-namespace:TestM.Command"
       mc:Ignorable="d" 
       d:DesignHeight="585" d:DesignWidth="1190"
       Title="StartPageTest">
@@ -101,7 +102,8 @@
         <TextBox Name="NameTextBox"
                  Style="{StaticResource TextBox}"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="1"/>
+                 Grid.Row="1"
+                 focus:FocusExtension.IsFocused="True"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="2"
                    Text="Подразделение"/>

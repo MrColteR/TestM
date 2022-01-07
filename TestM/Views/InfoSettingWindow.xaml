@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM.Views"
+        xmlns:focus="clr-namespace:TestM.Command"
         mc:Ignorable="d"
         BorderBrush="Black"
         BorderThickness="1"
@@ -24,6 +25,11 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#8FE9FA"/>
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
                                     <Setter Property="Background" Value="#8FE9FA"/>
                                     <Setter Property="BorderBrush" Value="Black"/>
                                     <Setter Property="BorderThickness" Value="1"/>
@@ -234,6 +240,7 @@
                    Text="Минимальный порог баллов"/>
         <TextBox Style="{StaticResource TextBox}"
                  Grid.Row="4"
+                 focus:FocusExtension.IsFocused="True"
                  Text="{Binding MinimalCountPoints, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock Style="{StaticResource TextBlock}"
                    Grid.Row="5"
