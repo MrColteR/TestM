@@ -99,6 +99,7 @@ namespace TestM.ViewModels
             else
             {
                 MainWindow wndMain = obj as MainWindow;
+                service.SaveCountOfQuestionsAnswered(fileInfo, 0);
                 wndMain.Close();
             }
         }));
@@ -107,6 +108,8 @@ namespace TestM.ViewModels
         public RelayCommand StartTest => startTest ?? (startTest = new RelayCommand(obj =>
         {
             info = service.OpenInfo(fileInfo);
+            CountOfQuestionsAnswered = service.OpenCountOfQuestionsAnswered(fileInfo);
+            CountQuestion = service.OpenCountQuestion(fileInfo);
             SortList();
             SaveRandomQuestion();
 
@@ -146,6 +149,7 @@ namespace TestM.ViewModels
         {
             MainWindow wnd = obj as MainWindow;
             indexPage--;
+            CountOfQuestionsAnswered = service.OpenCountOfQuestionsAnswered(fileInfo);
             CurrentPage = pages[indexPage];
             if (IsLastPage)
             {
@@ -185,7 +189,9 @@ namespace TestM.ViewModels
                 if (indexPage == -1)
                 {
                     wnd.StopTestButton.Visibility = System.Windows.Visibility.Visible;
+                    wnd.ProgressBar.Visibility = System.Windows.Visibility.Visible;
                 }
+                CountOfQuestionsAnswered = service.OpenCountOfQuestionsAnswered(fileInfo);
                 indexPage++;
                 CurrentPage = pages[indexPage];
 
@@ -207,9 +213,10 @@ namespace TestM.ViewModels
             wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.ProgressBar.Visibility = System.Windows.Visibility.Hidden;
 
             int points = Convert.ToInt32(service.OpenMinimalCountPonits(fileInfo));
-
+            service.SaveCountOfQuestionsAnswered(fileInfo, 0);
             foreach (var item in pages)
             {
                 answerUser.Add(item.RigntAnswer.Text);
@@ -257,6 +264,8 @@ namespace TestM.ViewModels
             answerUser.Clear();
 
             service.SaveFirstIndex(fileInfo);
+            CountOfQuestionsAnswered = service.OpenCountOfQuestionsAnswered(fileInfo);
+            CountQuestion = service.OpenCountQuestion(fileInfo);
             CurrentPage = mainPage;
         }));
         #endregion
@@ -309,6 +318,26 @@ namespace TestM.ViewModels
             {
                 countPoints = value;
                 OnPropertyChanged(nameof(CountPoints));
+            }
+        }
+        private int countOfQuestionsAnswered;
+        public int CountOfQuestionsAnswered
+        {
+            get => countOfQuestionsAnswered; 
+            set 
+            {
+                countOfQuestionsAnswered = value;
+                OnPropertyChanged(nameof(CountOfQuestionsAnswered));
+            }
+        }
+        private int countQuestion;
+        public int CountQuestion
+        {
+            get => countQuestion;
+            set 
+            {
+                countQuestion = value;
+                OnPropertyChanged(nameof(CountQuestion));
             }
         }
         #endregion

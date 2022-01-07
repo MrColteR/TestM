@@ -40,6 +40,17 @@ namespace TestM.Models
                 OnPropertyChanged(nameof(Index)); 
             }
         }
+        private int countOfQuestionsAnswered;
+        [DataMember]
+        public int CountOfQuestionsAnswered
+        {
+            get => countOfQuestionsAnswered;
+            set
+            {
+                countOfQuestionsAnswered = value;
+                OnPropertyChanged(nameof(CountOfQuestionsAnswered));
+            }
+        }
         private string password;
         [DataMember]
         public string Password

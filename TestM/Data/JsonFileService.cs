@@ -132,6 +132,13 @@ namespace TestM.Data
             JsonConvert.PopulateObject(json, info);
             return info.CountQuestion;
         }
+        public int OpenCountOfQuestionsAnswered(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.CountOfQuestionsAnswered;
+        }
         public string OpenMinimalCountPonits(string filePath)
         {
             string json = File.ReadAllText(filePath);
@@ -153,6 +160,18 @@ namespace TestM.Data
             JsonConvert.PopulateObject(json, info);
             info.CountQuestionOneType = countQuestionOneType;
             info.CountQuestion = countQuestion;
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(info);
+                writer.Write(data);
+            }
+        }
+        public void SaveCountOfQuestionsAnswered(string filePath, int count)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            info.CountOfQuestionsAnswered = count;
             using (StreamWriter writer = File.CreateText(filePath))
             {
                 var data = JsonConvert.SerializeObject(info);

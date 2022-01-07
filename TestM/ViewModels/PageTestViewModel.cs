@@ -17,23 +17,40 @@ namespace TestM.ViewModels
         private readonly Info actualQuestionModel;
         private readonly JsonFileService service;
 
+        bool IsAnswered;
+
         #region Commands
         private RelayCommand firstAnswer;
         public RelayCommand FirstAnswer => firstAnswer ?? (firstAnswer = new RelayCommand(obj => 
         {
             RightAnswer = "А";
+
+            if (!IsAnswered)
+            {
+                AddingAnsweredQuestions();
+            }
         }));
 
         private RelayCommand secondAnswer;
         public RelayCommand SecondAnswer => secondAnswer ?? (secondAnswer = new RelayCommand(obj => 
         {
             RightAnswer = "Б";
+
+            if (!IsAnswered)
+            {
+                AddingAnsweredQuestions();
+            }
         }));
 
         private RelayCommand thirdAnswer;
         public RelayCommand ThirdAnswer => thirdAnswer ?? (thirdAnswer = new RelayCommand(obj =>
         {
             RightAnswer = "В";
+
+            if (!IsAnswered)
+            {
+                AddingAnsweredQuestions();
+            }
         }));
         #endregion
         #region Property
@@ -58,6 +75,12 @@ namespace TestM.ViewModels
             questions = service.Open(fileActualQuestion);
             actualQuestionModel = service.OpenInfo(fileInfo);
             service.SaveIndex(fileInfo);
+            IsAnswered = false;
+        }
+        public void AddingAnsweredQuestions()
+        {
+            var count = service.OpenCountOfQuestionsAnswered(fileInfo);
+            service.SaveCountOfQuestionsAnswered(fileInfo, count + 1);
         }
     }
 }
