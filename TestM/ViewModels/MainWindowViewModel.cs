@@ -31,12 +31,13 @@ namespace TestM.ViewModels
 
         private ObservableCollection<QuestionModel> questionsList;
         private ObservableCollection<QuestionModel> actualQuestions;
+
         private List<string> rightAnswer;
         private List<string> answerUser;
 
         private int indexPage;
         private bool IsStart;
-        private bool IsLastPage = false;
+        private bool IsLastPage;
         private bool checkWindowState = false;
         private bool IsStartPageTextBoolIsNull;
         private bool IsPassedTheCheck = false;
@@ -48,14 +49,14 @@ namespace TestM.ViewModels
         {
             var password = new PasswordWindow();
             password.ShowDialog();
-        }, (obj) => IsStart == false));
+        }, (obj) => !IsStart));
 
         private RelayCommand openSetting;
         public RelayCommand OpenSetting => openSetting ?? (openSetting = new RelayCommand(obj =>
         {
             SettingWindow wnd = new SettingWindow();
             wnd.ShowDialog();
-        }, (obj) => IsStart == false));
+        }, (obj) => !IsStart));
 
         private RelayCommand minimizeWindow;
         public RelayCommand MinimizeWindow => minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
@@ -122,12 +123,16 @@ namespace TestM.ViewModels
             lastPageTest = new LastPageTest();
 
             MainWindow wnd = obj as MainWindow;
-            wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.TestButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.EditingButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.SettingButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.ProgressBar.Visibility = System.Windows.Visibility.Visible;
             wnd.NextPageButton.Visibility = System.Windows.Visibility.Visible;
 
             CurrentPage = startPageTest;
             IsStart = true;
-        }, (obj) => IsStart == false));
+        }, (obj) => !IsStart));
 
         private RelayCommand stopTest;
         public RelayCommand StopTest => stopTest ?? (stopTest = new RelayCommand(obj =>
@@ -139,7 +144,7 @@ namespace TestM.ViewModels
 
             if (check)
             {
-                RelayCommand relayCommand = StartNewTest;
+                RelayCommand relayCommand = BackToMainPage;
                 relayCommand.Execute(obj);
             }
         }));
@@ -151,6 +156,11 @@ namespace TestM.ViewModels
             indexPage--;
             CountOfQuestionsAnswered = service.OpenCountOfQuestionsAnswered(fileInfo);
             CurrentPage = pages[indexPage];
+            if (indexPage == 0)
+            {
+                wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
+            }
+
             if (IsLastPage)
             {
                 wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
@@ -159,7 +169,7 @@ namespace TestM.ViewModels
                 IsLastPage = false;
             }
 
-        }, (obj) => indexPage > 0));
+        }, (obj) => indexPage > 0 && IsStart));
 
         private RelayCommand nextPage;
         public RelayCommand NextPage => nextPage ?? (nextPage = new RelayCommand(obj =>
@@ -189,8 +199,13 @@ namespace TestM.ViewModels
                 if (indexPage == -1)
                 {
                     wnd.StopTestButton.Visibility = System.Windows.Visibility.Visible;
-                    wnd.ProgressBar.Visibility = System.Windows.Visibility.Visible;
                 }
+
+                if (indexPage == 0)
+                {
+                    wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Visible;
+                }
+
                 CountOfQuestionsAnswered = service.OpenCountOfQuestionsAnswered(fileInfo);
                 indexPage++;
                 CurrentPage = pages[indexPage];
@@ -204,17 +219,21 @@ namespace TestM.ViewModels
                 }
                 IsPassedTheCheck = true;
             }
-        }, (obj) => indexPage < pages.Count - 1));
+        }, (obj) => indexPage < pages.Count - 1 && IsStart));
 
         private RelayCommand scoring;
         public RelayCommand Scoring => scoring ?? (scoring = new RelayCommand(obj =>
         {
             MainWindow wnd = obj as MainWindow;
+            wnd.TestButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.EditingButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.SettingButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
             wnd.EndTestButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
-            wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Visible;
             wnd.ProgressBar.Visibility = System.Windows.Visibility.Hidden;
 
+            var numberQuestion = 1;
             int points = Convert.ToInt32(service.OpenMinimalCountPonits(fileInfo));
             service.SaveCountOfQuestionsAnswered(fileInfo, 0);
             foreach (var item in pages)
@@ -227,45 +246,88 @@ namespace TestM.ViewModels
                 {
                     CountPoints++;
                 }
+                else
+                {
+                    TextBlock textBlockQuestion = new TextBlock();
+                    TextBlock textBlockAnswerA = new TextBlock();
+                    TextBlock textBlockAnswerB = new TextBlock();
+                    TextBlock textBlockAnswerC = new TextBlock();
+
+                    lastPageTest.AllResult.Children.Add(textBlockQuestion);
+                    textBlockQuestion.Text = $"{numberQuestion}) " + $"{actualQuestions[i].Question}";
+                    textBlockQuestion.TextWrapping = System.Windows.TextWrapping.Wrap;
+                    textBlockQuestion.FontSize = 18;
+                    textBlockQuestion.Margin = new System.Windows.Thickness(10,5, 25, 0);
+                    textBlockQuestion.LineHeight = 5;
+
+                    lastPageTest.AllResult.Children.Add(textBlockAnswerA);
+                    textBlockAnswerA.Text = "а) " + $"{actualQuestions[i].AnswerA}";
+                    textBlockAnswerA.TextWrapping = System.Windows.TextWrapping.Wrap;
+                    textBlockAnswerA.FontSize = 16;
+                    textBlockAnswerA.Margin = new System.Windows.Thickness(10, 5, 25, 0);
+                    textBlockAnswerA.LineHeight = 5;
+                    if (actualQuestions[i].RightAnswer == "А") 
+                        textBlockAnswerA.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+                    if (answerUser[i] == "А")
+                        textBlockAnswerA.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
+
+                    lastPageTest.AllResult.Children.Add(textBlockAnswerB);
+                    textBlockAnswerB.Text = "б) " + $"{actualQuestions[i].AnswerB}";
+                    textBlockAnswerB.TextWrapping = System.Windows.TextWrapping.Wrap;
+                    textBlockAnswerB.FontSize = 16;
+                    textBlockAnswerB.Margin = new System.Windows.Thickness(10, 5, 25, 0);
+                    textBlockAnswerB.LineHeight = 5;
+                    if (actualQuestions[i].RightAnswer == "Б")
+                        textBlockAnswerB.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+                    if (answerUser[i] == "Б")
+                        textBlockAnswerB.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
+
+                    lastPageTest.AllResult.Children.Add(textBlockAnswerC);
+                    textBlockAnswerC.Text = "в) " + $"{actualQuestions[i].AnswerB}";
+                    textBlockAnswerC.TextWrapping = System.Windows.TextWrapping.Wrap;
+                    textBlockAnswerC.FontSize = 16;
+                    textBlockAnswerC.Margin = new System.Windows.Thickness(10, 5, 25, 10);
+                    textBlockAnswerC.LineHeight = 5;
+                    if (actualQuestions[i].RightAnswer == "В")
+                        textBlockAnswerC.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+                    if (answerUser[i] == "В")
+                        textBlockAnswerC.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
+
+                    numberQuestion++;
+                }
             }
 
-            lastPageTest.Points.Text = CountPoints.ToString();
             AddResultToFile.WriteName(startPageTest.NameTextBox.Text,
                                       startPageTest.SubdivisionTextBox.Text,
                                       DateTime.Now.Date.ToShortDateString());
             AddResultToFile.WritePoints(CountPoints.ToString());
-            if (CountPoints >= points)
-            {
-                lastPageTest.Result.Text = $"Вы успешно прошли тест, Вы набрали {CountPoints}";
-            }
-            else
-            {
-                lastPageTest.Result.Text = $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога";
-            }
-            IsStart = false;
+            lastPageTest.Result.Text = CountPoints >= points ? $"Вы успешно прошли тест, Вы набрали {CountPoints}."
+                : $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога.";
+
             IsLastPage = false;
             CurrentPage = lastPageTest;
         }, (obj) => IsLastPage));
-        private RelayCommand startNewTest;
-        public RelayCommand StartNewTest => startNewTest ?? (startNewTest = new RelayCommand(obj =>
+        private RelayCommand backToMainPage;
+        public RelayCommand BackToMainPage => backToMainPage ?? (backToMainPage = new RelayCommand(obj =>
         {
             MainWindow wnd = obj as MainWindow;
             wnd.NextPageButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.PreviousPageButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.StopTestButton.Visibility = System.Windows.Visibility.Hidden;
+            wnd.ProgressBar.Visibility = System.Windows.Visibility.Hidden;
             startPageTest.NameTextBox.Text = "";
             startPageTest.SubdivisionTextBox.Text = "";
 
             indexPage = -1;
             countPoints = 0;
+            IsStart = false;
             actualQuestions.Clear();
             rightAnswer.Clear();
             answerUser.Clear();
 
             service.SaveFirstIndex(fileInfo);
-            CountOfQuestionsAnswered = service.OpenCountOfQuestionsAnswered(fileInfo);
-            CountQuestion = service.OpenCountQuestion(fileInfo);
+            service.SaveCountOfQuestionsAnswered(fileInfo, 0);
             CurrentPage = mainPage;
         }));
         #endregion

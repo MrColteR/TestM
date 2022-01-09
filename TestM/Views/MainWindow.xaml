@@ -114,11 +114,6 @@
             <Setter Property="Foreground" Value="#93CCEA"/>
             <Setter Property="BorderBrush" Value="#7ec2e6"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Style.Triggers>
-                <Trigger Property="IsManipulationEnabled" Value="True">
-                    <Setter Property="Background" Value="Red"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Window.InputBindings>
@@ -165,11 +160,13 @@
                     </Image>
                 </Button>
                 <Button Style="{StaticResource ChildrenToolbarButton}"
-                    Command="{Binding WindowStateButton}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                        Command="{Binding WindowStateButton}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                     <Image Style="{StaticResource PatternIcon}"
-                       Name="WindowStateButton"
-                       Source="/Icon/squareIcon.png">
+                           Name="WindowStateButton"
+                           Source="/Icon/squareIcon.png"
+                           Width="16"
+                           Height="16">
                     </Image>
                 </Button>
                 <Button Style="{StaticResource ChildrenToolbarButton}"
@@ -177,7 +174,7 @@
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                     <Image Style="{StaticResource PatternIcon}"
                            Name="CloseButton" 
-                            Source="/Icon/closeIcon.png">
+                           Source="/Icon/closeIcon.png">
                     </Image>
                 </Button>
             </StackPanel>
@@ -187,13 +184,15 @@
               Grid.Column="0"
               Background="Transparent" MouseDown="DragMove_MouseDown">
             <StackPanel VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-                    Grid.Column="0">
-                <Button Style="{StaticResource ChildrenButtonLeft}"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal"
+                        Grid.Column="0">
+                <Button Name="TestButton"
+                        Style="{StaticResource ChildrenButtonLeft}"
                         Command="{Binding StartTest}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="Тест"/>
+                        Content="Тест"
+                        Visibility="Visible"/>
             </StackPanel>
         </Grid>
         <Grid Name="StackPanelRightButton"
@@ -201,14 +200,18 @@
               Grid.Column="1"
               Background="Transparent" MouseDown="DragMove_MouseDown">
             <StackPanel VerticalAlignment="Top"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal"
-                    Grid.Column="1">
-                <Button Style="{StaticResource ChildrenButtonRight}"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Grid.Column="1">
+                <Button Name="EditingButton"
+                        Style="{StaticResource ChildrenButtonRight}"
                         Content="Редактирование"
-                        Command="{Binding CheckPassword}"/>
-                <Button Style="{StaticResource ChildrenButtonLeftSetting}"
-                        Command="{Binding OpenSetting}">
+                        Command="{Binding CheckPassword}"
+                        Visibility="Visible"/>
+                <Button Name="SettingButton"
+                        Style="{StaticResource ChildrenButtonLeftSetting}"
+                        Command="{Binding OpenSetting}"
+                        Visibility="Visible">
                     <Image Style="{StaticResource PatternIcon}"
                            Source="/Icon/settingIcon.png"/>
                 </Button>
@@ -280,7 +283,7 @@
                 <Button Name="StartNewTestButton"
                         Style="{StaticResource ChildrenFrameButton}"
                         Content="На главную"
-                        Command="{Binding StartNewTest}"
+                        Command="{Binding BackToMainPage}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                         Visibility="Hidden"/>
             </StackPanel>
