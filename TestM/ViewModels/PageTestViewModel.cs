@@ -28,6 +28,7 @@ namespace TestM.ViewModels
             if (!IsAnswered)
             {
                 AddingAnsweredQuestions();
+                IsAnswered = true;
             }
         }));
 
@@ -39,6 +40,7 @@ namespace TestM.ViewModels
             if (!IsAnswered)
             {
                 AddingAnsweredQuestions();
+                IsAnswered = true;
             }
         }));
 
@@ -50,6 +52,7 @@ namespace TestM.ViewModels
             if (!IsAnswered)
             {
                 AddingAnsweredQuestions();
+                IsAnswered = true;
             }
         }));
         #endregion

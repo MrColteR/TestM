@@ -37,6 +37,7 @@ namespace TestM.ViewModels
 
         private int indexPage;
         private bool IsStart;
+        private bool IsBeClose;
         private bool IsLastPage;
         private bool checkWindowState = false;
         private bool IsStartPageTextBoolIsNull;
@@ -84,7 +85,7 @@ namespace TestM.ViewModels
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {
-            if (IsStart && !closeTest)
+            if (IsBeClose && !closeTest)
             {
                 StopTestWindow wnd = new StopTestWindow();
                 wnd.ShowDialog();
@@ -132,6 +133,7 @@ namespace TestM.ViewModels
 
             CurrentPage = startPageTest;
             IsStart = true;
+            IsBeClose = true;
         }, (obj) => !IsStart));
 
         private RelayCommand stopTest;
@@ -235,6 +237,7 @@ namespace TestM.ViewModels
 
             var numberQuestion = 1;
             int points = Convert.ToInt32(service.OpenMinimalCountPonits(fileInfo));
+            int maxCountPoints = service.OpenCountQuestion(fileInfo);
             service.SaveCountOfQuestionsAnswered(fileInfo, 0);
             foreach (var item in pages)
             {
@@ -301,9 +304,10 @@ namespace TestM.ViewModels
                                       startPageTest.SubdivisionTextBox.Text,
                                       DateTime.Now.Date.ToShortDateString());
             AddResultToFile.WritePoints(CountPoints.ToString());
-            lastPageTest.Result.Text = CountPoints >= points ? $"Вы успешно прошли тест, Вы набрали {CountPoints}."
+            lastPageTest.Result.Text = CountPoints >= points ? $"Вы успешно прошли тест, Вы набрали {CountPoints} из {maxCountPoints}."
                 : $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога.";
 
+            IsBeClose = false;
             IsLastPage = false;
             CurrentPage = lastPageTest;
         }, (obj) => IsLastPage));
