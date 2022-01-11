@@ -29,7 +29,7 @@
             <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{StaticResource PatternIcon}"
+                <Image Style="{DynamicResource PatternIcon}"
                        Name="CloseButton" 
                        Source="/Icon/closeIcon.png">
                 </Image>
@@ -39,7 +39,7 @@
                    Grid.Row="1"
                    Text="Введите старый пароль"/>
         <PasswordBox Name="PasswordBoxOld" 
-                     Style="{StaticResource PasswordBox}"
+                     Style="{DynamicResource PasswordBox}"
                      focus:FocusExtension.IsFocused="True"
                      Grid.Row="2"
                      Margin="20,5,20,5"/>
@@ -47,7 +47,7 @@
                    Grid.Row="3"
                    Text="Введите новый пароль"/>
         <PasswordBox Name="PasswordBoxNew"
-                     Style="{StaticResource PasswordBox}"
+                     Style="{DynamicResource PasswordBox}"
                      KeyDown="ChangePassword"
                      Grid.Row="4"
                      Margin="20,5,20,5"/>

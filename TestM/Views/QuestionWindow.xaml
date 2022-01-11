@@ -28,28 +28,28 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right">
-            <Button Style="{StaticResource ChildrenToolbarButton}"
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding MinimizeWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{StaticResource PatternIcon}"
+                <Image Style="{DynamicResource PatternIcon}"
                        Name="MinimizeButton"
                        Source="/Icon/minimizeIcon.png">
                 </Image>
             </Button>
-            <Button Style="{StaticResource ChildrenToolbarButton}"
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding WindowStateButton}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{StaticResource PatternIcon}"
+                <Image Style="{DynamicResource PatternIcon}"
                        Name="WindowStateButton"
                        Source="/Icon/squareIcon.png"
                        Width="16"
                        Height="16">
                 </Image>
             </Button>
-            <Button Style="{StaticResource ChildrenToolbarButton}"
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{StaticResource PatternIcon}"
+                <Image Style="{DynamicResource PatternIcon}"
                        Name="CloseButton" 
                        Source="/Icon/closeIcon.png">
                 </Image>
@@ -92,12 +92,13 @@
                        Source="/Icon/settingIcon.png"/>
             </Button>
         </StackPanel>
-        <DataGrid Style="{StaticResource DataGrid}"
-                  CellStyle="{StaticResource DataGridCell}"
-                  ColumnHeaderStyle="{StaticResource DataGridColumnHeader}"
+        <DataGrid Style="{DynamicResource DataGrid}"
+                  CellStyle="{DynamicResource DataGridCell}"
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeader}"
                   ItemsSource="{Binding ItemsSource}"
                   SelectedItem="{Binding SelectedItem}"
                   SelectedIndex="{Binding SelectedIndex}"
+                  Width="1478"
                   Grid.Row="2"
                   Grid.ColumnSpan="2">
             <DataGrid.Columns>

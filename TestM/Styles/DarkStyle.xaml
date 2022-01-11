@@ -7,22 +7,15 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
         <Setter Property="WindowStyle" Value="None"/>
-        <Setter Property="Background">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Red" Offset="0"/>
-                    <GradientStop Color="Purple" Offset="1"/>
-                    <GradientStop Color="Green" Offset="0.495"/>
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Background" Value="#FF202326"/>
     </Style>
     <!--#endregion-->
     
     <!--#region Buttons -->
     <Style x:Key="PaternButton" TargetType="{x:Type Button}">
         <Style.Setters>
-            <Setter Property="Background" Value="Red"/>
+            <Setter Property="Background" Value="#FF2C3034"/>
+            <Setter Property="Foreground" Value="#FFABABAC"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
@@ -36,12 +29,13 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#8FE9FA"/>
+                                <Setter Property="Background" Value="#FF36393F"/>
+                                <Setter Property="Foreground" Value="#FFF2F2F2"/>
                                 <Setter Property="BorderBrush" Value="Black"/>
                                 <Setter Property="BorderThickness" Value="1"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#00A1E1"/>
+                                <Setter Property="Background" Value="#FF1E1E1E"/>
                                 <Setter Property="BorderBrush" Value="Black"/>
                                 <Setter Property="BorderThickness" Value="1"/>
                             </Trigger>
@@ -106,7 +100,7 @@
 
     <!--#region TextBlock -->
     <Style x:Key="TextBlock" TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Foreground" Value="#FFABABAC"/>
     </Style>
     <!--#endregion-->
 
@@ -120,6 +114,7 @@
 
     <!--#region TextBlock for test question -->
     <Style x:Key="TextBlockQuestion" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#FFABABAC"/>
         <Setter Property="Margin" Value="10,5,10,5"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
@@ -128,6 +123,7 @@
 
     <!--#region TextBlock for test answer -->
     <Style x:Key="TextBlockAnswer" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#FFABABAC"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Margin" Value="0,0,10,0"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
@@ -136,6 +132,7 @@
 
     <!--#region TextBlock for Points -->
     <Style x:Key="TextBlockPoints" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#FFABABAC"/>
         <Setter Property="FontSize" Value="22"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Margin" Value="10,5,0,0"/>
@@ -144,6 +141,7 @@
 
     <!--#region TextBlock for Result -->
     <Style x:Key="TextBlockResult" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#FFABABAC"/>
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Margin" Value="10,5,0,0"/>
@@ -192,13 +190,13 @@
                                       Margin="10,0,0,0">
                                     <Border Name="RadioOuter"
                                             Background="Transparent"
-                                            BorderBrush="#005eff"
+                                            BorderBrush="#FFABABAC"
                                             BorderThickness="2"
                                             CornerRadius="4"/>
                                     <Border Name="RadioMark"
                                             CornerRadius="6"
                                             Margin="4" 
-                                            Background="Black" 
+                                            Background="#FFABABAC" 
                                             Visibility="Hidden"/>
                                 </Grid>
                             </BulletDecorator.Bullet>
@@ -209,7 +207,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="true">
                                 <Setter TargetName="RadioMark" Property="Visibility" Value="Visible"/>
-                                <Setter TargetName="RadioOuter" Property="BorderBrush" Value="Black" />
+                                <Setter TargetName="RadioOuter" Property="BorderBrush" Value="#FFF2F2F2" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -234,7 +232,7 @@
         </Setter>
     </Style>
     <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-        <Setter Property="Foreground" Value="#00A1E1"/>
+        <Setter Property="Foreground" Value="#FF40444B"/>
         <Setter Property="Width" Value="10"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -262,12 +260,13 @@
         <Setter Property="Width" Value="400"/>
         <Setter Property="Margin" Value="5,10,5,10"/>
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#93CCEA"/>
-        <Setter Property="BorderBrush" Value="#7ec2e6"/>
+        <Setter Property="Foreground" Value="#FFABABAC"/>
+        <Setter Property="BorderBrush" Value="#FFABABBB"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
     <Style x:Key="TextBlockProgressBar" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="#FFABABAC"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Height" Value="20"/>
         <Setter Property="Width" Value="20"/>
@@ -291,29 +290,33 @@
         <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
     </Style>
     <Style x:Key="DataGridCell" TargetType="{x:Type DataGridCell}">
-        <Setter Property="Background" Value="#93CCEA"/>
+        <Setter Property="Foreground" Value="#FFABABAC"/>
+        <Setter Property="Background" Value="#FF2C3034"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Height" Value="25"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#8FE9FA"/>
+                <Setter Property="Background" Value="#FF36393F"/>
+                <Setter Property="Foreground" Value="#FFF2F2F2"/>
                 <Setter Property="BorderThickness" Value="1"/>
                 <Setter Property="BorderBrush" Value="Black"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="#8FE9FA"/>
-                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="#FF40444B"/>
+                <Setter Property="Foreground" Value="#FFF2F2F2"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     <Style x:Key="DataGridColumnHeader" TargetType="{x:Type DataGridColumnHeader}">
-        <Setter Property="Background" Value="#00A1E1"/>
+        <Setter Property="Background" Value="#FF36393F"/>
+        <Setter Property="Foreground" Value="#FFF2F2F2"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Height" Value="25"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#1E90FF"/>
+                <Setter Property="Background" Value="#FF36393F"/>
+                <Setter Property="Foreground" Value="#FFF2F2F2"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -325,7 +328,8 @@
         <Setter Property="Margin" Value="10,5,10,5"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="Background" Value="#93CCEA"/>
+        <Setter Property="Background" Value="#FF2C3034"/>
+        <Setter Property="Foreground" Value="#FFABABAC"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="Template">
@@ -340,11 +344,12 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderBrush" Value="Black"/>
-                            <Setter Property="Background" Value="#8FE9FA"/>
+                            <Setter Property="Background" Value="#FF36393F"/>
+                            <Setter Property="Foreground" Value="#FFF2F2F2"/>
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter Property="BorderBrush" Value="Black"/>
-                            <Setter Property="Background" Value="#8FE9FA"/>
+                            <Setter Property="Background" Value="#FF40444B"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -357,7 +362,8 @@
     <Style x:Key="PasswordBox" TargetType="{x:Type PasswordBox}">
         <Style.Setters>
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="#93CCEA"/>
+            <Setter Property="Background" Value="#FF2C3034"/>
+            <Setter Property="Foreground" Value="#FFF2F2F2"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="Template">
@@ -372,16 +378,13 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
+                                <Setter Property="Background" Value="#FF36393F"/>
+                                <Setter Property="Foreground" Value="#FFF2F2F2"/>
                             </Trigger>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Background" Value="#8FE9FA"/>
+                                <Setter Property="Background" Value="#FF40444B"/>
                                 <Setter Property="BorderBrush" Value="Black"/>
                                 <Setter Property="BorderThickness" Value="1"/>
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -399,6 +402,7 @@
     <!--#region CheckBox -->
     <Style x:Key="CheckBox" TargetType="{x:Type CheckBox}">
         <Style.Setters>
+            <Setter Property="Foreground" Value="#FFABABAC"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type CheckBox}">
@@ -411,13 +415,13 @@
                                       Margin="10,0,0,0">
                                     <Border Name="RadioOuter"
                                             Background="Transparent"
-                                            BorderBrush="#005eff"
+                                            BorderBrush="#FFABABAC"
                                             BorderThickness="2"
                                             CornerRadius="4"/>
                                     <Border Name="RadioMark"
                                             CornerRadius="6"
-                                            Margin="4" 
-                                            Background="#005eff" 
+                                            Margin="4"
+                                            Background="#FFABABAC" 
                                             Visibility="Hidden"/>
                                 </Grid>
                             </BulletDecorator.Bullet>
@@ -428,7 +432,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="true">
                                 <Setter TargetName="RadioMark" Property="Visibility" Value="Visible"/>
-                                <Setter TargetName="RadioOuter" Property="BorderBrush" Value="#005eff" />
+                                <Setter TargetName="RadioOuter" Property="BorderBrush" Value="#FFABABAC" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

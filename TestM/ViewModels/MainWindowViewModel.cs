@@ -146,6 +146,7 @@ namespace TestM.ViewModels
 
             if (check)
             {
+                IsBeClose = false;
                 RelayCommand relayCommand = BackToMainPage;
                 relayCommand.Execute(obj);
             }
@@ -255,6 +256,7 @@ namespace TestM.ViewModels
                     TextBlock textBlockAnswerA = new TextBlock();
                     TextBlock textBlockAnswerB = new TextBlock();
                     TextBlock textBlockAnswerC = new TextBlock();
+                    var style = service.OpenStyleApp(fileInfo);
 
                     lastPageTest.AllResult.Children.Add(textBlockQuestion);
                     textBlockQuestion.Text = $"{numberQuestion}) " + $"{actualQuestions[i].Question}";
@@ -262,6 +264,8 @@ namespace TestM.ViewModels
                     textBlockQuestion.FontSize = 18;
                     textBlockQuestion.Margin = new System.Windows.Thickness(10,5, 25, 0);
                     textBlockQuestion.LineHeight = 5;
+                    if (style == "Темная")
+                        textBlockQuestion.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172));
 
                     lastPageTest.AllResult.Children.Add(textBlockAnswerA);
                     textBlockAnswerA.Text = "а) " + $"{actualQuestions[i].AnswerA}";
@@ -269,6 +273,8 @@ namespace TestM.ViewModels
                     textBlockAnswerA.FontSize = 16;
                     textBlockAnswerA.Margin = new System.Windows.Thickness(10, 5, 25, 0);
                     textBlockAnswerA.LineHeight = 5;
+                    if (style == "Темная")
+                        textBlockAnswerA.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172));
                     if (actualQuestions[i].RightAnswer == "А") 
                         textBlockAnswerA.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
                     if (answerUser[i] == "А")
@@ -280,6 +286,8 @@ namespace TestM.ViewModels
                     textBlockAnswerB.FontSize = 16;
                     textBlockAnswerB.Margin = new System.Windows.Thickness(10, 5, 25, 0);
                     textBlockAnswerB.LineHeight = 5;
+                    if (style == "Темная")
+                        textBlockAnswerB.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172));
                     if (actualQuestions[i].RightAnswer == "Б")
                         textBlockAnswerB.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
                     if (answerUser[i] == "Б")
@@ -291,6 +299,8 @@ namespace TestM.ViewModels
                     textBlockAnswerC.FontSize = 16;
                     textBlockAnswerC.Margin = new System.Windows.Thickness(10, 5, 25, 10);
                     textBlockAnswerC.LineHeight = 5;
+                    if (style == "Темная")
+                        textBlockAnswerC.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172)); 
                     if (actualQuestions[i].RightAnswer == "В")
                         textBlockAnswerC.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
                     if (answerUser[i] == "В")

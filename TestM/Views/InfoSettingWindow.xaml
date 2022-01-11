@@ -35,7 +35,7 @@
             <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{StaticResource PatternIcon}"
+                <Image Style="{DynamicResource PatternIcon}"
                        Name="CloseButton" 
                        Source="/Icon/closeIcon.png">
                 </Image>
@@ -45,27 +45,27 @@
                    Grid.Row="1"
                    Text="Используемые темы"/>
         <StackPanel Grid.Row="2">
-            <CheckBox Style="{StaticResource CheckBox}"
+            <CheckBox Style="{DynamicResource CheckBox}"
                       IsChecked="{Binding FirstCheckBoxButton}">
                 <TextBlock FontSize="16"
                            Text="1"/>
             </CheckBox>
-            <CheckBox Style="{StaticResource CheckBox}"
+            <CheckBox Style="{DynamicResource CheckBox}"
                       IsChecked="{Binding SecondCheckBoxButton}">
                 <TextBlock FontSize="16"
                            Text="2"/>
             </CheckBox>
-            <CheckBox Style="{StaticResource CheckBox}"
+            <CheckBox Style="{DynamicResource CheckBox}"
                       IsChecked="{Binding ThreeCheckBoxButton}">
                 <TextBlock FontSize="16"
                            Text="3"/>
             </CheckBox>
-            <CheckBox Style="{StaticResource CheckBox}"
+            <CheckBox Style="{DynamicResource CheckBox}"
                       IsChecked="{Binding FourtCheckBoxButton}">
                 <TextBlock FontSize="16"
                            Text="4"/>
             </CheckBox>
-            <CheckBox Style="{StaticResource CheckBox}"
+            <CheckBox Style="{DynamicResource CheckBox}"
                       IsChecked="{Binding FiveCheckBoxButton}">
                 <TextBlock FontSize="16"
                            Text="5"/>
@@ -85,20 +85,20 @@
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="5"
                    Text="Минимальный порог баллов"/>
-        <TextBox Style="{StaticResource TextBox}"
+        <TextBox Style="{DynamicResource TextBox}"
                  Text="{Binding MinimalCountPoints, UpdateSourceTrigger=PropertyChanged}"
                  focus:FocusExtension.IsFocused="True"
                  Grid.Row="6"/>
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="7"
                    Text="Количество вопросов по теме"/>
-        <TextBox Style="{StaticResource TextBox}"
+        <TextBox Style="{DynamicResource TextBox}"
                  Text="{Binding CountQuestionOneType, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="8"/>
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="9"
                    Text="Количество вопросов в тесте"/>
-        <TextBox Style="{StaticResource TextBox}"
+        <TextBox Style="{DynamicResource TextBox}"
                  Text="{Binding CountQuestion, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="10"
                  IsReadOnly="True"/>
