@@ -104,6 +104,13 @@ namespace TestM.Data
         }
         #endregion
         #region Json Info Setting
+        public string OpenStyleApp(string filePath)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            return info.StyleApp;
+        }
         public bool OpenSaveFileCheck(string filePath)
         {
             string json = File.ReadAllText(filePath);
@@ -152,6 +159,18 @@ namespace TestM.Data
             Info info = new Info();
             JsonConvert.PopulateObject(json, info);
             return info.ButtonsStates;
+        }
+        public void SaveStyleApp(string filePath, string style)
+        {
+            string json = File.ReadAllText(filePath);
+            Info info = new Info();
+            JsonConvert.PopulateObject(json, info);
+            info.StyleApp = style;
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(info);
+                writer.Write(data);
+            }
         }
         public void SaveQuestionsInfo(string filePath, int countQuestionOneType, int countQuestion)
         {

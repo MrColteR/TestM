@@ -320,6 +320,10 @@ namespace TestM.ViewModels
             wnd.StartNewTestButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.StopTestButton.Visibility = System.Windows.Visibility.Hidden;
             wnd.ProgressBar.Visibility = System.Windows.Visibility.Hidden;
+            wnd.TestButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.EditingButton.Visibility = System.Windows.Visibility.Visible;
+            wnd.SettingButton.Visibility = System.Windows.Visibility.Visible;
+
             startPageTest.NameTextBox.Text = "";
             startPageTest.SubdivisionTextBox.Text = "";
 

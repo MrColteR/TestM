@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using TestM.ViewModels;
 
 namespace TestM.Pages
 {
@@ -11,7 +10,6 @@ namespace TestM.Pages
         public LastPageTest()
         {
             InitializeComponent();
-            DataContext = new LastPageTestViewModel();
         }
     }
 }

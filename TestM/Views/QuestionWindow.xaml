@@ -4,128 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM"
+        xmlns:vm="clr-namespace:TestM.ViewModels"
         mc:Ignorable="d"
-        BorderBrush="Black"
-        BorderThickness="1"
+        Style="{DynamicResource Window}"
         WindowStartupLocation="CenterScreen"
-        Title="QuestionWindow" Height="500" Width="1500" WindowStyle="None" ResizeMode="NoResize">
-    <Window.Resources>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenToolbarButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="24"/>
-            <Setter Property="Width" Value="24"/>
-            <Setter Property="Margin" Value="0,0,1,0"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style x:Key="PatternIcon" TargetType="Image">
-            <Style.Setters>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Width" Value="20"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenToolBarLeftButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="10,0,0,0"/>
-        </Style>
-        <Style x:Key="ChildrenToolBarRightButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="0,0,5,0"/>
-        </Style>
-        <Style x:Key="ChildrenButtonSetting" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Width" Value="30"/>
-                <Setter Property="Margin" Value="0,5,5,5"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="DataGrid" TargetType="DataGrid">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Margin" Value="10,10,10,10"/>
-            <Setter Property="AutoGenerateColumns" Value="False"/>
-            <Setter Property="CanUserAddRows" Value="False"/>
-            <Setter Property="SelectionMode" Value="Single"/>
-            <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
-            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
-        </Style>
-        <Style x:Key="DataGridCell" TargetType="DataGridCell">
-            <Setter Property="Background" Value="#93CCEA"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Height" Value="25"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#8FE9FA"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="BorderBrush" Value="Black"/>
-                </Trigger>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#8FE9FA"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="DataGridColumnHeader" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="#00A1E1"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="Height" Value="25"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1E90FF"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD2DFE2" Offset="0"/>
-            <GradientStop Color="#FF66B3E2" Offset="1"/>
-            <GradientStop Color="#FF9ED1DD" Offset="0.495"/>
-        </LinearGradientBrush>
-    </Window.Background>
+        Height="500"
+        Width="1500">
+    <Window.DataContext>
+        <vm:QuestionWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -168,34 +55,39 @@
                 </Image>
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Left"
-                    Grid.Row="1"
-                    Grid.Column="0">
-            <Button Content="Добавить"
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left">
+            <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                     Command="{Binding AddQuestion}"
                     CommandParameter="{Binding}"
-                    Style="{StaticResource ChildrenToolBarLeftButton}"/>
-            <Button Content="Изменить"
+                    Content="Добавить"
+                    Margin="10,0,0,0"/>
+            <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                     Command="{Binding UpdateQuestion}"
                     CommandParameter="{Binding}"
-                    Style="{StaticResource ChildrenToolBarLeftButton}"/>
-            <Button Content="Удалить"
+                    Content="Изменить"
+                    Margin="10,0,0,0"/>
+            <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                     Command="{Binding DeleteQuestion}"
                     CommandParameter="{Binding}"
-                    Style="{StaticResource ChildrenToolBarLeftButton}"/>
+                    Content="Удалить"
+                    Margin="10,0,5,0"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Grid.Row="1"
-                    Grid.Column="1">
-            <Button Content="Сохранить"
-                    Name="SaveBitton"
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Name="SaveBitton"
+                    Style="{DynamicResource ChildrenButtonEditWindow}"
                     Command="{Binding SaveFile}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Style="{StaticResource ChildrenToolBarRightButton}"/>
-            <Button Style="{StaticResource ChildrenButtonSetting}"
-                    Command="{Binding OpenSettingInfo}">
+                    Content="Сохранить"
+                    Margin="0,0,5,0"/>
+            <Button Style="{DynamicResource ChildrenButtonSetting}"
+                    Command="{Binding OpenSettingInfo}"
+                    Margin="0,5,5,5">
                 <Image Style="{StaticResource PatternIcon}"
                        Source="/Icon/settingIcon.png"/>
             </Button>
@@ -210,23 +102,23 @@
                   Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Тип вопроса"
-                                    Width="100"
-                                    Binding="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Binding="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="100"/>
                 <DataGridTextColumn Header="Вопрос"
-                                    Width="320"
-                                    Binding="{Binding Question, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Binding="{Binding Question, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="320"/>
                 <DataGridTextColumn Header="Ответ А"
-                                    Width="320"
-                                    Binding="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Binding="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="320"/>
                 <DataGridTextColumn Header="Ответ Б"
-                                    Width="320"
-                                    Binding="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Binding="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="320"/>
                 <DataGridTextColumn Header="Ответ В"
-                                    Width="320"
-                                    Binding="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Binding="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="320"/>
                 <DataGridTextColumn Header="Ответ"
-                                    Width="*"
-                                    Binding="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"/>
+                                    Binding="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

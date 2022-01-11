@@ -12,7 +12,6 @@ namespace TestM.Views
         public SettingWindow()
         {
             InitializeComponent();
-            DataContext = new SettingWindowViewModel();
         }
         private void ChangePasswordButton(object sender, RoutedEventArgs e)
         {

@@ -6,141 +6,10 @@
         xmlns:local="clr-namespace:TestM.Views"
         xmlns:focus="clr-namespace:TestM.Command"
         mc:Ignorable="d"
-        BorderBrush="black"
-        BorderThickness="1"
+        Style="{DynamicResource Window}"
         WindowStartupLocation="CenterScreen"
-        Title="AddQuestionWindow" Height="555" Width="400" WindowStyle="None" ResizeMode="NoResize">
-    <Window.Resources>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsFocused" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenToolbarButton"
-               TargetType="Button" 
-               BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="Height" Value="24"/>
-                <Setter Property="Width" Value="24"/>
-                <Setter Property="Margin" Value="0,0,1,0"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenLeftButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="10,5,0,5"/>
-        </Style>
-        <Style x:Key="ChildrenRightButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="0,5,10,5"/>
-        </Style>
-        <Style x:Key="ChldrenComboBoxButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="10,5,10,5"/>
-        </Style>
-        <Style x:Key="ChildrenStackPanelButtonUp" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="1,1,1,0"/>
-        </Style>
-        <Style x:Key="ChildrenStackPanelButtonDown" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="1,1,1,0"/>
-        </Style>
-        <Style x:Key="PatternIcon" TargetType="Image">
-            <Style.Setters>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Width" Value="20"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBlock" TargetType="TextBlock">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="17"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="10,5,10,5"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Background" Value="#93CCEA"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          IsTabStop="False"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD2DFE2" Offset="0"/>
-            <GradientStop Color="#FF66B3E2" Offset="1"/>
-            <GradientStop Color="#FF9ED2DD" Offset="0.501"/>
-        </LinearGradientBrush>
-    </Window.Background>
+        Height="555"
+        Width="400" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -161,15 +30,15 @@
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Grid.Row="0">
-            <Button Style="{StaticResource ChildrenToolbarButton}"
-                        Command="{Binding MinimizeWindow}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
+                    Command="{Binding MinimizeWindow}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                 <Image Style="{StaticResource PatternIcon}"
                        Name="MinimizeButton"
                        Source="/Icon/minimizeIcon.png">
                 </Image>
             </Button>
-            <Button Style="{StaticResource ChildrenToolbarButton}"
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                 <Image Style="{StaticResource PatternIcon}"
@@ -178,62 +47,71 @@
                 </Image>
             </Button>
         </StackPanel>
-        <TextBlock Style="{StaticResource TextBlock}"
+        
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="1"
                    Text="Вопрос"/>
-        <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="2"
+        <TextBox Style="{DynamicResource TextBox}"
+                 Text="{Binding Question, UpdateSourceTrigger=PropertyChanged}"
                  focus:FocusExtension.IsFocused="True"
-                 Name="Question"
-                 Text="{Binding Question, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Style="{StaticResource TextBlock}"
+                 Grid.Row="2"
+                 Name="Question"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
                    Text="Тип вопроса"/>
-        <Button Style="{StaticResource ChldrenComboBoxButton}"
-                Name="TypeButton"
-                Grid.Row="4" 
+        <Button Name="TypeButton"
+                Style="{DynamicResource PaternButton}"
                 Content="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"
                 Command="{Binding OpenComboBoxType}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-        <TextBlock Style="{StaticResource TextBlock}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Grid.Row="4" 
+                FontSize="16"
+                Margin="10,5,10,5"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="5"
                    Text="Ответ А"/>
-        <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="6"
-                 Name="AnswerATextBox"
-                 Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBox Name="AnswerATextBox"
+                 Style="{DynamicResource TextBox}"
+                 Text="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="6"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="7"
                    Text="Ответ Б"/>
-        <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="8"
-                 Name="AnswerBTextBox"
-                 Text="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBox Name="AnswerBTextBox"
+                 Style="{DynamicResource TextBox}"
+                 Text="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="8"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="9"
                    Text="Ответ В"/>
-        <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="10"
-                 Name="AnswerCTextBox"
-                 Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBox Name="AnswerCTextBox"
+                 Style="{DynamicResource TextBox}"
+                 Text="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="10"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Text="Правильный ответ"
                    Grid.Row="11"/>
-        <Button Style="{StaticResource ChldrenComboBoxButton}"
-                Name="RightAnswerButton"
-                Grid.Row="12" 
+        <Button Name="RightAnswerButton"
+                Style="{DynamicResource PaternButton}"
                 Content="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"
                 Command="{Binding OpenComboBoxAnswer}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-        <Button Style="{StaticResource ChildrenLeftButton}"
-                Grid.Row="13"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Grid.Row="12"
+                FontSize="16"
+                Margin="10,5,10,5"/>
+        <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                 Command="{Binding AddQuestion}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                Content="Добавить"/>
-        <Button Style="{StaticResource ChildrenRightButton}"
                 Grid.Row="13"
+                HorizontalAlignment="Left"
+                Margin="10,5,0,5"
+                Content="Добавить"/>
+        <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                 Command="{Binding Close}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Grid.Row="13"
+                HorizontalAlignment="Right"
+                Margin="0,5,10,5"
                 Content="Отмена"/>
         <Grid Grid.Row="5"
               Grid.RowSpan="5"
@@ -242,33 +120,36 @@
               VerticalAlignment="Center"
               Margin="0,-35,0,0"
               Visibility="Hidden">
-            <Rectangle Height="157" Width="360" Margin="0,0,0,0" Fill="#1E90FF"/>
+            <Rectangle Style="{DynamicResource BackgroundFromComboBox}"
+                       Height="157"
+                       Width="360"
+                       Margin="0,0,0,0"/>
             <StackPanel Orientation="Vertical" Margin="0,0,0,0">
-                <Button Style="{StaticResource ChildrenStackPanelButtonUp}"
-                        Name="LegalBases"
-                        Content="1"
+                <Button Name="LegalBases"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonUp}"
-                        Name="Safety"
-                        Content="2"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="1"/>
+                <Button Name="Safety"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonUp}"
-                        Name="TTX"
-                        Content="3"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="2"/>
+                <Button Name="TTX"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonUp}"
-                        Name="Command"
-                        Content="4"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="3"/>
+                <Button Name="Command"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonUp}"
-                        Name="Delays"
-                        Content="5"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="4"/>
+                <Button Name="Delays"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="5"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="8"
@@ -279,23 +160,27 @@
               Background="Transparent"
               Margin="0,0,0,30"
               Visibility="Hidden">
-            <Rectangle Height="96" Width="360" Margin="1,1,1,1" Fill="#1E90FF"/>
-            <StackPanel Orientation="Vertical" Margin="1,1,1,1">
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerA"
-                        Content="А"
+            <Rectangle Style="{DynamicResource BackgroundFromComboBox}"
+                       Height="96"
+                       Width="360"
+                       Margin="1,1,1,1"/>
+            <StackPanel Orientation="Vertical"
+                        Margin="1,1,1,1">
+                <Button Name="AnswerA"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceAnswer}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerB"
-                        Content="Б"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="А"/>
+                <Button Name="AnswerB"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceAnswer}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-                <Button Style="{StaticResource ChildrenStackPanelButtonDown}"
-                        Name="AnswerC"
-                        Content="В"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="Б"/>
+                <Button Name="AnswerC"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
                         Command="{Binding ChoiceAnswer}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="В"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using TestM.ViewModels;
 
 namespace TestM.Views
 {
@@ -11,7 +10,6 @@ namespace TestM.Views
         public PasswordChanged()
         {
             InitializeComponent();
-            DataContext = new PasswordChangedViewModel();
         }
     }
 }

@@ -13,7 +13,6 @@ namespace TestM.Views
         public PasswordWindow()
         {
             InitializeComponent();
-            DataContext = new PasswordViewModel();
         }
         private void LogInButton(object sender, RoutedEventArgs e)
         {

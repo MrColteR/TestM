@@ -5,181 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM.Views"
         xmlns:focus="clr-namespace:TestM.Command"
+        xmlns:vm="clr-namespace:TestM.ViewModels"
         mc:Ignorable="d"
-        BorderBrush="Black"
-        BorderThickness="1"
-        Title="InfoSettingWindow" Height="450" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    <Window.Resources>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsFocused" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenToolbarButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="24"/>
-            <Setter Property="Width" Value="24"/>
-            <Setter Property="Margin" Value="0,0,1,0"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style x:Key="ChildrenLeftButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="10,5,0,5"/>
-        </Style>
-        <Style x:Key="ChildrenRightButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="0,5,10,5"/>
-        </Style>
-        <Style x:Key="ChildrenStackPanelButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="1,1,1,0"/>
-        </Style>
-        <Style x:Key="ChldrenComboBoxButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="10,5,10,5"/>
-        </Style>
-        <Style x:Key="TextBlock" TargetType="TextBlock">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="17"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBlockCheckBox" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-        </Style>
-        <Style x:Key="TextBlockGrid" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="265"/>
-        </Style>
-        <Style x:Key="TextBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="10,5,10,5"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Padding" Value="5,3,0,0"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Background" Value="#93CCEA"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          IsTabStop="False"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="PatternIcon" TargetType="Image">
-            <Style.Setters>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Width" Value="20"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="CheckBox" TargetType="CheckBox">
-            <Style.Setters>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type CheckBox}">
-                            <BulletDecorator Background="Transparent"
-                                             Cursor="Hand"
-                                             Margin="0,5,0,0">
-                                <BulletDecorator.Bullet>
-                                    <Grid Height="20"
-                                          Width="20"
-                                          Margin="10,0,0,0">
-                                        <Border Name="RadioOuter"
-                                                Background="Transparent"
-                                                BorderBrush="#005eff"
-                                                BorderThickness="2"
-                                                CornerRadius="4"/>
-                                        <Border Name="RadioMark"
-                                                CornerRadius="6"
-                                                Margin="4" 
-                                                Background="#005eff" 
-                                                Visibility="Hidden"/>
-                                    </Grid>
-                                </BulletDecorator.Bullet>
-                                <TextBlock Margin="15,0,0,0">
-                                    <ContentPresenter />
-                                </TextBlock>
-                            </BulletDecorator>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked" Value="true">
-                                    <Setter TargetName="RadioMark" Property="Visibility" Value="Visible"/>
-                                    <Setter TargetName="RadioOuter" Property="BorderBrush" Value="#005eff" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-    </Window.Resources>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD2DFE2" Offset="0"/>
-            <GradientStop Color="#FF66B3E2" Offset="1"/>
-            <GradientStop Color="#FF9ED1DD" Offset="0.495"/>
-        </LinearGradientBrush>
-    </Window.Background>
+        Style="{DynamicResource Window}"
+        Height="520"
+        Width="300"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:InfoSettingViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -191,12 +25,14 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="0"
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
                     HorizontalAlignment="Right">
-            <Button Style="{StaticResource ChildrenToolbarButton}"
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                 <Image Style="{StaticResource PatternIcon}"
@@ -205,65 +41,106 @@
                 </Image>
             </Button>
         </StackPanel>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="1"
                    Text="Используемые темы"/>
         <StackPanel Grid.Row="2">
-            <CheckBox IsChecked="{Binding FirstCheckBoxButton}"
-                      Style="{StaticResource CheckBox}">
-                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+            <CheckBox Style="{StaticResource CheckBox}"
+                      IsChecked="{Binding FirstCheckBoxButton}">
+                <TextBlock FontSize="16"
                            Text="1"/>
             </CheckBox>
-            <CheckBox IsChecked="{Binding SecondCheckBoxButton}"
-                      Style="{StaticResource CheckBox}">
-                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+            <CheckBox Style="{StaticResource CheckBox}"
+                      IsChecked="{Binding SecondCheckBoxButton}">
+                <TextBlock FontSize="16"
                            Text="2"/>
             </CheckBox>
-            <CheckBox IsChecked="{Binding ThreeCheckBoxButton}"
-                      Style="{StaticResource CheckBox}">
-                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+            <CheckBox Style="{StaticResource CheckBox}"
+                      IsChecked="{Binding ThreeCheckBoxButton}">
+                <TextBlock FontSize="16"
                            Text="3"/>
             </CheckBox>
-            <CheckBox IsChecked="{Binding FourtCheckBoxButton}"
-                      Style="{StaticResource CheckBox}" >
-                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+            <CheckBox Style="{StaticResource CheckBox}"
+                      IsChecked="{Binding FourtCheckBoxButton}">
+                <TextBlock FontSize="16"
                            Text="4"/>
             </CheckBox>
-            <CheckBox IsChecked="{Binding FiveCheckBoxButton}"
-                      Style="{StaticResource CheckBox}">
-                <TextBlock Style="{StaticResource TextBlockCheckBox}"
+            <CheckBox Style="{StaticResource CheckBox}"
+                      IsChecked="{Binding FiveCheckBoxButton}">
+                <TextBlock FontSize="16"
                            Text="5"/>
             </CheckBox>
         </StackPanel>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
+                   Text="Тема приложения"/>
+        <Button Name="TypeButton"
+                Style="{DynamicResource PaternButton}"
+                Content="{Binding StyleApp, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding OpenComboStyleApp}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Grid.Row="4" 
+                FontSize="16"
+                Margin="10,5,10,5"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
+                   Grid.Row="5"
                    Text="Минимальный порог баллов"/>
         <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="4"
+                 Text="{Binding MinimalCountPoints, UpdateSourceTrigger=PropertyChanged}"
                  focus:FocusExtension.IsFocused="True"
-                 Text="{Binding MinimalCountPoints, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Style="{StaticResource TextBlock}"
-                   Grid.Row="5"
+                 Grid.Row="6"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
+                   Grid.Row="7"
                    Text="Количество вопросов по теме"/>
         <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="6"
-                 Text="{Binding CountQuestionOneType, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Style="{StaticResource TextBlock}"
-                   Grid.Row="7"
+                 Text="{Binding CountQuestionOneType, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="8"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
+                   Grid.Row="9"
                    Text="Количество вопросов в тесте"/>
         <TextBox Style="{StaticResource TextBox}"
-                 Grid.Row="8"
-                 IsReadOnly="True"
-                 Text="{Binding CountQuestion, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Style="{StaticResource ChildrenLeftButton}"
-                Grid.Row="9"
+                 Text="{Binding CountQuestion, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="10"
+                 IsReadOnly="True"/>
+        <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                 Command="{Binding ChangeSettingInfo}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Grid.Row="11"
+                Margin="10,5,0,5"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
                 Content="Изменить"/>
-        <Button Style="{StaticResource ChildrenRightButton}"
-                Grid.Row="9"
+        <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                 Command="{Binding CloseWindow}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Grid.Row="11"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,5,10,5"
                 Content="Отмена"/>
+        <Grid Grid.Row="4"
+              Grid.RowSpan="5"
+              Name="GridComboBoxStyle"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Margin="0,-44,0,0"
+              Visibility="Hidden">
+            <Rectangle Style="{DynamicResource BackgroundFromComboBox}"
+                       Height="63"
+                       Width="280"
+                       Margin="0,0,0,0"/>
+            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                <Button Name="Default"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
+                        Command="{Binding ChoiceStyle}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="Светлая"/>
+                <Button Name="Dark"
+                        Style="{DynamicResource ChildrenButtonFromComboBox}"
+                        Command="{Binding ChoiceStyle}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="Темная"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

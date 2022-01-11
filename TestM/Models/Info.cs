@@ -7,6 +7,17 @@ namespace TestM.Models
     [DataContract]
     public class Info : Model
     {
+        private string styleApp;
+        [DataMember]
+        public string StyleApp
+        {
+            get => styleApp;
+            set
+            {
+                styleApp = value;
+                OnPropertyChanged(nameof(StyleApp));
+            }
+        }
         private bool saveFileCheck;
         [DataMember]
         public bool SaveFileCheck

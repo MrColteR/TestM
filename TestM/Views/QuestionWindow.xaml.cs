@@ -12,7 +12,6 @@ namespace TestM.Views
         public QuestionWindow()
         {
             InitializeComponent();
-            DataContext = new QuestionWindowViewModel();
         }
     }
 }

@@ -4,158 +4,41 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestM.Pages"
+      xmlns:vm="clr-namespace:TestM.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="1190"
       Title="PageTest">
-    <Page.Resources>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenNextPageButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Margin" Value="0,0,20,20"/>
-            <Setter Property="FontSize" Value="16"/>
-        </Style>
-        <Style x:Key="PatternRadioButton" TargetType="RadioButton">
-            <Style.Setters>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type RadioButton}">
-                            <BulletDecorator Background="Transparent" Cursor="Hand" Margin="0,10,0,0">
-                                <BulletDecorator.Bullet>
-                                    <Grid Height="20"
-                                          Width="20"
-                                          Margin="10,0,0,0">
-                                        <Border Name="RadioOuter"
-                                                Background="Transparent"
-                                                BorderBrush="#005eff"
-                                                BorderThickness="2"
-                                                CornerRadius="4"/>
-                                        <Border Name="RadioMark"
-                                                CornerRadius="6"
-                                                Margin="4" 
-                                                Background="Black" 
-                                                Visibility="Hidden"/>
-                                    </Grid>
-                                </BulletDecorator.Bullet>
-                                <TextBlock Margin="15,0,0,0">
-                                    <ContentPresenter />
-                                </TextBlock>
-                            </BulletDecorator>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked" Value="true">
-                                    <Setter TargetName="RadioMark" Property="Visibility" Value="Visible"/>
-                                    <Setter TargetName="RadioOuter" Property="BorderBrush" Value="Black" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBlock" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="0,0,10,0"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-        </Style>
-        <Style x:Key="TextBlockQuestion" TargetType="TextBlock">
-            <Setter Property="Margin" Value="10,5,10,5"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-        </Style>
-        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Grid>
-                            <Border HorizontalAlignment="Stretch" 
-                                    VerticalAlignment="Stretch"
-                                    Background="{TemplateBinding Background}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-            <Setter Property="Foreground" Value="#00A1E1"/>
-            <Setter Property="Width" Value="10"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ScrollBar}">
-                        <Grid Width="12"
-                              Background="Transparent">
-                            <Track x:Name="PART_Track"
-                                   IsDirectionReversed="true">
-                                <Track.Thumb>
-                                    <Thumb x:Name="Thumb" 
-                                           Background="{TemplateBinding Foreground}" 
-                                           Style="{StaticResource ScrollThumbs}"/>
-                                </Track.Thumb>
-                            </Track>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
+    <Page.DataContext>
+        <vm:PageTestViewModel/>
+    </Page.DataContext>
     <Grid Background="Transparent">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Background="Transparent">
                 <TextBlock Text="{Binding QuestionFirst}"
-                           Style="{StaticResource TextBlockQuestion}"/>
+                           Style="{DynamicResource TextBlockQuestion}"/>
                 <RadioButton Name="FirstRadioButton"
                              GroupName="FirstQuestion"
-                             Style="{StaticResource PatternRadioButton}"
+                             Style="{DynamicResource PatternRadioButton}"
                              Command="{Binding FirstAnswer}">
                     <TextBlock Name="FirstAnswer"
                                Text="{Binding AnswerFirst}"
-                               Style="{StaticResource TextBlock}"/>
+                               Style="{DynamicResource TextBlockAnswer}"/>
                 </RadioButton>
                 <RadioButton Name="SecondRadioButton"
                              GroupName="FirstQuestion"
-                             Style="{StaticResource PatternRadioButton}"
+                             Style="{DynamicResource PatternRadioButton}"
                              Command="{Binding SecondAnswer}">
                     <TextBlock Name="SecondAnswer"
                                Text="{Binding AnswerSecond}"
-                               Style="{StaticResource TextBlock}"/>
+                               Style="{DynamicResource TextBlockAnswer}"/>
                 </RadioButton>
                 <RadioButton Name="ThirdRadioButton"
                              GroupName="FirstQuestion"
-                             Style="{StaticResource PatternRadioButton}"
+                             Style="{DynamicResource PatternRadioButton}"
                              Command="{Binding ThirdAnswer}">
                     <TextBlock Name="ThirdAnswer" 
                            Text="{Binding AnswerThird}"
-                           Style="{StaticResource TextBlock}"/>
+                           Style="{DynamicResource TextBlockAnswer}"/>
                 </RadioButton>
                 <TextBlock Name="RigntAnswer"
                            Text="{Binding RightAnswer}"

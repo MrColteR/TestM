@@ -6,105 +6,23 @@
         xmlns:local="clr-namespase:TestM.Views"
         xmlns:vm="clr-namespace:TestM.ViewModels"
         mc:Ignorable="d"
-        Title="StopTestWindow"
+        Style="{DynamicResource Window}"
         Height="110"
         Width="210"
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        BorderThickness="1"
-        BorderBrush="Black" 
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:StopTestWindowViewModel/>
     </Window.DataContext>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD2DFE2" Offset="0"/>
-            <GradientStop Color="#FF66B3E2" Offset="1"/>
-            <GradientStop Color="#FF9ED1DD" Offset="0.513"/>
-        </LinearGradientBrush>
-    </Window.Background>
-    <Window.Resources>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsFocused" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenToolbarButton"
-               TargetType="Button" 
-               BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="Height" Value="24"/>
-                <Setter Property="Width" Value="24"/>
-                <Setter Property="Margin" Value="0,0,1,0"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenButton" TargetType="Button"
-               BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Width" Value="80"/>
-                <Setter Property="Margin" Value="9"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="PatternIcon" TargetType="Image">
-            <Style.Setters>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Width" Value="20"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBlock" TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="16"/>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Grid.Row="0">
-            <Button Style="{StaticResource ChildrenToolbarButton}"
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                 <Image Style="{StaticResource PatternIcon}"
@@ -113,17 +31,17 @@
                 </Image>
             </Button>
         </StackPanel>
-        <TextBlock Grid.Row="1" 
-                   Style="{StaticResource TextBlock}"
+        <TextBlock Style="{DynamicResource TextBlockForNotificationWindow}"
+                   Grid.Row="1" 
                    Text="Тест не завершен! &#10; Вы уверены?"/>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
-            <Button Style="{StaticResource ChildrenButton}"
+            <Button Style="{DynamicResource ChildrenButtonForNotificationWindow}"
                     Command="{Binding SaveChange}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Content="Да"/>
-            <Button Style="{StaticResource ChildrenButton}"
+            <Button Style="{DynamicResource ChildrenButtonForNotificationWindow}"
                     Command="{Binding NotSaveChange}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Content="Нет"/>

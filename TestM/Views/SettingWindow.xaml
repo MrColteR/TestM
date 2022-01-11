@@ -5,120 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM.Views"
         xmlns:focus="clr-namespace:TestM.Command"
+        xmlns:vm="clr-namespace:TestM.ViewModels"
+        Style="{DynamicResource Window}"
         mc:Ignorable="d"
-        BorderBrush="black"
-        BorderThickness="1"
         WindowStartupLocation="CenterScreen"
-        Title="SettingWindow" Height="215" Width="200" ResizeMode="NoResize" WindowStyle="None">
-    <Window.Resources>
-        <Style x:Key="TextBlock" TargetType="TextBlock">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="17"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="PasswordBox" TargetType="PasswordBox">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Margin" Value="20,5,20,5"/>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="PasswordBox">
-                            <Border x:Name="Bacground" Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ScrollViewer x:Name="PART_ContentHost"
-                                          IsTabStop="False"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                </Trigger>
-                                <Trigger Property="IsFocused" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsFocused" Value="True">
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenToolbarButton"
-               TargetType="Button" 
-               BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="Height" Value="24"/>
-                <Setter Property="Width" Value="24"/>
-                <Setter Property="Margin" Value="0,0,1,0"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenButton" TargetType="Button"
-               BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="Margin" Value="20,5,20,10"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="PatternIcon" TargetType="Image">
-            <Style.Setters>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Width" Value="20"/>
-            </Style.Setters>
-        </Style>
-    </Window.Resources>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD2DFE2" Offset="0"/>
-            <GradientStop Color="#FF66B3E2" Offset="1"/>
-            <GradientStop Color="#FF9ED1DD" Offset="0.501"/>
-        </LinearGradientBrush>
-    </Window.Background>
+        Height="215"
+        Width="200">
+    <Window.DataContext>
+        <vm:SettingWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -128,34 +23,36 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right"
-                    Grid.Row="0">
-            <Button Style="{StaticResource ChildrenToolbarButton}"
-                        Command="{Binding CloseWindow}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
+                    Command="{Binding CloseWindow}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                 <Image Style="{StaticResource PatternIcon}"
-                           Name="CloseButton" 
-                            Source="/Icon/closeIcon.png">
+                       Name="CloseButton" 
+                       Source="/Icon/closeIcon.png">
                 </Image>
             </Button>
         </StackPanel>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="1"
                    Text="Введите старый пароль"/>
-        <PasswordBox Name="PasswordBoxOld"
-                     focus:FocusExtension.IsFocused="True"
+        <PasswordBox Name="PasswordBoxOld" 
                      Style="{StaticResource PasswordBox}"
-                     Grid.Row="2"/>
-        <TextBlock Style="{StaticResource TextBlock}"
+                     focus:FocusExtension.IsFocused="True"
+                     Grid.Row="2"
+                     Margin="20,5,20,5"/>
+        <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
                    Text="Введите новый пароль"/>
         <PasswordBox Name="PasswordBoxNew"
-                     KeyDown="ChangePassword"
                      Style="{StaticResource PasswordBox}"
-                     Grid.Row="4"/>
-        <Button Grid.Row="5"
-                Style="{StaticResource ChildrenButton}"
+                     KeyDown="ChangePassword"
+                     Grid.Row="4"
+                     Margin="20,5,20,5"/>
+        <Button Style="{DynamicResource ChildrenButtonForPasswordBox}"
+                Grid.Row="5"
                 Content="Изменить"
                 Click="ChangePasswordButton"/>
     </Grid>

@@ -4,118 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM"
+        xmlns:vm="clr-namespace:TestM.ViewModels"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        BorderBrush="black"
-        BorderThickness="1"
-        Title="MainWindow" Height="700" Width="1200" ResizeMode="NoResize" WindowStyle="None">
-    <Window.Resources>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenToolbarButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="24"/>
-            <Setter Property="Width" Value="24"/>
-            <Setter Property="Margin" Value="0,0,1,0"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
-        <Style x:Key="ChildrenButtonLeft" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Width" Value="120"/>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Margin" Value="15 ,5,0,5"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenButtonLeftSetting" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Width" Value="30"/>
-                <Setter Property="Margin" Value="0,5,10,5"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="BorderThickness" Value="0"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenButtonRight" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Style.Setters>
-                <Setter Property="Height" Value="30"/>
-                <Setter Property="Width" Value="130"/>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Margin" Value="0,5,5,5"/>
-                <Setter Property="FontSize" Value="16"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenFrameButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="130"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0,5,10,5"/>
-        </Style>
-        <Style x:Key="ChildrenFrameLeftButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="130"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10,5,0,5"/>
-        </Style>
-        <Style x:Key="PatternIcon" TargetType="Image">
-            <Style.Setters>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Height" Value="20"/>
-                <Setter Property="Width" Value="20"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBlock" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Width" Value="20"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="ProgressBar" TargetType="ProgressBar">
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="Width" Value="400"/>
-            <Setter Property="Margin" Value="5,10,5,10"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#93CCEA"/>
-            <Setter Property="BorderBrush" Value="#7ec2e6"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-    </Window.Resources>
+        Style="{DynamicResource Window}"
+        Height="700"
+        Width="1200">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Window.InputBindings>
         <KeyBinding Key="Left"
                     Command="{Binding PreviousPage}"
@@ -127,13 +24,6 @@
                     Command="{Binding Scoring}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
     </Window.InputBindings>
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFD2DFE2" Offset="0"/>
-            <GradientStop Color="#FF66B3E2" Offset="1"/>
-            <GradientStop Color="#FF9ED1DD" Offset="0.495"/>
-        </LinearGradientBrush>
-    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -182,15 +72,20 @@
         <Grid Name="StackPanelLeftButton"
               Grid.Row="1"
               Grid.Column="0"
-              Background="Transparent" MouseDown="DragMove_MouseDown">
+              Background="Transparent"
+              MouseDown="DragMove_MouseDown">
             <StackPanel VerticalAlignment="Top"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
                         Grid.Column="0">
                 <Button Name="TestButton"
-                        Style="{StaticResource ChildrenButtonLeft}"
+                        Style="{DynamicResource PaternButton}"
                         Command="{Binding StartTest}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Height="30"
+                        Width="120"
+                        FontSize="16"
+                        Margin="15,5,0,5"
                         Content="Тест"
                         Visibility="Visible"/>
             </StackPanel>
@@ -204,13 +99,15 @@
                         Orientation="Horizontal"
                         Grid.Column="1">
                 <Button Name="EditingButton"
-                        Style="{StaticResource ChildrenButtonRight}"
-                        Content="Редактирование"
+                        Style="{DynamicResource ChildrenFrameButton}"
                         Command="{Binding CheckPassword}"
+                        Margin="0,5,5,5"
+                        Content="Редактирование"
                         Visibility="Visible"/>
                 <Button Name="SettingButton"
-                        Style="{StaticResource ChildrenButtonLeftSetting}"
+                        Style="{DynamicResource ChildrenButtonSetting}"
                         Command="{Binding OpenSetting}"
+                        Margin="0,5,10,5"
                         Visibility="Visible">
                     <Image Style="{StaticResource PatternIcon}"
                            Source="/Icon/settingIcon.png"/>
@@ -224,13 +121,13 @@
             <StackPanel Name="ProgressBar"
                         Orientation="Horizontal"
                         Visibility="Hidden">
-                <TextBlock Style="{StaticResource TextBlock}"
+                <TextBlock Style="{DynamicResource TextBlockProgressBar}"
                            Text="{Binding CountOfQuestionsAnswered}"
                            TextAlignment="Right"/>
-                <ProgressBar Style="{StaticResource ProgressBar}"
+                <ProgressBar Style="{DynamicResource ProgressBar}"
                              Value="{Binding CountOfQuestionsAnswered}"
                              Maximum="{Binding CountQuestion}"/>
-                <TextBlock Style="{StaticResource TextBlock}"
+                <TextBlock Style="{DynamicResource TextBlockProgressBar}"
                            Text="{Binding CountQuestion}"
                            TextAlignment="Left"/>
             </StackPanel>
@@ -249,16 +146,18 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <Button Name="PreviousPageButton"
-                        Style="{StaticResource ChildrenFrameButton}"
-                        Content="Назад"
+                        Style="{DynamicResource ChildrenFrameButton}"
                         Command="{Binding PreviousPage}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Margin="0,5,10,5"
+                        Content="Назад"
                         Visibility="Hidden"/>
                 <Button Name="NextPageButton"
-                        Style="{StaticResource ChildrenFrameButton}"
-                        Content="Вперед"
+                        Style="{DynamicResource ChildrenFrameButton}"
                         Command="{Binding NextPage}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Margin="0,5,10,5"
+                        Content="Вперед"
                         Visibility="Hidden"/>
             </StackPanel>
         </Grid>
@@ -268,10 +167,11 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <Button Name="EndTestButton"
-                        Style="{StaticResource ChildrenFrameButton}"
-                        Content="Закончить тест"
+                        Style="{DynamicResource ChildrenFrameButton}"
                         Command="{Binding Scoring}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Margin="0,5,10,5"
+                        Content="Закончить тест"
                         Visibility="Hidden"/>
             </StackPanel>
         </Grid>
@@ -281,10 +181,11 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <Button Name="StartNewTestButton"
-                        Style="{StaticResource ChildrenFrameButton}"
-                        Content="На главную"
+                        Style="{DynamicResource ChildrenFrameButton}"
                         Command="{Binding BackToMainPage}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Margin="0,5,10,5"
+                        Content="На главную"
                         Visibility="Hidden"/>
             </StackPanel>
         </Grid>
@@ -294,10 +195,11 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Left">
                 <Button x:Name="StopTestButton"
-                        Style="{StaticResource ChildrenFrameLeftButton}"
-                        Content="Прервать тест"
+                        Style="{DynamicResource ChildrenFrameButton}"
                         Command="{Binding StopTest}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Margin="10,5,0,5"
+                        Content="Прервать тест"
                         Visibility="Hidden"/>
             </StackPanel>
         </Grid>

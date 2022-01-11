@@ -4,90 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TestM.Pages"
+      xmlns:vm="clr-namespace:TestM.ViewModels"
       xmlns:focus="clr-namespace:TestM.Command"
       mc:Ignorable="d" 
-      d:DesignHeight="585" d:DesignWidth="1190"
+      d:DesignHeight="585"
+      d:DesignWidth="1190"
       Title="StartPageTest">
-    <Page.Resources>
-        <Style x:Key="TextBlock" TargetType="TextBlock">
-            <Style.Setters>
-                <Setter Property="FontSize" Value="17"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="10,0,0,0"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="TextBox" TargetType="TextBox">
-            <Setter Property="Margin" Value="10,5,0,5"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Background" Value="#93CCEA"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                          IsTabStop="False"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="Black"/>
-                                <Setter Property="Background" Value="#8FE9FA"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="PaternButton" TargetType="Button">
-            <Style.Setters>
-                <Setter Property="Background" Value="#93CCEA"/>
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#8FE9FA"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background" Value="#00A1E1"/>
-                                    <Setter Property="BorderBrush" Value="Black"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ChildrenNextPageButton" TargetType="Button" BasedOn="{StaticResource PaternButton}">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="0,0,20,20"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="120"/>
-        </Style>
-    </Page.Resources>
+    <Page.DataContext>
+        <vm:StartPageTestViewModel/>
+    </Page.DataContext>
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -96,20 +21,30 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBlock Style="{StaticResource TextBlockEditWindow}"
                    Grid.Row="0"
+                   HorizontalAlignment="Left"
+                   Margin="10,0,0,0"
                    Text="ФИО"/>
         <TextBox Name="NameTextBox"
                  Style="{StaticResource TextBox}"
                  Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="1"
+                 FontSize="16"
+                 HorizontalAlignment="Left"
+                 Width="200"
                  focus:FocusExtension.IsFocused="True"/>
-        <TextBlock Style="{StaticResource TextBlock}"
+        <TextBlock Style="{StaticResource TextBlockEditWindow}"
                    Grid.Row="2"
+                   HorizontalAlignment="Left"
+                   Margin="10,0,0,0"
                    Text="Подразделение"/>
         <TextBox Name="SubdivisionTextBox"
                  Style="{StaticResource TextBox}"
                  Text="{Binding Subdivision, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="3"/>
+                 Grid.Row="3"
+                 FontSize="16"
+                 HorizontalAlignment="Left"
+                 Width="200"/>
     </Grid>
 </Page>

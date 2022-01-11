@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 using TestM.Command;
 using TestM.Data;
 using TestM.ViewModels.Base;
@@ -16,6 +18,7 @@ namespace TestM.ViewModels
 
         private Dictionary<int, bool> buttonsStates;
         private int countType;
+        private bool checkStyleButton;
 
         #region Commands
         private RelayCommand closeWindow;
@@ -23,6 +26,46 @@ namespace TestM.ViewModels
         {
             InfoSettingWindow wnd = obj as InfoSettingWindow;
             wnd.Close();
+        }));
+
+        private RelayCommand openComboStyleApp;
+        public RelayCommand OpenComboStyleApp => openComboStyleApp ?? (openComboStyleApp = new RelayCommand(obj =>
+        {
+            InfoSettingWindow wnd = obj as InfoSettingWindow;
+            if (!checkStyleButton)
+            {
+                wnd.GridComboBoxStyle.Visibility = System.Windows.Visibility.Visible;
+                checkStyleButton = true;
+            }
+            else if (checkStyleButton)
+            {
+                wnd.GridComboBoxStyle.Visibility = System.Windows.Visibility.Hidden;
+                checkStyleButton = false;
+            }
+        }));
+
+        private RelayCommand choiceStyle;
+        public RelayCommand ChoiceStyle => choiceStyle ?? (choiceStyle = new RelayCommand(obj =>
+        {
+            InfoSettingWindow wnd = obj as InfoSettingWindow;
+            var app = (App)Application.Current;
+
+            wnd.GridComboBoxStyle.Visibility = Visibility.Hidden;
+            if (wnd.Default.IsFocused)
+            {
+                wnd.TypeButton.Content = wnd.Default.Content;
+                StyleApp = wnd.Default.Content.ToString();
+                app.ChangeTheme(new Uri("/Styles/DefaultStyle.xaml", UriKind.RelativeOrAbsolute));
+                service.SaveStyleApp(fileInfo, StyleApp);
+            }
+            if (wnd.Dark.IsFocused)
+            {
+                wnd.TypeButton.Content = wnd.Dark.Content;
+                StyleApp = wnd.Dark.Content.ToString();
+                app.ChangeTheme(new Uri("/Styles/DarkStyle.xaml", UriKind.RelativeOrAbsolute));
+                service.SaveStyleApp(fileInfo, StyleApp);
+            }
+            checkStyleButton = false;
         }));
 
         private RelayCommand changeSettingInfo;
@@ -35,6 +78,16 @@ namespace TestM.ViewModels
         }));
         #endregion
         #region Property
+        private string styleApp;
+        public string StyleApp
+        {
+            get => styleApp;
+            set 
+            {
+                styleApp = value;
+                OnPropertyChanged(nameof(StyleApp));
+            }
+        }
         private int countQuestionOneType;
         public int CountQuestionOneType
         {
@@ -125,7 +178,9 @@ namespace TestM.ViewModels
         public InfoSettingViewModel()
         {
             service = new JsonFileService();
+            checkStyleButton = false;
 
+            StyleApp = service.OpenStyleApp(fileInfo);
             CountQuestionOneType = service.OpenCountQuestionOneType(fileInfo);
             CountQuestion = service.OpenCountQuestion(fileInfo);
             MinimalCountPoints = service.OpenMinimalCountPonits(fileInfo);
