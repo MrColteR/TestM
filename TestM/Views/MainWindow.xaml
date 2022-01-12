@@ -8,6 +8,10 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource Window}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderBrush="Black"
+        BorderThickness="1"
         Height="700"
         Width="1200">
     <Window.DataContext>
@@ -44,17 +48,15 @@
                 <Button Style="{DynamicResource ChildrenToolbarButton}"
                         Command="{Binding MinimizeWindow}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <Image Style="{DynamicResource PatternIcon}"
-                           Name="MinimizeButton"
-                           Source="/Icon/minimizeIcon.png">
+                    <Image Style="{DynamicResource minimizeIcon}"
+                           Name="MinimizeButton">
                     </Image>
                 </Button>
                 <Button Style="{DynamicResource ChildrenToolbarButton}"
                         Command="{Binding WindowStateButton}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <Image Style="{DynamicResource PatternIcon}"
+                    <Image Style="{DynamicResource squareIcon}"
                            Name="WindowStateButton"
-                           Source="/Icon/squareIcon.png"
                            Width="16"
                            Height="16">
                     </Image>
@@ -62,9 +64,8 @@
                 <Button Style="{DynamicResource ChildrenToolbarButton}"
                         Command="{Binding CloseWindow}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                    <Image Style="{StaticResource PatternIcon}"
-                           Name="CloseButton" 
-                           Source="/Icon/closeIcon.png">
+                    <Image Style="{DynamicResource closeIcon}"
+                           Name="CloseButton">
                     </Image>
                 </Button>
             </StackPanel>
@@ -109,8 +110,7 @@
                         Command="{Binding OpenSetting}"
                         Margin="0,5,10,5"
                         Visibility="Visible">
-                    <Image Style="{StaticResource PatternIcon}"
-                           Source="/Icon/settingIcon.png"/>
+                    <Image Style="{DynamicResource settingIcon}"/>
                 </Button>
             </StackPanel>
         </Grid>

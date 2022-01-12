@@ -7,6 +7,10 @@
         xmlns:vm="clr-namespace:TestM.ViewModels"
         mc:Ignorable="d"
         Style="{DynamicResource Window}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderBrush="Black"
+        BorderThickness="1"
         WindowStartupLocation="CenterScreen"
         Height="500"
         Width="1500">
@@ -31,17 +35,15 @@
             <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding MinimizeWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{DynamicResource PatternIcon}"
-                       Name="MinimizeButton"
-                       Source="/Icon/minimizeIcon.png">
+                <Image Style="{DynamicResource minimizeIcon}"
+                       Name="MinimizeButton">
                 </Image>
             </Button>
             <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding WindowStateButton}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{DynamicResource PatternIcon}"
+                <Image Style="{DynamicResource squareIcon}"
                        Name="WindowStateButton"
-                       Source="/Icon/squareIcon.png"
                        Width="16"
                        Height="16">
                 </Image>
@@ -49,9 +51,8 @@
             <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{DynamicResource PatternIcon}"
-                       Name="CloseButton" 
-                       Source="/Icon/closeIcon.png">
+                <Image Style="{DynamicResource closeIcon}"
+                       Name="CloseButton" >
                 </Image>
             </Button>
         </StackPanel>
@@ -88,8 +89,7 @@
             <Button Style="{DynamicResource ChildrenButtonSetting}"
                     Command="{Binding OpenSettingInfo}"
                     Margin="0,5,5,5">
-                <Image Style="{StaticResource PatternIcon}"
-                       Source="/Icon/settingIcon.png"/>
+                <Image Style="{DynamicResource settingIcon}"/>
             </Button>
         </StackPanel>
         <DataGrid Style="{DynamicResource DataGrid}"

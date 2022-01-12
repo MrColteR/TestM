@@ -10,13 +10,6 @@ namespace TestM.ViewModels
         private bool checkAnswerButton = false;
 
         #region Commands
-        private RelayCommand minimizeWindow;
-        public RelayCommand MinimizeWindow => minimizeWindow ?? (minimizeWindow = new RelayCommand(obj =>
-        {
-            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-            wnd.WindowState = System.Windows.WindowState.Minimized;
-        }));
-
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
         {

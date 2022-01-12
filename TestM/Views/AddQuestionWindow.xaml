@@ -7,6 +7,10 @@
         xmlns:focus="clr-namespace:TestM.Command"
         mc:Ignorable="d"
         Style="{DynamicResource Window}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderBrush="Black"
+        BorderThickness="1"
         WindowStartupLocation="CenterScreen"
         Height="555"
         Width="400" >
@@ -31,19 +35,10 @@
                     HorizontalAlignment="Right"
                     Grid.Row="0">
             <Button Style="{DynamicResource ChildrenToolbarButton}"
-                    Command="{Binding MinimizeWindow}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{DynamicResource PatternIcon}"
-                       Name="MinimizeButton"
-                       Source="/Icon/minimizeIcon.png">
-                </Image>
-            </Button>
-            <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{DynamicResource PatternIcon}"
-                       Name="CloseButton" 
-                       Source="/Icon/closeIcon.png">
+                <Image Style="{DynamicResource closeIcon}"
+                       Name="CloseButton">
                 </Image>
             </Button>
         </StackPanel>

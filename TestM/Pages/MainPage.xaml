@@ -12,7 +12,7 @@
     <Page.DataContext>
         <vm:MainPageViewModel/>
     </Page.DataContext>
-    <Grid Background="Wheat">
+    <Grid Background="Transparent">
         
     </Grid>
 </Page>

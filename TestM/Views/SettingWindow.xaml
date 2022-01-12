@@ -7,6 +7,10 @@
         xmlns:focus="clr-namespace:TestM.Command"
         xmlns:vm="clr-namespace:TestM.ViewModels"
         Style="{DynamicResource Window}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderBrush="Black"
+        BorderThickness="1"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Height="215"
@@ -29,9 +33,8 @@
             <Button Style="{DynamicResource ChildrenToolbarButton}"
                     Command="{Binding CloseWindow}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                <Image Style="{DynamicResource PatternIcon}"
-                       Name="CloseButton" 
-                       Source="/Icon/closeIcon.png">
+                <Image Style="{DynamicResource closeIcon}"
+                       Name="CloseButton">
                 </Image>
             </Button>
         </StackPanel>

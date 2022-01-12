@@ -246,16 +246,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\settingIcon.png" />
+    <Resource Include="Icon\settingIconLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\closeIcon.png" />
+    <Resource Include="Icon\closeIconLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\minimizeIcon.png" />
+    <Resource Include="Icon\minimizeIconLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\squareIcon.png" />
+    <Resource Include="Icon\squareIconLight.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -271,6 +271,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\closeIconDark.png" />
+    <Resource Include="Icon\minimizeIconDark.png" />
+    <Resource Include="Icon\settingIconDark.png" />
+    <Resource Include="Icon\squareIconDark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,10 +3,6 @@
 
     <!--#region Window -->
     <Style x:Key="Window" TargetType="{x:Type Window}">
-        <Setter Property="BorderBrush" Value="Black"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="ResizeMode" Value="NoResize"/>
-        <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="Background">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -70,6 +66,22 @@
             <Setter Property="Height" Value="20"/>
             <Setter Property="Width" Value="20"/>
         </Style.Setters>
+    </Style>
+
+    <Style x:Key="minimizeIcon" TargetType="{x:Type Image}" BasedOn="{StaticResource PatternIcon}">
+        <Setter Property="Source" Value="/Icon/minimizeIconLight.png"/>
+    </Style>
+
+    <Style x:Key="squareIcon" TargetType="{x:Type Image}" BasedOn="{StaticResource PatternIcon}">
+        <Setter Property="Source" Value="/Icon/squareIconLight.png"/>
+    </Style>
+
+    <Style x:Key="closeIcon" TargetType="{x:Type Image}" BasedOn="{StaticResource PatternIcon}">
+        <Setter Property="Source" Value="/Icon/closeIconLight.png"/>
+    </Style>
+
+    <Style x:Key="settingIcon" TargetType="{x:Type Image}" BasedOn="{StaticResource PatternIcon}">
+        <Setter Property="Source" Value="/Icon/settingIconLight.png"/>
     </Style>
     <!--#endregion-->
 
@@ -286,6 +298,7 @@
         <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="HeadersVisibility" Value="Column"/>
         <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="RowBackground" Value="#93CCEA"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
@@ -293,6 +306,7 @@
     <Style x:Key="DataGridCell" TargetType="{x:Type DataGridCell}">
         <Setter Property="Background" Value="#93CCEA"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
         <Setter Property="Height" Value="25"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
