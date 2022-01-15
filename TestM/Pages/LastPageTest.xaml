@@ -20,8 +20,8 @@
                 <TextBlock Grid.Row="1"
                            Name="Result"
                            Style="{DynamicResource TextBlockPoints}"/>
-                <TextBlock Style="{DynamicResource TextBlockResult}"
-                           Text="Вопросы в которых Вы допустили ошибки:"/>
+                <TextBlock Name="ResultPoins"
+                           Style="{DynamicResource TextBlockResult}"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

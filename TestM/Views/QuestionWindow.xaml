@@ -98,7 +98,7 @@
                   ItemsSource="{Binding ItemsSource}"
                   SelectedItem="{Binding SelectedItem}"
                   SelectedIndex="{Binding SelectedIndex}"
-                  Width="1478"
+                  Margin="10,5,10,10"
                   Grid.Row="2"
                   Grid.ColumnSpan="2">
             <DataGrid.Columns>

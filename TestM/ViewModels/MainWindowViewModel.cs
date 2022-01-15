@@ -252,59 +252,12 @@ namespace TestM.ViewModels
                 }
                 else
                 {
-                    TextBlock textBlockQuestion = new TextBlock();
-                    TextBlock textBlockAnswerA = new TextBlock();
-                    TextBlock textBlockAnswerB = new TextBlock();
-                    TextBlock textBlockAnswerC = new TextBlock();
                     var style = service.OpenStyleApp(fileInfo);
 
-                    lastPageTest.AllResult.Children.Add(textBlockQuestion);
-                    textBlockQuestion.Text = $"{numberQuestion}) " + $"{actualQuestions[i].Question}";
-                    textBlockQuestion.TextWrapping = System.Windows.TextWrapping.Wrap;
-                    textBlockQuestion.FontSize = 18;
-                    textBlockQuestion.Margin = new System.Windows.Thickness(10,5, 25, 0);
-                    textBlockQuestion.LineHeight = 5;
-                    if (style == "Темная")
-                        textBlockQuestion.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172));
-
-                    lastPageTest.AllResult.Children.Add(textBlockAnswerA);
-                    textBlockAnswerA.Text = "а) " + $"{actualQuestions[i].AnswerA}";
-                    textBlockAnswerA.TextWrapping = System.Windows.TextWrapping.Wrap;
-                    textBlockAnswerA.FontSize = 16;
-                    textBlockAnswerA.Margin = new System.Windows.Thickness(10, 5, 25, 0);
-                    textBlockAnswerA.LineHeight = 5;
-                    if (style == "Темная")
-                        textBlockAnswerA.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172));
-                    if (actualQuestions[i].RightAnswer == "А") 
-                        textBlockAnswerA.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
-                    if (answerUser[i] == "А")
-                        textBlockAnswerA.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
-
-                    lastPageTest.AllResult.Children.Add(textBlockAnswerB);
-                    textBlockAnswerB.Text = "б) " + $"{actualQuestions[i].AnswerB}";
-                    textBlockAnswerB.TextWrapping = System.Windows.TextWrapping.Wrap;
-                    textBlockAnswerB.FontSize = 16;
-                    textBlockAnswerB.Margin = new System.Windows.Thickness(10, 5, 25, 0);
-                    textBlockAnswerB.LineHeight = 5;
-                    if (style == "Темная")
-                        textBlockAnswerB.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172));
-                    if (actualQuestions[i].RightAnswer == "Б")
-                        textBlockAnswerB.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
-                    if (answerUser[i] == "Б")
-                        textBlockAnswerB.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
-
-                    lastPageTest.AllResult.Children.Add(textBlockAnswerC);
-                    textBlockAnswerC.Text = "в) " + $"{actualQuestions[i].AnswerB}";
-                    textBlockAnswerC.TextWrapping = System.Windows.TextWrapping.Wrap;
-                    textBlockAnswerC.FontSize = 16;
-                    textBlockAnswerC.Margin = new System.Windows.Thickness(10, 5, 25, 10);
-                    textBlockAnswerC.LineHeight = 5;
-                    if (style == "Темная")
-                        textBlockAnswerC.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172)); 
-                    if (actualQuestions[i].RightAnswer == "В")
-                        textBlockAnswerC.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
-                    if (answerUser[i] == "В")
-                        textBlockAnswerC.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
+                    CreateTextBlockOnLastPage(new TextBlock(), actualQuestions[i], style, i, numberQuestion, 18);
+                    CreateTextBlockOnLastPage(new TextBlock(), actualQuestions[i], style, i, numberQuestion, 16, "А");
+                    CreateTextBlockOnLastPage(new TextBlock(), actualQuestions[i], style, i, numberQuestion, 16, "Б");
+                    CreateTextBlockOnLastPage(new TextBlock(), actualQuestions[i], style, i, numberQuestion, 16, "В");
 
                     numberQuestion++;
                 }
@@ -316,6 +269,7 @@ namespace TestM.ViewModels
             AddResultToFile.WritePoints(CountPoints.ToString());
             lastPageTest.Result.Text = CountPoints >= points ? $"Вы успешно прошли тест, Вы набрали {CountPoints} из {maxCountPoints}."
                 : $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога.";
+            lastPageTest.ResultPoins.Text = CountPoints == 20 ? "Вы не допустили ошибкок!" : "Вопросы в которых Вы допустили ошибки:";
 
             IsBeClose = false;
             IsLastPage = false;
@@ -437,6 +391,7 @@ namespace TestM.ViewModels
 
             service.SaveFirstIndex(fileInfo);
         }
+
         private void SortList()
         {
             service = new JsonFileService();
@@ -481,6 +436,7 @@ namespace TestM.ViewModels
             }
             return sortList;
         }
+
         private void GetRandomQuestion(ObservableCollection<QuestionModel> questions)
         {
             Random random = new Random();
@@ -498,10 +454,50 @@ namespace TestM.ViewModels
                 rightAnswer.Add(questions[numb[i]].RightAnswer);
             }
         }
+
         private void SaveRandomQuestion()
         {
             service = new JsonFileService();
             service.Save(fileActualQuestion, actualQuestions);
+        }
+
+        private void CreateTextBlockOnLastPage(TextBlock textBlock, QuestionModel model, string style, int index, int numberQuestion, int fontSize, string answer = "")
+        {
+            lastPageTest.AllResult.Children.Add(textBlock);
+            textBlock.TextWrapping = System.Windows.TextWrapping.Wrap;
+            textBlock.FontSize = fontSize;
+            textBlock.Margin = new System.Windows.Thickness(10, 5, 25, 0);
+            textBlock.LineHeight = 5;
+            if (style == "Темная")
+                textBlock.Foreground = new SolidColorBrush(Color.FromRgb(171, 171, 172));
+            
+            switch (answer)
+            {
+                case "":
+                    textBlock.Text = $"{numberQuestion}) " + $"{actualQuestions[index].Question}";
+                    textBlock.Margin = new System.Windows.Thickness(10, 25, 25, 0);
+                    break;
+                case "А":
+                    textBlock.Text = "а) " + $"{actualQuestions[index].AnswerA}";
+                    ChangeBackgroundColor(textBlock, actualQuestions[index].RightAnswer, answerUser[index], answer);
+                    break;
+                case "Б":
+                    textBlock.Text = "б) " + $"{actualQuestions[index].AnswerB}";
+                    ChangeBackgroundColor(textBlock, actualQuestions[index].RightAnswer, answerUser[index], answer);
+                    break;
+                case "В":
+                    textBlock.Text = "в) " + $"{actualQuestions[index].AnswerC}";
+                    ChangeBackgroundColor(textBlock, actualQuestions[index].RightAnswer, answerUser[index], answer);
+                    break;
+            }
+        }
+
+        private void ChangeBackgroundColor(TextBlock textBlock, string rightAnswer, string answerUser, string answer)
+        {
+            if (rightAnswer == answer)
+                textBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
+            if (answerUser == answer)
+                textBlock.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
         }
     }
 }
