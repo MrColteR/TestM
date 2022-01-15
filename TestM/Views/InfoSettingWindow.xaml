@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM.Views"
         xmlns:focus="clr-namespace:TestM.Command"
+        xmlns:convertComboBoxBinding="clr-namespace:TestM.Command"
+        xmlns:convertComboBoxEnums="clr-namespace:TestM.Data"
         xmlns:vm="clr-namespace:TestM.ViewModels"
         mc:Ignorable="d"
         Style="{DynamicResource Window}"
@@ -77,14 +79,19 @@
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
                    Text="Тема приложения"/>
-        <Button Name="TypeButton"
-                Style="{DynamicResource PaternButton}"
-                Content="{Binding StyleApp, UpdateSourceTrigger=PropertyChanged}"
-                Command="{Binding OpenComboStyleApp}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                Grid.Row="4" 
-                FontSize="16"
-                Margin="10,5,10,5"/>
+        <ComboBox Name="ComboBoxAnswer"
+                  SelectedValue="{Binding ComboBoxStyleText}"
+                  Style="{DynamicResource ComboBox}"
+                  ItemContainerStyle="{DynamicResource ComboBoxItem}"
+                  ItemsSource="{Binding Source={convertComboBoxBinding:EnumBindingSource {x:Type convertComboBoxEnums:StyleEnum}}}"
+                  Grid.Row="4"
+                  Margin="10,5,10,5">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=., Converter={StaticResource ConvertToString}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="5"
                    Text="Минимальный порог баллов"/>
@@ -121,29 +128,5 @@
                 VerticalAlignment="Center"
                 Margin="0,5,10,5"
                 Content="Отмена"/>
-        <Grid Grid.Row="4"
-              Grid.RowSpan="5"
-              Name="GridComboBoxStyle"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              Margin="0,-44,0,0"
-              Visibility="Hidden">
-            <Rectangle Style="{DynamicResource BackgroundFromComboBox}"
-                       Height="63"
-                       Width="280"
-                       Margin="0,0,0,0"/>
-            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
-                <Button Name="Default"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceStyle}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="Светлая"/>
-                <Button Name="Dark"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceStyle}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="Темная"/>
-            </StackPanel>
-        </Grid>
     </Grid>
 </Window>

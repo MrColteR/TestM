@@ -1,6 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 using TestM.Command;
+using TestM.Data;
 using TestM.Models;
 using TestM.ViewModels.Base;
 using TestM.Views;
@@ -9,13 +11,7 @@ namespace TestM.ViewModels
 {
     public class AddQuestionWindowViewModel : ViewModel
     {
-        //private static readonly string path = Directory.GetCurrentDirectory();
-        //public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
-
-        //private readonly JsonFileService fileService;
-
-        private bool checkTypeButton = false;
-        private bool checkAnswerButton = false;
+        private readonly ConvertToString converter;
 
         #region Commands
         private RelayCommand closeWindow;
@@ -29,9 +25,6 @@ namespace TestM.ViewModels
         public RelayCommand AddQuestion => addQuestion ?? (addQuestion = new RelayCommand(obj =>
         {
             AddQuestionWindow wnd = obj as AddQuestionWindow;
-
-            checkAnswerButton = false;
-            checkTypeButton = false;
             bool isNull = false;
 
             if (wnd.Question.Text == "")
@@ -66,32 +59,32 @@ namespace TestM.ViewModels
             else
                 wnd.AnswerCTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
 
-            if (wnd.TypeButton.Content is null)
+            if (wnd.ComboType.Text is null)
             {
                 isNull = true;
-                wnd.TypeButton.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+                wnd.ComboType.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
             }
             else
-                wnd.TypeButton.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
+                wnd.ComboType.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
 
-            if (wnd.RightAnswerButton.Content is null)
+            if (wnd.ComboBoxAnswer.Text is null)
             {
                 isNull = true;
-                wnd.RightAnswerButton.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+                wnd.ComboBoxAnswer.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
             }
             else
-                wnd.RightAnswerButton.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
+                wnd.ComboBoxAnswer.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
 
             if (!isNull)
             {
                 Data.Add(new QuestionModel()
                 {
                     Question = Question,
-                    TypeQuestion = TypeQuestion,
+                    TypeQuestion = (string)converter.Convert(wnd.ComboType.SelectedItem, null, null, null),
                     AnswerA = AnswerA,
                     AnswerB = AnswerB,
                     AnswerC = AnswerC,
-                    RightAnswer = RightAnswer
+                    RightAnswer = (string)converter.Convert(wnd.ComboBoxAnswer.SelectedItem, null, null, null)
                 });
 
                 wnd.Question.Clear();
@@ -106,122 +99,33 @@ namespace TestM.ViewModels
                 wnd.AnswerCTextBox.Clear();
                 wnd.AnswerCTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
 
-                wnd.TypeButton.Content = "";
-                wnd.TypeButton.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
+                wnd.ComboType.Text = "";
+                wnd.ComboType.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
 
-                wnd.RightAnswerButton.Content = "";
-                wnd.TypeButton.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
+                wnd.ComboBoxAnswer.Text = "";
+                wnd.ComboBoxAnswer.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
             }
         
         }));
+
         private RelayCommand close;
         public RelayCommand Close => close ?? (close = new RelayCommand(obj =>
         {
             AddQuestionWindow wnd = obj as AddQuestionWindow;
             wnd.Close();
         }));
-
-        private RelayCommand openComboBoxType;
-        public RelayCommand OpenComboBoxType => openComboBoxType ?? (openComboBoxType = new RelayCommand(obj =>
-        {
-            AddQuestionWindow wnd = obj as AddQuestionWindow;
-            if (!checkTypeButton)
-            {
-                wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Visible;
-                checkTypeButton = true;
-            }
-            else if (checkTypeButton)
-            {
-                wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
-                checkTypeButton = false;
-            }
-        }));
-
-        private RelayCommand choiceType;
-        public RelayCommand ChoiceType => choiceType ?? (choiceType = new RelayCommand(obj =>
-        {
-            AddQuestionWindow wnd = obj as AddQuestionWindow;
-            wnd.GridComboBoxType.Visibility = System.Windows.Visibility.Hidden;
-            if (wnd.LegalBases.IsFocused)
-            {
-                wnd.TypeButton.Content = wnd.LegalBases.Content;
-                TypeQuestion = wnd.LegalBases.Content.ToString();
-            }
-            if (wnd.Safety.IsFocused)
-            {
-                wnd.TypeButton.Content = wnd.Safety.Content;
-                TypeQuestion = wnd.Safety.Content.ToString();
-            }
-            if (wnd.TTX.IsFocused)
-            {
-                wnd.TypeButton.Content = wnd.TTX.Content;
-                TypeQuestion = wnd.TTX.Content.ToString();
-            }
-            if (wnd.Command.IsFocused)
-            {
-                wnd.TypeButton.Content = wnd.Command.Content;
-                TypeQuestion = wnd.Command.Content.ToString();
-            }
-            if (wnd.Delays.IsFocused)
-            {
-                wnd.TypeButton.Content = wnd.Delays.Content;
-                TypeQuestion = wnd.Delays.Content.ToString();
-            }
-            checkTypeButton = false;
-        }));
-
-        private RelayCommand openComboBoxAnswer;
-        public RelayCommand OpenComboBoxAnswer => openComboBoxAnswer ?? (openComboBoxAnswer = new RelayCommand(obj =>
-        {
-            AddQuestionWindow wnd = obj as AddQuestionWindow;
-            if (!checkAnswerButton)
-            {
-                wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Visible;
-                checkAnswerButton = true;
-            }
-            else if (checkAnswerButton)
-            {
-                wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
-                checkAnswerButton = false;
-            }
-        }));
-
-        private RelayCommand choiceAnswer;
-        public RelayCommand ChoiceAnswer => choiceAnswer ?? (choiceAnswer = new RelayCommand(obj =>
-        {
-            AddQuestionWindow wnd = obj as AddQuestionWindow;
-            wnd.GridComboBoxRihgtAnswer.Visibility = System.Windows.Visibility.Hidden;
-            if (wnd.AnswerA.IsFocused)
-            {
-                wnd.RightAnswerButton.Content = wnd.AnswerA.Content;
-                RightAnswer = wnd.AnswerA.Content.ToString();
-            }
-            if (wnd.AnswerB.IsFocused)
-            {
-                wnd.RightAnswerButton.Content = wnd.AnswerB.Content;
-                RightAnswer = wnd.AnswerC.Content.ToString();
-            }
-            if (wnd.AnswerC.IsFocused)
-            {
-                wnd.RightAnswerButton.Content = wnd.AnswerC.Content;
-                RightAnswer = wnd.AnswerC.Content.ToString();
-            }
-            checkAnswerButton = false;
-        }));
         #endregion
         #region Property
         public string Question { get; set; }
-        public string TypeQuestion { get; set; }
         public string AnswerA { get; set; }
         public string AnswerB { get; set; }
         public string AnswerC { get; set; }
-        public string RightAnswer { get; set; }
         public ObservableCollection<QuestionModel> Data { get; set; }
         #endregion
         public AddQuestionWindowViewModel(QuestionWindowViewModel data)
         {
-            //fileService = new JsonFileService();
             Data = data.ItemsSource;
+            converter = new ConvertToString();
         }
     }
 }

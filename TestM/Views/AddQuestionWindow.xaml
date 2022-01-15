@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM.Views"
         xmlns:focus="clr-namespace:TestM.Command"
+        xmlns:convertComboBoxBinding="clr-namespace:TestM.Command"
+        xmlns:convertComboBoxEnums="clr-namespace:TestM.Data"
         mc:Ignorable="d"
         Style="{DynamicResource Window}"
         ResizeMode="NoResize"
@@ -12,21 +14,21 @@
         BorderBrush="Black"
         BorderThickness="1"
         WindowStartupLocation="CenterScreen"
-        Height="555"
+        Height="635"
         Width="400" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
@@ -54,14 +56,18 @@
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
                    Text="Тип вопроса"/>
-        <Button Name="TypeButton"
-                Style="{DynamicResource PaternButton}"
-                Content="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"
-                Command="{Binding OpenComboBoxType}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                Grid.Row="4" 
-                FontSize="16"
-                Margin="10,5,10,5"/>
+        <ComboBox Name="ComboType" 
+                  Style="{DynamicResource ComboBox}"
+                  ItemContainerStyle="{DynamicResource ComboBoxItem}"
+                  ItemsSource="{Binding Source={convertComboBoxBinding:EnumBindingSource {x:Type convertComboBoxEnums:TypeEnum}}}"
+                  Grid.Row="4"
+                  Margin="10,5,10,5">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=., Converter={StaticResource ConvertToString}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="5"
                    Text="Ответ А"/>
@@ -86,14 +92,18 @@
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Text="Правильный ответ"
                    Grid.Row="11"/>
-        <Button Name="RightAnswerButton"
-                Style="{DynamicResource PaternButton}"
-                Content="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"
-                Command="{Binding OpenComboBoxAnswer}"
-                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                Grid.Row="12"
-                FontSize="16"
-                Margin="10,5,10,5"/>
+        <ComboBox Name="ComboBoxAnswer"
+                  Style="{DynamicResource ComboBox}"
+                  ItemContainerStyle="{DynamicResource ComboBoxItem}"
+                  ItemsSource="{Binding Source={convertComboBoxBinding:EnumBindingSource {x:Type convertComboBoxEnums:AnswerEnum}}}"
+                  Grid.Row="12"
+                  Margin="10,5,10,5">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=., Converter={StaticResource ConvertToString}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Button Style="{DynamicResource ChildrenButtonEditWindow}"
                 Command="{Binding AddQuestion}"
                 CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
@@ -108,75 +118,5 @@
                 HorizontalAlignment="Right"
                 Margin="0,5,10,5"
                 Content="Отмена"/>
-        <Grid Grid.Row="5"
-              Grid.RowSpan="5"
-              Name="GridComboBoxType"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              Margin="0,-35,0,0"
-              Visibility="Hidden">
-            <Rectangle Style="{DynamicResource BackgroundFromComboBox}"
-                       Height="157"
-                       Width="360"
-                       Margin="0,0,0,0"/>
-            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
-                <Button Name="LegalBases"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="1"/>
-                <Button Name="Safety"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="2"/>
-                <Button Name="TTX"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="3"/>
-                <Button Name="Command"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="4"/>
-                <Button Name="Delays"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceType}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="5"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="8"
-              Grid.RowSpan="6"
-              Name="GridComboBoxRihgtAnswer"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              Background="Transparent"
-              Margin="0,0,0,30"
-              Visibility="Hidden">
-            <Rectangle Style="{DynamicResource BackgroundFromComboBox}"
-                       Height="96"
-                       Width="360"
-                       Margin="1,1,1,1"/>
-            <StackPanel Orientation="Vertical"
-                        Margin="1,1,1,1">
-                <Button Name="AnswerA"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceAnswer}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="А"/>
-                <Button Name="AnswerB"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceAnswer}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="Б"/>
-                <Button Name="AnswerC"
-                        Style="{DynamicResource ChildrenButtonFromComboBox}"
-                        Command="{Binding ChoiceAnswer}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                        Content="В"/>
-            </StackPanel>
-        </Grid>
     </Grid>
 </Window>
