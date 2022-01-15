@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="ViewModels\AddQuestionWindowViewModel.cs" />
     <Compile Include="ViewModels\ChangeDataViewModel.cs" />
+    <Compile Include="ViewModels\EmptyFieldsViewModel.cs" />
     <Compile Include="ViewModels\InfoSettingViewModel.cs" />
     <Compile Include="ViewModels\LastPageTestViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
@@ -125,6 +126,9 @@
     </Compile>
     <Compile Include="Views\ChangeDataWindow.xaml.cs">
       <DependentUpon>ChangeDataWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmptyFieldsWindow.xaml.cs">
+      <DependentUpon>EmptyFieldsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InfoSettingWindow.xaml.cs">
       <DependentUpon>InfoSettingWindow.xaml</DependentUpon>
@@ -176,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChangeDataWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmptyFieldsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

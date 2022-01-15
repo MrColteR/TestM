@@ -10,6 +10,8 @@ namespace TestM.ViewModels
     {
         private readonly ConvertToString converter;
 
+        private bool isNull;
+
         #region Commands
         private RelayCommand closeWindow;
         public RelayCommand CloseWindow => closeWindow ?? (closeWindow = new RelayCommand(obj =>
@@ -21,11 +23,25 @@ namespace TestM.ViewModels
         private RelayCommand save;
         public RelayCommand Save => save ?? (save = new RelayCommand(obj =>
         {
-            SelectedItem.TypeQuestion = (string)converter.Convert(ComboBoxTypeText, null, null, null);
-            SelectedItem.RightAnswer = (string)converter.Convert(ComboBoxRightAnswerText, null, null, null);
+            isNull = false;
+            CheckTextBoxIsNull(Question);
+            CheckTextBoxIsNull(AnswerA);
+            CheckTextBoxIsNull(AnswerB);
+            CheckTextBoxIsNull(AnswerC);
 
-            UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
-            wnd.Close();
+            if (!isNull)
+            {
+                SelectedItem.TypeQuestion = (string)converter.Convert(ComboBoxTypeText, null, null, null);
+                SelectedItem.RightAnswer = (string)converter.Convert(ComboBoxRightAnswerText, null, null, null);
+
+                UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
+                wnd.Close();
+            }
+            else
+            {
+                EmptyFieldsWindow window = new EmptyFieldsWindow();
+                window.Show();
+            }
         }));
         private RelayCommand close;
         public RelayCommand Close => close ?? (close = new RelayCommand(obj =>
@@ -89,6 +105,14 @@ namespace TestM.ViewModels
             answerC = SelectedItem.AnswerC;
             comboBoxTypeText = (TypeEnum)converter.ConvertBack(SelectedItem.TypeQuestion, null, null, null);
             comboBoxRightAnswerText = (AnswerEnum)converter.ConvertBack(SelectedItem.RightAnswer, null, null, null);
+        }
+
+        private void CheckTextBoxIsNull(string value)
+        {
+            if (value == "")
+            {
+                isNull = true;
+            }
         }
     }
 }

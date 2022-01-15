@@ -55,7 +55,7 @@
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
                    Text="Тип вопроса"/>
-        <ComboBox Name="ComboType"
+        <ComboBox Name="ComboBoxType"
                   SelectedValue="{Binding ComboBoxTypeText}"
                   Style="{DynamicResource ComboBox}"
                   ItemContainerStyle="{DynamicResource ComboBoxItem}"

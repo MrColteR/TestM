@@ -56,7 +56,7 @@
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
                    Text="Тип вопроса"/>
-        <ComboBox Name="ComboType" 
+        <ComboBox Name="ComboBoxType" 
                   Style="{DynamicResource ComboBox}"
                   ItemContainerStyle="{DynamicResource ComboBoxItem}"
                   ItemsSource="{Binding Source={convertComboBoxBinding:EnumBindingSource {x:Type convertComboBoxEnums:TypeEnum}}}"

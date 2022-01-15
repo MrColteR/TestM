@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Controls;
 using System.Windows.Media;
 using TestM.Command;
 using TestM.Data;
@@ -11,6 +12,11 @@ namespace TestM.ViewModels
 {
     public class AddQuestionWindowViewModel : ViewModel
     {
+        private static readonly string path = Directory.GetCurrentDirectory();
+        private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
+        private bool isNull;
+
+        private readonly JsonFileService service;
         private readonly ConvertToString converter;
 
         #region Commands
@@ -25,85 +31,31 @@ namespace TestM.ViewModels
         public RelayCommand AddQuestion => addQuestion ?? (addQuestion = new RelayCommand(obj =>
         {
             AddQuestionWindow wnd = obj as AddQuestionWindow;
-            bool isNull = false;
+            isNull = false;
 
-            if (wnd.Question.Text == "")
+            CheckTextBoxIsNull(wnd.Question);
+            CheckTextBoxIsNull(wnd.AnswerATextBox);
+            CheckTextBoxIsNull(wnd.AnswerBTextBox);
+            CheckTextBoxIsNull(wnd.AnswerCTextBox);
+            CheckComboBoxIsNull(wnd.ComboBoxType);
+            CheckComboBoxIsNull(wnd.ComboBoxAnswer);
+            
+            if (isNull)
             {
-                isNull = true;
-                wnd.Question.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+                EmptyFieldsWindow window = new EmptyFieldsWindow();
+                window.Show();
             }
             else
-                wnd.Question.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-            if (wnd.AnswerATextBox.Text == "")
-            {
-                isNull = true;
-                wnd.AnswerATextBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            }
-            else
-                wnd.AnswerATextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-            if (wnd.AnswerBTextBox.Text == "")
-            {
-                isNull = true;
-                wnd.AnswerBTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            }
-            else
-                wnd.AnswerBTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-            if (wnd.AnswerCTextBox.Text == "")
-            {
-                isNull = true;
-                wnd.AnswerCTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            }
-            else
-                wnd.AnswerCTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-            if (wnd.ComboType.Text is null)
-            {
-                isNull = true;
-                wnd.ComboType.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            }
-            else
-                wnd.ComboType.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-            if (wnd.ComboBoxAnswer.Text is null)
-            {
-                isNull = true;
-                wnd.ComboBoxAnswer.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            }
-            else
-                wnd.ComboBoxAnswer.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-            if (!isNull)
             {
                 Data.Add(new QuestionModel()
                 {
                     Question = Question,
-                    TypeQuestion = (string)converter.Convert(wnd.ComboType.SelectedItem, null, null, null),
+                    TypeQuestion = (string)converter.Convert(wnd.ComboBoxType.SelectedItem, null, null, null),
                     AnswerA = AnswerA,
                     AnswerB = AnswerB,
                     AnswerC = AnswerC,
                     RightAnswer = (string)converter.Convert(wnd.ComboBoxAnswer.SelectedItem, null, null, null)
                 });
-
-                wnd.Question.Clear();
-                wnd.Question.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-                wnd.AnswerATextBox.Clear();
-                wnd.AnswerATextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-                wnd.AnswerBTextBox.Clear();
-                wnd.AnswerBTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-                wnd.AnswerCTextBox.Clear();
-                wnd.AnswerCTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-                wnd.ComboType.Text = "";
-                wnd.ComboType.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-
-                wnd.ComboBoxAnswer.Text = "";
-                wnd.ComboBoxAnswer.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
             }
         
         }));
@@ -121,11 +73,30 @@ namespace TestM.ViewModels
         public string AnswerB { get; set; }
         public string AnswerC { get; set; }
         public ObservableCollection<QuestionModel> Data { get; set; }
+        private string Style { get; set; }
         #endregion
         public AddQuestionWindowViewModel(QuestionWindowViewModel data)
         {
-            Data = data.ItemsSource;
+            service = new JsonFileService();
             converter = new ConvertToString();
+
+            Data = data.ItemsSource;
+            Style = service.OpenStyleApp(fileInfo);
+        }
+
+        private void CheckTextBoxIsNull(TextBox obj)
+        {
+            if (obj.Text == "")
+            {
+                isNull = true;
+            }
+        }
+        private void CheckComboBoxIsNull(ComboBox obj)
+        {
+            if (obj.Text == "")
+            {
+                isNull = true;
+            }
         }
     }
 }

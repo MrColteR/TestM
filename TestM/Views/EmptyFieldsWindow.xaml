@@ -1,0 +1,47 @@
+﻿<Window x:Class="TestM.Views.EmptyFieldsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestM.Views"
+        xmlns:vm="clr-namespace:TestM.ViewModels"
+        mc:Ignorable="d"
+        Style="{DynamicResource Window}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderBrush="Black"
+        BorderThickness="1"
+        Height="100"
+        Width="210">
+    <Window.DataContext>
+        <vm:EmptyFieldsViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Row="0">
+            <Button Style="{DynamicResource ChildrenToolbarButton}"
+                    Command="{Binding OkeyCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <Image Style="{DynamicResource closeIcon}"
+                       Name="CloseButton">
+                </Image>
+            </Button>
+        </StackPanel>
+        <TextBlock Style="{DynamicResource TextBlockForNotificationWindow}"
+                   Grid.Row="1"
+                   VerticalAlignment="Center"
+                   Text="Заполните все поля!"/>
+        <Button Style="{DynamicResource ChildrenButtonForNotificationWindow}"
+                Command="{Binding OkeyCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                Grid.Row="2"
+                Content="Окей"/>
+    </Grid>
+</Window>

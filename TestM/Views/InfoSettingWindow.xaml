@@ -79,7 +79,7 @@
         <TextBlock Style="{DynamicResource TextBlockEditWindow}"
                    Grid.Row="3"
                    Text="Тема приложения"/>
-        <ComboBox Name="ComboBoxAnswer"
+        <ComboBox Name="ComboBoxStyle"
                   SelectedValue="{Binding ComboBoxStyleText}"
                   Style="{DynamicResource ComboBox}"
                   ItemContainerStyle="{DynamicResource ComboBoxItem}"
