@@ -62,7 +62,7 @@ namespace TestM.ViewModels
             else
             {
                 EmptyFieldsWindow window = new EmptyFieldsWindow();
-                window.Show();
+                window.ShowDialog();
             }
         }));
 

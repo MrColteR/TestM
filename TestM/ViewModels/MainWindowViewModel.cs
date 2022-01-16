@@ -179,22 +179,20 @@ namespace TestM.ViewModels
         {
             if (!IsPassedTheCheck)
             {
-                IsStartPageTextBoolIsNull = false;
-                if (startPageTest.NameTextBox.Text == "")
-                {
-                    startPageTest.NameTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-                    IsStartPageTextBoolIsNull = true;
-                }
-                else
-                    startPageTest.NameTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
-                if (startPageTest.SubdivisionTextBox.Text == "")
-                {
-                    startPageTest.SubdivisionTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-                    IsStartPageTextBoolIsNull = true;
-                }
-                else
-                    startPageTest.SubdivisionTextBox.Background = new SolidColorBrush(Color.FromRgb(147, 204, 234));
+                CheckTextBoxIsNull(startPageTest.NameTextBox);
+                CheckTextBoxIsNull(startPageTest.SubdivisionTextBox);
 
+                if (IsPassedTheCheck)
+                {
+                    IsStartPageTextBoolIsNull = true;
+                    EmptyFieldsWindow window = new EmptyFieldsWindow();
+                    window.ShowDialog();
+                }
+                else
+                {
+                    IsStartPageTextBoolIsNull = false;
+                }
+                IsPassedTheCheck = false;
             }
             if (!IsStartPageTextBoolIsNull)
             {
@@ -291,6 +289,8 @@ namespace TestM.ViewModels
             startPageTest.NameTextBox.Text = "";
             startPageTest.SubdivisionTextBox.Text = "";
 
+            IsPassedTheCheck = false;
+            IsStartPageTextBoolIsNull = true;
             indexPage = -1;
             countPoints = 0;
             IsStart = false;
@@ -384,6 +384,8 @@ namespace TestM.ViewModels
 
             indexPage = -1;
             countPoints = 0;
+            IsPassedTheCheck = false;
+            IsStartPageTextBoolIsNull = true;
 
             mainPage = new MainPage();
             pages = new List<PageTest>();
@@ -498,6 +500,14 @@ namespace TestM.ViewModels
                 textBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 128, 0));
             if (answerUser == answer)
                 textBlock.Foreground = new SolidColorBrush(Color.FromRgb(210, 4, 45));
+        }
+
+        private void CheckTextBoxIsNull(TextBox obj)
+        {
+            if (obj.Text == "")
+            {
+                IsPassedTheCheck = true;
+            }
         }
     }
 }

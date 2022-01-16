@@ -43,7 +43,7 @@ namespace TestM.ViewModels
             if (isNull)
             {
                 EmptyFieldsWindow window = new EmptyFieldsWindow();
-                window.Show();
+                window.ShowDialog();
             }
             else
             {

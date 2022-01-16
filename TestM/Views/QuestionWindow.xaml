@@ -105,19 +105,19 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Тип вопроса"
                                     Binding="{Binding TypeQuestion, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="100"/>
+                                    Width="*"/>
                 <DataGridTextColumn Header="Вопрос"
                                     Binding="{Binding Question, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="320"/>
+                                    Width="3*"/>
                 <DataGridTextColumn Header="Ответ А"
                                     Binding="{Binding AnswerA, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="320"/>
+                                    Width="3*"/>
                 <DataGridTextColumn Header="Ответ Б"
                                     Binding="{Binding AnswerB, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="320"/>
+                                    Width="3*"/>
                 <DataGridTextColumn Header="Ответ В"
                                     Binding="{Binding AnswerC, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="320"/>
+                                    Width="3*"/>
                 <DataGridTextColumn Header="Ответ"
                                     Binding="{Binding RightAnswer, UpdateSourceTrigger=PropertyChanged}"
                                     Width="*"/>
