@@ -78,6 +78,7 @@ namespace TestM.ViewModels
         private RelayCommand addQuestion;
         public RelayCommand AddQuestion => addQuestion ?? (addQuestion = new RelayCommand(obj =>
         {
+            IsEditing = true;
             AddQuestionWindow window = new AddQuestionWindow();
             window.ShowDialog();
             UpdateQuestionInDataGrid();
@@ -86,6 +87,7 @@ namespace TestM.ViewModels
         private RelayCommand updateQuestion;
         public RelayCommand UpdateQuestion => updateQuestion ?? (updateQuestion = new RelayCommand(obj => 
         {
+            IsEditing = true;
             QuestionWindow wnd = obj as QuestionWindow;
             QuestionModel model = (QuestionModel)wnd.DataGrid.SelectedItem;
 
@@ -103,17 +105,17 @@ namespace TestM.ViewModels
             UpdateQuestionWindow window = new UpdateQuestionWindow();
             window.ShowDialog();
             UpdateQuestionInDataGrid();
-        }, (obj) => ItemsSource.Count > 0));
+        }, (obj) => NewItemsSource.Count > 0));
 
         private RelayCommand deleteQustion;
         public RelayCommand DeleteQuestion => deleteQustion ?? (deleteQustion = new RelayCommand(obj =>
         {
             IsEditing = true;
-            var index = ItemsSource.IndexOf(SelectedItem);
+            var index = NewItemsSource.IndexOf(SelectedItem);
             if (SelectedItem != null)
             {
-                ItemsSource.Remove(SelectedItem);
-                if (index == ItemsSource.Count)
+                NewItemsSource.Remove(SelectedItem);
+                if (index == NewItemsSource.Count)
                 {
                     SelectedIndex = index - 1;
                 }
@@ -122,13 +124,13 @@ namespace TestM.ViewModels
                     SelectedIndex = index;
                 }
             }
-        }, (obj) => ItemsSource.Count > 0));
+        }, (obj) => NewItemsSource.Count > 0));
 
         private RelayCommand saveFile;
         public RelayCommand SaveFile => saveFile ?? (saveFile = new RelayCommand(obj =>
         {
             QuestionWindow wnd = obj as QuestionWindow;
-            fileService.Save(fileName, ItemsSource);
+            fileService.Save(fileName, NewItemsSource);
             wnd.Close();
         }));
 
@@ -160,26 +162,29 @@ namespace TestM.ViewModels
                 OnPropertyChanged(nameof(SelectedIndex));
             }
         }
-        private ObservableCollection<QuestionModel> itemsSource;
-        public ObservableCollection<QuestionModel> ItemsSource
+        private ObservableCollection<QuestionModel> newItemsSource;
+        public ObservableCollection<QuestionModel> NewItemsSource
         {
-            get => itemsSource;
+            get => newItemsSource;
             set 
             {
-                itemsSource = value;
-                OnPropertyChanged(nameof(ItemsSource));
+                newItemsSource = value;
+                OnPropertyChanged(nameof(NewItemsSource));
             }
         }
+        public ObservableCollection<QuestionModel> ItemSourse { get; set; }
         #endregion
         public QuestionWindowViewModel()
         {
             question = new QuestionDataGridViewModel();
             fileService = new JsonFileService();
-            ItemsSource = fileService.Open(fileName);
+            NewItemsSource = fileService.Open(fileName);
+
+            fileService.Save(fileNewData, NewItemsSource);
         }
         private void UpdateQuestionInDataGrid()
         {
-            ItemsSource = fileService.Open(fileName);
+            NewItemsSource = fileService.Open(fileNewData);
         }
     }
 }

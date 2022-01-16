@@ -96,7 +96,7 @@
                   Style="{DynamicResource DataGrid}"
                   CellStyle="{DynamicResource DataGridCell}"
                   ColumnHeaderStyle="{DynamicResource DataGridColumnHeader}"
-                  ItemsSource="{Binding ItemsSource}"
+                  ItemsSource="{Binding NewItemsSource}"
                   SelectedItem="{Binding SelectedItem}"
                   SelectedIndex="{Binding SelectedIndex}"
                   Margin="10,5,10,10"

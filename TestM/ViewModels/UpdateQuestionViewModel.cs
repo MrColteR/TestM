@@ -11,7 +11,7 @@ namespace TestM.ViewModels
     public class UpdateQuestionViewModel : ViewModel
     {
         private static readonly string path = Directory.GetCurrentDirectory();
-        private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+        private readonly string fileNewData = path.Substring(0, path.IndexOf("bin")) + "NewData.json";
         private readonly string fileSelectedQuestion = path.Substring(0, path.IndexOf("bin")) + "SelectedQuestion.json";
 
         private readonly JsonFileService service;
@@ -54,7 +54,7 @@ namespace TestM.ViewModels
                         };
                     }
                 }
-                service.Save(fileData, OldQuestions);
+                service.Save(fileNewData, OldQuestions);
 
                 UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
                 wnd.Close();
@@ -89,7 +89,7 @@ namespace TestM.ViewModels
             converter = new ConvertToString();
             selectedQuestion = new SelectedQuestion();
 
-            OldQuestions = service.Open(fileData);
+            OldQuestions = service.Open(fileNewData);
             selectedQuestion = service.OpenSelectedQuestion(fileSelectedQuestion);
 
             Question = selectedQuestion.Question;

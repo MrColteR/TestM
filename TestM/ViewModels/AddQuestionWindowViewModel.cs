@@ -13,7 +13,7 @@ namespace TestM.ViewModels
     public class AddQuestionWindowViewModel : ViewModel
     {
         private static readonly string path = Directory.GetCurrentDirectory();
-        private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+        private readonly string fileNewData = path.Substring(0, path.IndexOf("bin")) + "NewData.json";
         private bool isNull;
 
         private readonly JsonFileService service;
@@ -57,7 +57,7 @@ namespace TestM.ViewModels
                     RightAnswer = (string)converter.Convert(wnd.ComboBoxAnswer.SelectedItem, null, null, null)
                 });
 
-                service.Save(fileData, Data);
+                service.Save(fileNewData, Data);
 
                 ClearTextBox(wnd.Question);
                 ClearTextBox(wnd.AnswerATextBox);
@@ -87,10 +87,10 @@ namespace TestM.ViewModels
             service = new JsonFileService();
             converter = new ConvertToString();
 
-            Data = service.Open(fileData);
+            Data = service.Open(fileNewData);
         }
 
-        private void CheckTextBoxIsNull(Control obj)
+        private void CheckTextBoxIsNull(TextBox obj)
         {
             if (obj.Text == "")
             {
