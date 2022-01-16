@@ -1,4 +1,6 @@
-﻿using TestM.Command;
+﻿using System.Collections.ObjectModel;
+using System.IO;
+using TestM.Command;
 using TestM.Data;
 using TestM.Models;
 using TestM.ViewModels.Base;
@@ -8,7 +10,13 @@ namespace TestM.ViewModels
 {
     public class UpdateQuestionViewModel : ViewModel
     {
+        private static readonly string path = Directory.GetCurrentDirectory();
+        private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+        private readonly string fileSelectedQuestion = path.Substring(0, path.IndexOf("bin")) + "SelectedQuestion.json";
+
+        private readonly JsonFileService service;
         private readonly ConvertToString converter;
+        private SelectedQuestion selectedQuestion;
 
         private bool isNull;
 
@@ -31,8 +39,22 @@ namespace TestM.ViewModels
 
             if (!isNull)
             {
-                SelectedItem.TypeQuestion = (string)converter.Convert(ComboBoxTypeText, null, null, null);
-                SelectedItem.RightAnswer = (string)converter.Convert(ComboBoxRightAnswerText, null, null, null);
+                for (int i = 0; i < OldQuestions.Count; i++)
+                {
+                    if (selectedQuestion.Index == i)
+                    {
+                        OldQuestions[i] = new QuestionModel()
+                        {
+                            Question = Question,
+                            TypeQuestion = (string)converter.Convert(ComboBoxTypeText, null, null, null),
+                            AnswerA = AnswerA,
+                            AnswerB = AnswerB,
+                            AnswerC = AnswerC,
+                            RightAnswer = (string)converter.Convert(ComboBoxRightAnswerText, null, null, null)
+                        };
+                    }
+                }
+                service.Save(fileData, OldQuestions);
 
                 UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
                 wnd.Close();
@@ -43,68 +65,39 @@ namespace TestM.ViewModels
                 window.Show();
             }
         }));
+
         private RelayCommand close;
         public RelayCommand Close => close ?? (close = new RelayCommand(obj =>
         {
-            SelectedItem.Question = question;
-            SelectedItem.AnswerA = answerA;
-            SelectedItem.AnswerB = answerB;
-            SelectedItem.AnswerC = answerC;
-
             UpdateQuestionWindow wnd = obj as UpdateQuestionWindow;
             wnd.Close();
         }));
-
         #endregion
         #region Property
-        private string question;
-        private string answerA;
-        private string answerB;
-        private string answerC;
-        private TypeEnum comboBoxTypeText;
-        private AnswerEnum comboBoxRightAnswerText;
-        public string Question
-        {
-            get => SelectedItem.Question;
-            set => SelectedItem.Question = value;
-        }
-        public TypeEnum ComboBoxTypeText
-        {
-            get => comboBoxTypeText;
-            set => comboBoxTypeText = value;
-        }
-        public string AnswerA
-        {
-            get => SelectedItem.AnswerA;
-            set => SelectedItem.AnswerA = value;
-        }
-        public string AnswerB
-        {
-            get => SelectedItem.AnswerB;
-            set => SelectedItem.AnswerB = value;
-        }
-        public string AnswerC
-        {
-            get => SelectedItem.AnswerC;
-            set => SelectedItem.AnswerC = value;
-        }
-        public AnswerEnum ComboBoxRightAnswerText
-        {
-            get => comboBoxRightAnswerText;
-            set => comboBoxRightAnswerText = value;
-        }
+        public string Question { get; set; }
+        public TypeEnum ComboBoxTypeText { get; set; }
+        public string AnswerA { get; set; }
+        public string AnswerB { get; set; }
+        public string AnswerC { get; set; }
+        public AnswerEnum ComboBoxRightAnswerText { get; set; }
         public QuestionModel SelectedItem { get; set; }
+        public ObservableCollection<QuestionModel> OldQuestions { get; set; }
         #endregion
-        public UpdateQuestionViewModel(QuestionModel selectedItem)
+        public UpdateQuestionViewModel()
         {
+            service = new JsonFileService();
             converter = new ConvertToString();
-            SelectedItem = selectedItem;
-            question = SelectedItem.Question;
-            answerA = SelectedItem.AnswerA;
-            answerB = SelectedItem.AnswerB;
-            answerC = SelectedItem.AnswerC;
-            comboBoxTypeText = (TypeEnum)converter.ConvertBack(SelectedItem.TypeQuestion, null, null, null);
-            comboBoxRightAnswerText = (AnswerEnum)converter.ConvertBack(SelectedItem.RightAnswer, null, null, null);
+            selectedQuestion = new SelectedQuestion();
+
+            OldQuestions = service.Open(fileData);
+            selectedQuestion = service.OpenSelectedQuestion(fileSelectedQuestion);
+
+            Question = selectedQuestion.Question;
+            AnswerA = selectedQuestion.AnswerA;
+            AnswerB = selectedQuestion.AnswerB;
+            AnswerC = selectedQuestion.AnswerC;
+            ComboBoxTypeText = (TypeEnum)converter.ConvertBack(selectedQuestion.TypeQuestion, null, null, null);
+            ComboBoxRightAnswerText = (AnswerEnum)converter.ConvertBack(selectedQuestion.RightAnswer, null, null, null);
         }
 
         private void CheckTextBoxIsNull(string value)

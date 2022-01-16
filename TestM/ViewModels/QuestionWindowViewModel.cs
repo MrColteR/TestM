@@ -11,8 +11,10 @@ namespace TestM.ViewModels
     public class QuestionWindowViewModel : ViewModel
     {
         private static readonly string path = Directory.GetCurrentDirectory();
-        public readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
-        public readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
+        private readonly string fileName = path.Substring(0, path.IndexOf("bin")) + "Data.json";
+        private readonly string fileNewData = path.Substring(0, path.IndexOf("bin")) + "NewData.json";
+        private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
+        private readonly string fileSelectedQuestion = path.Substring(0, path.IndexOf("bin")) + "SelectedQuestion.json";
 
         private readonly JsonFileService fileService;
         private QuestionDataGridViewModel question;
@@ -76,17 +78,31 @@ namespace TestM.ViewModels
         private RelayCommand addQuestion;
         public RelayCommand AddQuestion => addQuestion ?? (addQuestion = new RelayCommand(obj =>
         {
-            IsEditing = true;
-            AddQuestionWindow window = new AddQuestionWindow(obj as QuestionWindowViewModel);
+            AddQuestionWindow window = new AddQuestionWindow();
             window.ShowDialog();
+            UpdateQuestionInDataGrid();
         }));
 
         private RelayCommand updateQuestion;
         public RelayCommand UpdateQuestion => updateQuestion ?? (updateQuestion = new RelayCommand(obj => 
         {
-            IsEditing = true;
-            UpdateQuestionWindow window = new UpdateQuestionWindow(SelectedItem);
+            QuestionWindow wnd = obj as QuestionWindow;
+            QuestionModel model = (QuestionModel)wnd.DataGrid.SelectedItem;
+
+            fileService.SaveSelectedQuestion(fileSelectedQuestion, new SelectedQuestion()
+            {
+                Question = model.Question,
+                TypeQuestion = model.TypeQuestion,
+                AnswerA = model.AnswerA,
+                AnswerB = model.AnswerB,
+                AnswerC = model.AnswerC,
+                RightAnswer = model.RightAnswer,
+                Index = wnd.DataGrid.SelectedIndex
+            });
+
+            UpdateQuestionWindow window = new UpdateQuestionWindow();
             window.ShowDialog();
+            UpdateQuestionInDataGrid();
         }, (obj) => ItemsSource.Count > 0));
 
         private RelayCommand deleteQustion;
@@ -125,8 +141,6 @@ namespace TestM.ViewModels
         #endregion
         #region Property
         private QuestionModel selectedItem;
-        private int selectedIndex;
-        private ObservableCollection<QuestionModel> itemsSource;
         public QuestionModel SelectedItem
         {
             get => selectedItem;
@@ -136,6 +150,7 @@ namespace TestM.ViewModels
                 OnPropertyChanged(nameof(SelectedItem));
             }
         }
+        private int selectedIndex;
         public int SelectedIndex
         {
             get => selectedIndex;
@@ -145,6 +160,7 @@ namespace TestM.ViewModels
                 OnPropertyChanged(nameof(SelectedIndex));
             }
         }
+        private ObservableCollection<QuestionModel> itemsSource;
         public ObservableCollection<QuestionModel> ItemsSource
         {
             get => itemsSource;
@@ -159,6 +175,10 @@ namespace TestM.ViewModels
         {
             question = new QuestionDataGridViewModel();
             fileService = new JsonFileService();
+            ItemsSource = fileService.Open(fileName);
+        }
+        private void UpdateQuestionInDataGrid()
+        {
             ItemsSource = fileService.Open(fileName);
         }
     }

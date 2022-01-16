@@ -13,7 +13,7 @@ namespace TestM.ViewModels
     public class AddQuestionWindowViewModel : ViewModel
     {
         private static readonly string path = Directory.GetCurrentDirectory();
-        private readonly string fileInfo = path.Substring(0, path.IndexOf("bin")) + "Info.json";
+        private readonly string fileData = path.Substring(0, path.IndexOf("bin")) + "Data.json";
         private bool isNull;
 
         private readonly JsonFileService service;
@@ -56,8 +56,16 @@ namespace TestM.ViewModels
                     AnswerC = AnswerC,
                     RightAnswer = (string)converter.Convert(wnd.ComboBoxAnswer.SelectedItem, null, null, null)
                 });
+
+                service.Save(fileData, Data);
+
+                ClearTextBox(wnd.Question);
+                ClearTextBox(wnd.AnswerATextBox);
+                ClearTextBox(wnd.AnswerBTextBox);
+                ClearTextBox(wnd.AnswerCTextBox);
+                ClearComboBox(wnd.ComboBoxType);
+                ClearComboBox(wnd.ComboBoxAnswer);
             }
-        
         }));
 
         private RelayCommand close;
@@ -73,24 +81,23 @@ namespace TestM.ViewModels
         public string AnswerB { get; set; }
         public string AnswerC { get; set; }
         public ObservableCollection<QuestionModel> Data { get; set; }
-        private string Style { get; set; }
         #endregion
-        public AddQuestionWindowViewModel(QuestionWindowViewModel data)
+        public AddQuestionWindowViewModel()
         {
             service = new JsonFileService();
             converter = new ConvertToString();
 
-            Data = data.ItemsSource;
-            Style = service.OpenStyleApp(fileInfo);
+            Data = service.Open(fileData);
         }
 
-        private void CheckTextBoxIsNull(TextBox obj)
+        private void CheckTextBoxIsNull(Control obj)
         {
             if (obj.Text == "")
             {
                 isNull = true;
             }
         }
+
         private void CheckComboBoxIsNull(ComboBox obj)
         {
             if (obj.Text == "")
@@ -98,5 +105,7 @@ namespace TestM.ViewModels
                 isNull = true;
             }
         }
+        private void ClearTextBox(TextBox obj) => obj.Text = "";
+        private void ClearComboBox(ComboBox obj) => obj.Text = "";
     }
 }

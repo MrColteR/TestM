@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestM.Views"
         xmlns:focus="clr-namespace:TestM.Command"
+        xmlns:vm="clr-namespace:TestM.ViewModels"
         xmlns:convertComboBoxBinding="clr-namespace:TestM.Command"
         xmlns:convertComboBoxEnums="clr-namespace:TestM.Data"
         mc:Ignorable="d"
@@ -16,6 +17,9 @@
         WindowStartupLocation="CenterScreen"
         Height="635"
         Width="400" >
+    <Window.DataContext>
+        <vm:AddQuestionWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>

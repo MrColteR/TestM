@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using TestM.Data;
-using TestM.ViewModels;
 
 namespace TestM.Views
 {
@@ -9,10 +7,9 @@ namespace TestM.Views
     /// </summary>
     public partial class AddQuestionWindow : Window
     {
-        public AddQuestionWindow(QuestionWindowViewModel data)
+        public AddQuestionWindow()
         {
             InitializeComponent();
-            DataContext = new AddQuestionWindowViewModel(data);
         }
     }
 }

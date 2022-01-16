@@ -94,6 +94,7 @@
     <Compile Include="Models\Base\Model.cs" />
     <Compile Include="Models\Info.cs" />
     <Compile Include="Models\QuestionModel.cs" />
+    <Compile Include="Models\SelectedQuestion.cs" />
     <Compile Include="Pages\LastPageTest.xaml.cs">
       <DependentUpon>LastPageTest.xaml</DependentUpon>
     </Compile>

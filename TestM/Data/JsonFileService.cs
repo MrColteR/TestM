@@ -235,5 +235,27 @@ namespace TestM.Data
             }
         }
         #endregion
+        #region Json Selected Question
+        public SelectedQuestion OpenSelectedQuestion(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return new SelectedQuestion();
+            }
+            using (StreamReader reader = File.OpenText(filePath))
+            {
+                var data = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<SelectedQuestion>(data);
+            }
+        }
+        public void SaveSelectedQuestion(string filePath, SelectedQuestion itemsList)
+        {
+            using (StreamWriter writer = File.CreateText(filePath))
+            {
+                var data = JsonConvert.SerializeObject(itemsList);
+                writer.Write(data);
+            }
+        }
+        #endregion
     }
 }
