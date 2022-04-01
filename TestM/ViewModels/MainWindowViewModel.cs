@@ -267,7 +267,7 @@ namespace TestM.ViewModels
             AddResultToFile.WritePoints(CountPoints.ToString());
             lastPageTest.Result.Text = CountPoints >= points ? $"Вы успешно прошли тест, Вы набрали {CountPoints} из {maxCountPoints}."
                 : $"Вы не прошли тест, Вам не хватило {points - CountPoints} баллов до минимального порога.";
-            lastPageTest.ResultPoins.Text = CountPoints == 20 ? "Вы не допустили ошибкок!" : "Вопросы в которых Вы допустили ошибки:";
+            lastPageTest.ResultPoins.Text = CountPoints == 20 ? "Вы не допустили ошибкок!" : "Вопросы в которых Вы допустили ошибки:"; // Не 20 а перменная
 
             IsBeClose = false;
             IsLastPage = false;

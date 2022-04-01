@@ -12,7 +12,9 @@
     <Page.DataContext>
         <vm:MainPageViewModel/>
     </Page.DataContext>
-    <Grid Background="Transparent">
-        
+    <Grid>
+        <!--<Grid.Background>-->
+            <!--<ImageBrush ImageSource="/Icon/darkBackground.jpg" ></ImageBrush>-->
+        <!--</Grid.Background>-->
     </Grid>
 </Page>

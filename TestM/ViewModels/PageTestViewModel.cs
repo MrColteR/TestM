@@ -17,7 +17,7 @@ namespace TestM.ViewModels
         private readonly Info actualQuestionModel;
         private readonly JsonFileService service;
 
-        bool IsAnswered;
+        private bool IsAnswered;
 
         #region Commands
         private RelayCommand firstAnswer;
@@ -62,6 +62,7 @@ namespace TestM.ViewModels
         public string AnswerFirst => questions[actualQuestionModel.Index].AnswerA;
         public string AnswerSecond => questions[actualQuestionModel.Index].AnswerB;
         public string AnswerThird => questions[actualQuestionModel.Index].AnswerC;
+        public string NumberQuestion => $"Вопрос {actualQuestionModel.Index + 1}:";
         public string RightAnswer
         {
             get => rightAnswer;

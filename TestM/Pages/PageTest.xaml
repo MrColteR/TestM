@@ -14,6 +14,9 @@
     <Grid Background="Transparent">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel Background="Transparent">
+                <TextBlock Text="{Binding NumberQuestion}"
+                           Style="{DynamicResource TextBlockQuestion}"
+                           TextAlignment="Center"/>
                 <TextBlock Text="{Binding QuestionFirst}"
                            Style="{DynamicResource TextBlockQuestion}"/>
                 <RadioButton Name="FirstRadioButton"

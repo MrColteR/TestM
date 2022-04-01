@@ -292,5 +292,11 @@
     <Resource Include="Icon\settingIconDark.png" />
     <Resource Include="Icon\squareIconDark.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\darkBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\whiteBackground.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
